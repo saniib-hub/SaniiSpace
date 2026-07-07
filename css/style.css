@@ -557,6 +557,80 @@ html.has-js .hero-anim {
   color: var(--muted);
 }
 
+/* ---------- Walk-in badge (Online Applications / SARS-Labour-UIF-PSIRA) ---------- */
+.walk-in-card {
+  cursor: pointer;
+}
+
+.walk-in-badge {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -8px);
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--dark);
+  color: var(--on-dark);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  box-shadow: var(--shadow-hover);
+  z-index: 5;
+}
+
+.walk-in-badge::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--dark);
+}
+
+.walk-in-card:hover .walk-in-badge,
+.walk-in-card:focus-visible .walk-in-badge,
+.walk-in-card.is-active .walk-in-badge {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Cards clip overflow via .card::after gradient border, but the badge
+   needs to escape the card bounds to float below it */
+.walk-in-card {
+  overflow: visible;
+}
+
+.walk-in-icon {
+  display: inline-block;
+  animation: walk-bob 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes walk-bob {
+  0% { transform: translateY(0) rotate(-10deg); }
+  100% { transform: translateY(-3px) rotate(10deg); }
+}
+
+/* ---------- Web Design card hint ---------- */
+#web-design {
+  cursor: pointer;
+}
+
+.card-cta {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
 /* ---------- Scroll reveal ----------
    Base hidden state applies as soon as JS is present (avoids a flash of
    visible content). When GSAP drives the reveal it tweens opacity/transform
@@ -773,7 +847,8 @@ html.has-js .reveal.in-view {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid rgba(16, 26, 41, 0.2);
@@ -786,7 +861,8 @@ html.has-js .reveal.in-view {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.2);
   outline: none;

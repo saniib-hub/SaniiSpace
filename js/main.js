@@ -37,6 +37,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Walk-in service badge (Online Applications / SARS-Labour-UIF-PSIRA) ---------- */
+  var walkInCards = document.querySelectorAll('.walk-in-card');
+
+  if (walkInCards.length) {
+    walkInCards.forEach(function (card) {
+      card.addEventListener('click', function (event) {
+        event.stopPropagation();
+        var wasActive = card.classList.contains('is-active');
+        walkInCards.forEach(function (c) { c.classList.remove('is-active'); });
+        if (!wasActive) {
+          card.classList.add('is-active');
+        }
+      });
+
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    document.addEventListener('click', function () {
+      walkInCards.forEach(function (c) { c.classList.remove('is-active'); });
+    });
+  }
+
   /* ---------- Header shrinks + gains shadow on scroll ---------- */
   var siteHeader = document.querySelector('.site-header');
   if (siteHeader) {

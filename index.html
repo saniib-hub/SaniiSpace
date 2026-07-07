@@ -113,29 +113,38 @@
       <p class="section-sub reveal">From government applications to getting your business online — we handle the digital side for you.</p>
 
       <div class="card-grid">
-        <article class="card reveal" style="--d:0">
+        <article class="card walk-in-card reveal" style="--d:0" tabindex="0" role="button" aria-describedby="walkInBadge1">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🖱️</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>Online Applications</h3>
           <p>Help completing and submitting your online applications and forms.</p>
+          <span class="walk-in-badge" id="walkInBadge1" role="tooltip">
+            <span class="walk-in-icon" aria-hidden="true">🚶</span>
+            Walk-in service — visit our shop
+          </span>
         </article>
-        <article class="card reveal" style="--d:1">
+        <article class="card walk-in-card reveal" style="--d:1" tabindex="0" role="button" aria-describedby="walkInBadge2">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🪪</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>SARS, Labour, UIF &amp; PSIRA</h3>
           <p>Assistance with SARS, Labour, UIF and PSIRA registrations and applications.</p>
+          <span class="walk-in-badge" id="walkInBadge2" role="tooltip">
+            <span class="walk-in-icon" aria-hidden="true">🚶</span>
+            Walk-in service — visit our shop
+          </span>
         </article>
-        <article class="card reveal" id="web-design" style="--d:2">
+        <article class="card reveal" id="web-design" style="--d:2" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🌐</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>Web Design &amp; Cloud Setup</h3>
           <p>Simple, professional websites and cloud setup to help your business get online.</p>
+          <span class="card-cta">Tell us about your project →</span>
         </article>
       </div>
     </div>
@@ -439,6 +448,107 @@
   </div>
 </dialog>
 
+<dialog id="webDesignDialog" class="quote-dialog" aria-labelledby="webDesignDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="webDesignClose" aria-label="Close web design brief form">&times;</button>
+
+    <div id="webDesignFormView">
+      <h2 id="webDesignDialogTitle">Tell Us About Your Project</h2>
+      <p class="quote-intro">Answer a few quick questions and we'll get back to you with what's involved.</p>
+
+      <form id="webDesignForm" novalidate>
+        <div class="form-group">
+          <label for="wdProjectType">What do you need?</label>
+          <select id="wdProjectType" name="projectType">
+            <option value="New Website">New Website</option>
+            <option value="Redesign of Existing Website">Redesign of Existing Website</option>
+            <option value="Online Store / E-commerce">Online Store / E-commerce</option>
+            <option value="Booking / Reservation System">Booking / Reservation System</option>
+            <option value="Custom Web App or System">Custom Web App or System</option>
+            <option value="Not Sure Yet">Not Sure Yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="wdExistingSite">Existing website (if any)</label>
+          <input type="text" id="wdExistingSite" name="existingSite" placeholder="e.g. www.yourbusiness.co.za, or leave blank">
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="wdPages">Approximate pages needed</label>
+            <select id="wdPages" name="pages">
+              <option value="1-3 pages">1-3 pages</option>
+              <option value="4-6 pages">4-6 pages</option>
+              <option value="7-10 pages">7-10 pages</option>
+              <option value="10+ pages">10+ pages</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wdTimeline">Preferred timeline</label>
+            <select id="wdTimeline" name="timeline">
+              <option value="As soon as possible">As soon as possible</option>
+              <option value="2-4 weeks">2-4 weeks</option>
+              <option value="1-3 months">1-3 months</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="wdHosting">Need cloud / hosting setup too?</label>
+            <select id="wdHosting" name="hosting">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="Not sure">Not sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wdBranding">Logo / branding ready?</label>
+            <select id="wdBranding" name="branding">
+              <option value="Yes, it's ready">Yes, it's ready</option>
+              <option value="No, need help with this too">No, need help with this too</option>
+              <option value="Somewhat">Somewhat</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="wdDetails">Anything else we should know?</label>
+          <textarea id="wdDetails" name="details" rows="3" placeholder="e.g. must-have features, competitor sites you like, budget range..."></textarea>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="wdContactName">Your Name</label>
+            <input type="text" id="wdContactName" name="contactName" placeholder="e.g. Thabo Nkosi">
+            <span class="form-error" id="wdContactNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="wdContactMethod">Phone or Email</label>
+            <input type="text" id="wdContactMethod" name="contactMethod" placeholder="e.g. 082 123 4567">
+            <span class="form-error" id="wdContactMethodError" role="alert"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Send My Brief</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="webDesignResult" hidden>
+      <h2>Thanks — We've Got Your Brief</h2>
+      <div class="quote-result-details" id="webDesignResultDetails"></div>
+      <p class="quote-disclaimer">We'll follow up with a proper quote once we've looked over your answers.</p>
+      <div class="quote-result-actions">
+        <a id="webDesignWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="webDesignEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="webDesignRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-logo">Internet Smart Hub</p>
@@ -452,6 +562,7 @@
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/hero-scene.js" defer></script>
 <script src="js/quote.js" defer></script>
+<script src="js/web-design.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
