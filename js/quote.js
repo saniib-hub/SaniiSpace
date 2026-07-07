@@ -94,10 +94,43 @@ document.addEventListener('DOMContentLoaded', function () {
     container.appendChild(row);
   }
 
-  openBtn.addEventListener('click', function (event) {
-    event.preventDefault();
+  function openDialog(scrollTargetId) {
     resetDialog();
     dialog.showModal();
+    if (scrollTargetId) {
+      var target = document.getElementById(scrollTargetId);
+      if (target) {
+        // wait for the dialog's own layout/animation to settle first
+        window.requestAnimationFrame(function () {
+          target.scrollIntoView({ block: 'start' });
+        });
+      }
+    }
+  }
+
+  openBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    openDialog();
+  });
+
+  var repairsCard = document.getElementById('repairsCard');
+  var gamingCard = document.getElementById('gamingCard');
+
+  [repairsCard, gamingCard].forEach(function (card) {
+    if (!card) return;
+    var sectionId = card.getAttribute('data-quote-section');
+
+    card.addEventListener('click', function (event) {
+      event.preventDefault();
+      openDialog(sectionId);
+    });
+
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openDialog(sectionId);
+      }
+    });
   });
 
   closeBtn.addEventListener('click', function () {

@@ -79,21 +79,23 @@
       <p class="section-sub reveal">Straightforward help for your computers, laptops and gaming rigs — no jargon, no runaround.</p>
 
       <div class="card-grid">
-        <article class="card reveal" style="--d:0">
+        <article class="card reveal quote-open-card" style="--d:0" id="repairsCard" data-quote-section="repairsSection" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">💻</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>Computer &amp; Laptop Repairs</h3>
           <p>Fast, reliable repairs to get your computer or laptop back up and running.</p>
+          <span class="card-cta">Get a repair quote →</span>
         </article>
-        <article class="card reveal" style="--d:1">
+        <article class="card reveal quote-open-card" style="--d:1" id="gamingCard" data-quote-section="gamingSection" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🎮</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>Gaming PC – Custom Setup</h3>
           <p>Custom-built gaming PCs configured and optimized for how you play.</p>
+          <span class="card-cta">Build your PC →</span>
         </article>
         <article class="card reveal" style="--d:2">
           <div class="card-icon-row">
@@ -323,7 +325,7 @@
       <p class="quote-intro">Select what's wrong, tell us about your device, and get an instant estimate. Grouped by our service categories.</p>
 
       <form id="quoteForm" novalidate>
-        <fieldset class="quote-group">
+        <fieldset class="quote-group" id="repairsSection">
           <legend>Computer &amp; Laptop Repairs</legend>
           <p class="quote-group-note">Replaceable hardware, priced 20% below typical market rates.</p>
 
@@ -386,7 +388,7 @@
           </label>
         </fieldset>
 
-        <fieldset class="quote-group">
+        <fieldset class="quote-group" id="gamingSection">
           <legend>Gaming PC – Custom Setup</legend>
           <p class="quote-group-note">Build your own — pick only the parts you need. RAM is priced 20% below market; everything else is at market value.</p>
 

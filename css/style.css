@@ -642,7 +642,8 @@ html.has-js .hero-anim {
 }
 
 /* ---------- Web Design card hint ---------- */
-#web-design {
+#web-design,
+.quote-open-card {
   cursor: pointer;
 }
 
