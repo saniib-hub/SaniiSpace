@@ -54,7 +54,7 @@
         <h1 class="hero-anim">Your local hub for computer repairs, gaming PCs &amp; digital services.</h1>
         <p class="hero-sub hero-anim">Computer and laptop repairs, custom gaming PC builds, software support, online applications, and web design — all handled by one trusted local team.</p>
         <div class="hero-actions hero-anim">
-          <a href="#contact" class="btn btn-primary"><span>Get a Repair Quote</span></a>
+          <a href="#contact" class="btn btn-primary" id="getQuoteBtn"><span>Get a Repair Quote</span></a>
           <a href="#services" class="btn btn-secondary"><span>See Services</span></a>
         </div>
       </div>
@@ -253,6 +253,118 @@
 
 </main>
 
+<dialog id="quoteDialog" class="quote-dialog" aria-labelledby="quoteDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="quoteClose" aria-label="Close quote form">&times;</button>
+
+    <div id="quoteFormView">
+      <h2 id="quoteDialogTitle">Get a Repair Quote</h2>
+      <p class="quote-intro">Select what's wrong, tell us about your device, and get an instant estimate. Grouped by our service categories.</p>
+
+      <form id="quoteForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Computer &amp; Laptop Repairs</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Virus & Malware Cleanup" data-price="250"><span class="quote-item-label">Virus &amp; Malware Cleanup</span></span>
+            <span class="quote-item-price">R250</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Software Troubleshooting" data-price="300"><span class="quote-item-label">Software Troubleshooting</span></span>
+            <span class="quote-item-price">R300</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Hardware Diagnosis" data-price="350"><span class="quote-item-label">Hardware Diagnosis</span></span>
+            <span class="quote-item-price">R350</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="RAM / Storage Upgrade" data-price="550"><span class="quote-item-label">RAM / Storage Upgrade</span></span>
+            <span class="quote-item-price">R550</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Keyboard or Battery Replacement" data-price="700"><span class="quote-item-label">Keyboard or Battery Replacement</span></span>
+            <span class="quote-item-price">R700</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Screen Replacement" data-price="1250"><span class="quote-item-label">Screen Replacement</span></span>
+            <span class="quote-item-price">R1250</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Motherboard / Advanced Repair" data-price="2200"><span class="quote-item-label">Motherboard / Advanced Repair</span></span>
+            <span class="quote-item-price">R2200</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Gaming PC – Custom Setup</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Gaming PC Tune-Up & Optimization" data-price="1500"><span class="quote-item-label">Gaming PC Tune-Up &amp; Optimization</span></span>
+            <span class="quote-item-price">R1500</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Full Custom Gaming PC Build" data-price="2850"><span class="quote-item-label">Full Custom Gaming PC Build</span></span>
+            <span class="quote-item-price">R2850</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Software Installation, Updates &amp; Support</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Software Installation / Updates" data-price="280"><span class="quote-item-label">Software Installation / Updates</span></span>
+            <span class="quote-item-price">R280</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Operating System Reinstall" data-price="450"><span class="quote-item-label">Operating System Reinstall</span></span>
+            <span class="quote-item-price">R450</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="problem" value="Data Backup & Transfer" data-price="400"><span class="quote-item-label">Data Backup &amp; Transfer</span></span>
+            <span class="quote-item-price">R400</span>
+          </label>
+        </fieldset>
+
+        <span class="form-error" id="quoteProblemsError" role="alert"></span>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="quoteDeviceName">Device Name</label>
+            <input type="text" id="quoteDeviceName" name="deviceName" placeholder="e.g. HP Pavilion Laptop">
+            <span class="form-error" id="quoteDeviceNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="quoteModelNumber">Model Number</label>
+            <input type="text" id="quoteModelNumber" name="modelNumber" placeholder="e.g. 15-eh1xxx">
+            <span class="form-error" id="quoteModelNumberError" role="alert"></span>
+          </div>
+        </div>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="quoteTotal">R0</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Get My Quote</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="quoteResult" hidden>
+      <h2>Your Quote is Ready</h2>
+      <dl class="quote-result-details">
+        <div><dt>Invoice ID</dt><dd id="resultInvoiceId"></dd></div>
+        <div><dt>Device</dt><dd id="resultDevice"></dd></div>
+        <div><dt>Model Number</dt><dd id="resultModel"></dd></div>
+        <div><dt>Selected Issues</dt><dd id="resultProblems"></dd></div>
+        <div><dt>Estimated Total</dt><dd id="resultTotal"></dd></div>
+      </dl>
+      <p class="quote-disclaimer">This is an estimate — final pricing is confirmed after in-person diagnosis.</p>
+      <div class="quote-result-actions">
+        <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="quoteEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="quoteRestart">Start a new quote</button>
+    </div>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-logo">Internet Smart Hub</p>
@@ -265,6 +377,7 @@
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/hero-scene.js" defer></script>
+<script src="js/quote.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
