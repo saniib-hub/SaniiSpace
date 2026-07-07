@@ -485,20 +485,23 @@ html.has-js .hero-anim {
   }
 }
 
-/* Tech Support & Repairs has 4 cards — step through even column counts
-   (1 → 2 → 4) for the same reason. */
-.services .card-grid {
+/* Tech Support & Repairs and the For Sale sections each have 4 cards —
+   step through even column counts (1 → 2 → 4) for the same reason. */
+.services .card-grid,
+.for-sale .card-grid {
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 560px) {
-  .services .card-grid {
+  .services .card-grid,
+  .for-sale .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 980px) {
-  .services .card-grid {
+  .services .card-grid,
+  .for-sale .card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -688,25 +691,14 @@ html.has-js .reveal.in-view {
 }
 
 /* ---------- Coming Soon strip ---------- */
-.coming-soon,
-.for-sale {
-  padding: 20px 0;
-}
-
 .coming-soon {
+  padding: 20px 0;
   background: #EAFBF0;
   border-top: 1px solid rgba(52, 199, 89, 0.25);
   border-bottom: 1px solid rgba(52, 199, 89, 0.25);
 }
 
-.for-sale {
-  background: #E9FBFA;
-  border-top: 1px solid rgba(62, 215, 203, 0.3);
-  border-bottom: 1px solid rgba(62, 215, 203, 0.3);
-}
-
-.coming-soon-inner,
-.for-sale-inner {
+.coming-soon-inner {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -715,11 +707,66 @@ html.has-js .reveal.in-view {
   text-align: center;
 }
 
-.coming-soon-inner p,
-.for-sale-inner p {
+.coming-soon-inner p {
   margin: 0;
   font-weight: 500;
   color: var(--ink);
+}
+
+/* ---------- For Sale (second-hand + new parts) ---------- */
+.for-sale {
+  padding: 64px 0;
+}
+
+.for-sale-used {
+  background: #E9FBFA;
+}
+
+.for-sale-new {
+  background: var(--bg);
+}
+
+.for-sale .badge-sale {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 16px;
+}
+
+.price-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(16, 26, 41, 0.08);
+}
+
+.price-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(16, 26, 41, 0.08);
+  font-size: 0.9rem;
+}
+
+.price-list li span:first-child {
+  color: var(--ink);
+}
+
+.price-list li span:last-child {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.for-sale-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.for-sale-cta .btn {
+  color: #06231F;
 }
 
 .badge {
@@ -1399,7 +1446,7 @@ html.has-js .reveal.in-view {
   }
 
   .primary-nav.is-open {
-    max-height: 400px;
+    max-height: 460px;
   }
 
   .primary-nav ul {
