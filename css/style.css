@@ -477,9 +477,32 @@ html.has-js .hero-anim {
   gap: 24px;
 }
 
+/* Digital Services has 3 cards — jump straight from 1 to 3 columns so a
+   lone card never sits stranded next to empty space. */
 @media (min-width: 640px) {
   .card-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tech Support & Repairs and Printing & Embroidery have 4 cards — step
+   through even column counts (1 → 2 → 4) for the same reason. */
+.services .card-grid,
+#printing .card-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .services .card-grid,
+  #printing .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .services .card-grid,
+  #printing .card-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -1286,7 +1309,7 @@ html.has-js .reveal.in-view {
   }
 
   .primary-nav.is-open {
-    max-height: 320px;
+    max-height: 400px;
   }
 
   .primary-nav ul {
