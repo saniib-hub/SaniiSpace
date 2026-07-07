@@ -761,6 +761,59 @@ html.has-js .reveal.in-view {
   background: var(--accent);
 }
 
+/* ---------- About / Our Story ---------- */
+.about-story {
+  padding: 64px 0;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 560px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .timeline {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.timeline-item {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.timeline-year {
+  display: inline-block;
+  background: var(--accent);
+  color: #06231F;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.timeline-item h3 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.timeline-item p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 /* ---------- Why us ---------- */
 .why-us {
   padding: 64px 0;
