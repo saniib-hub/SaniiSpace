@@ -554,13 +554,31 @@
     <p class="footer-logo">Internet Smart Hub</p>
     <p class="footer-summary">Computer &amp; laptop repairs · Gaming PC builds · Software support · Web design</p>
     <p class="footer-copy">&copy; <span id="year"></span> Internet Smart Hub. All rights reserved.</p>
+    <a href="#" class="footer-staff-link" id="viewRecordsLink">Staff: View Saved Tickets</a>
   </div>
 </footer>
+
+<dialog id="recordsDialog" class="quote-dialog" aria-labelledby="recordsDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="recordsClose" aria-label="Close saved tickets">&times;</button>
+    <h2 id="recordsDialogTitle">Saved Tickets &amp; Briefs</h2>
+    <p class="quote-intro">Saved on this device only — not a shared database. Clearing browser data or using a different device won't show these.</p>
+
+    <p class="records-empty" id="recordsEmpty" hidden>No tickets saved on this device yet.</p>
+    <ul class="records-list" id="recordsList"></ul>
+
+    <div class="records-actions">
+      <button type="button" class="btn btn-secondary" id="recordsExport" hidden><span>Export as CSV</span></button>
+      <button type="button" class="quote-restart" id="recordsClear" hidden>Clear all saved tickets</button>
+    </div>
+  </div>
+</dialog>
 
 <script src="js/vendor/three.min.js" defer></script>
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/hero-scene.js" defer></script>
+<script src="js/records.js" defer></script>
 <script src="js/quote.js" defer></script>
 <script src="js/web-design.js" defer></script>
 <script src="js/main.js" defer></script>

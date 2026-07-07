@@ -232,10 +232,21 @@ document.addEventListener('DOMContentLoaded', function () {
     /*
      * Backend integration point: this ticket is not stored or emailed
      * automatically — the customer sends it themselves via the WhatsApp or
-     * email links above. To automate delivery or log it to a database,
-     * POST the ticket details (ticketId, brandName, model, repairItems,
-     * gamingItems, softwareIssue, total) to a backend endpoint here.
+     * email links above. To automate delivery, POST the ticket details
+     * (ticketId, brandName, model, repairItems, gamingItems, softwareIssue,
+     * total) to a backend endpoint here. It is saved to this browser's
+     * local ticket log below (see js/records.js) — that's a same-device
+     * convenience log, not a shared/cloud database.
      */
+    if (window.ISHRecords) {
+      window.ISHRecords.save({
+        id: ticketId,
+        type: 'Repair / Build Ticket',
+        summary: message,
+        total: total > 0 ? total : null,
+        details: message
+      });
+    }
 
     formView.hidden = true;
     resultView.hidden = false;

@@ -1179,6 +1179,80 @@ html.has-js .reveal.in-view {
   margin: 0;
 }
 
+.footer-staff-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-staff-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- Saved tickets (local device log) ---------- */
+.records-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 50vh;
+  overflow-y: auto;
+  margin: 16px 0;
+}
+
+.records-item {
+  border: 1px solid rgba(16, 26, 41, 0.12);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.records-item-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.records-item-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.records-item-type {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+}
+
+.records-item-summary {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--ink);
+  white-space: pre-line;
+}
+
+.records-item-total {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 700;
+}
+
+.records-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .hero-inner {

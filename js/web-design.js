@@ -146,9 +146,20 @@ document.addEventListener('DOMContentLoaded', function () {
     /*
      * Backend integration point: this brief is not stored or emailed
      * automatically — the customer sends it themselves via the WhatsApp or
-     * email links above. To automate delivery or log it to a database, POST
-     * the brief details to a backend endpoint here.
+     * email links above. To automate delivery, POST the brief details to a
+     * backend endpoint here. It is saved to this browser's local ticket log
+     * below (see js/records.js) — a same-device convenience log, not a
+     * shared/cloud database.
      */
+    if (window.ISHRecords) {
+      window.ISHRecords.save({
+        id: briefId,
+        type: 'Web Design Brief',
+        summary: message,
+        total: null,
+        details: message
+      });
+    }
 
     formView.hidden = true;
     resultView.hidden = false;
