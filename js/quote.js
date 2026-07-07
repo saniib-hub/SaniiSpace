@@ -113,11 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     openDialog();
   });
 
-  var repairsCard = document.getElementById('repairsCard');
-  var gamingCard = document.getElementById('gamingCard');
-
-  [repairsCard, gamingCard].forEach(function (card) {
-    if (!card) return;
+  document.querySelectorAll('.quote-open-card').forEach(function (card) {
     var sectionId = card.getAttribute('data-quote-section');
 
     card.addEventListener('click', function (event) {
