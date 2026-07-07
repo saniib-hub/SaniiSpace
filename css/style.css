@@ -485,24 +485,38 @@ html.has-js .hero-anim {
   }
 }
 
-/* Tech Support & Repairs and Printing & Embroidery have 4 cards — step
-   through even column counts (1 → 2 → 4) for the same reason. */
-.services .card-grid,
-#printing .card-grid {
+/* Tech Support & Repairs has 4 cards — step through even column counts
+   (1 → 2 → 4) for the same reason. */
+.services .card-grid {
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 560px) {
-  .services .card-grid,
-  #printing .card-grid {
+  .services .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 980px) {
-  .services .card-grid,
-  #printing .card-grid {
+  .services .card-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Printing & Embroidery has 5 cards (a prime number, so no even column
+   count divides it cleanly) — use 2 columns and let the last card span
+   the full row instead of sitting stranded at half width. */
+#printing .card-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  #printing .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #printing .card-grid > article:last-child {
+    grid-column: 1 / -1;
   }
 }
 
@@ -643,7 +657,8 @@ html.has-js .hero-anim {
 
 /* ---------- Web Design card hint ---------- */
 #web-design,
-.quote-open-card {
+.quote-open-card,
+.printing-open-card {
   cursor: pointer;
 }
 

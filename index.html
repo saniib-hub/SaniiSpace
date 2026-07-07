@@ -170,37 +170,50 @@
       <p class="section-sub reveal">Bulk printing and embroidery for businesses, events and personal projects.</p>
 
       <div class="card-grid">
-        <article class="card reveal" style="--d:0">
+        <article class="card reveal printing-open-card" style="--d:0" data-service-type="Bundle Prints" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">📦</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>Bundle Prints</h3>
           <p>Print your documents in bulk bundles, ready to go.</p>
+          <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal" style="--d:1">
+        <article class="card reveal printing-open-card" style="--d:1" data-service-type="Embroidery Bulk" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🧵</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
-          <h3>Bulk Embroidery (10-100)</h3>
-          <p>Custom embroidery for orders from 10 to 100 pieces.</p>
+          <h3>Embroidery Bulk (10-1000)</h3>
+          <p>Custom embroidery on T-shirts, work suits, hoodies, beanies, hats, caps, pants &amp; more.</p>
+          <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal" style="--d:2">
+        <article class="card reveal printing-open-card" style="--d:2" data-service-type="Clothes Printing" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">👕</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Clothes Printing (Bulk)</h3>
+          <p>Bulk printing on T-shirts, hoodies, caps and other garments.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+        <article class="card reveal printing-open-card" style="--d:3" data-service-type="Sheet Printing" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">📄</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
-          <h3>Sheet Printing</h3>
-          <p>Single or multi-sheet printing for any document.</p>
+          <h3>Sheet Printing (Bulk)</h3>
+          <p>Bulk sheet printing, from 100 up to 100,000 sheets.</p>
+          <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal" style="--d:3">
+        <article class="card reveal printing-open-card" style="--d:4" data-service-type="Poster Printing" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🖼️</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
           <h3>Poster Printing (10-300)</h3>
           <p>Poster printing in bulk, from 10 up to 300 copies.</p>
+          <span class="card-cta">Get a quote →</span>
         </article>
       </div>
     </div>
@@ -672,6 +685,82 @@
   </div>
 </dialog>
 
+<dialog id="printingDialog" class="quote-dialog" aria-labelledby="printingDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="printingClose" aria-label="Close printing quote form">&times;</button>
+
+    <div id="printingFormView">
+      <h2 id="printingDialogTitle">Get a Printing / Embroidery Quote</h2>
+      <p class="quote-intro">Tell us what you need and roughly how many, and we'll get back to you with pricing.</p>
+
+      <form id="printingForm" novalidate>
+        <div class="form-group">
+          <label for="printingServiceType">Service</label>
+          <select id="printingServiceType" name="serviceType">
+            <option value="Bundle Prints">Bundle Prints</option>
+            <option value="Embroidery Bulk">Embroidery Bulk (10-1000)</option>
+            <option value="Clothes Printing">Clothes Printing (Bulk)</option>
+            <option value="Sheet Printing">Sheet Printing (Bulk, 100-100,000)</option>
+            <option value="Poster Printing">Poster Printing (10-300)</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="printingItemTypeGroup" hidden>
+          <label for="printingItemType">Item / Garment Type</label>
+          <select id="printingItemType" name="itemType">
+            <option value="T-Shirts">T-Shirts</option>
+            <option value="Work Suits">Work Suits</option>
+            <option value="Hoodies">Hoodies</option>
+            <option value="Beanies">Beanies</option>
+            <option value="Hats">Hats</option>
+            <option value="Caps">Caps</option>
+            <option value="Pants">Pants</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="printingQuantity">Quantity</label>
+          <input type="number" id="printingQuantity" name="quantity" min="1" placeholder="e.g. 50">
+          <span class="quote-group-note" id="printingQuantityHint"></span>
+          <span class="form-error" id="printingQuantityError" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="printingDetails">Anything else we should know?</label>
+          <textarea id="printingDetails" name="details" rows="3" placeholder="e.g. design/logo to print, colours, deadline..."></textarea>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="printingContactName">Your Name</label>
+            <input type="text" id="printingContactName" name="contactName" placeholder="e.g. Nomvula Dlamini">
+            <span class="form-error" id="printingContactNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="printingContactMethod">Phone or Email</label>
+            <input type="text" id="printingContactMethod" name="contactMethod" placeholder="e.g. 082 123 4567">
+            <span class="form-error" id="printingContactMethodError" role="alert"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Send My Quote Request</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="printingResult" hidden>
+      <h2>Thanks — We've Got Your Request</h2>
+      <div class="quote-result-details" id="printingResultDetails"></div>
+      <p class="quote-disclaimer">We'll follow up with pricing once we've looked over your request.</p>
+      <div class="quote-result-actions">
+        <a id="printingWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="printingEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="printingRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-logo">Internet Smart Hub</p>
@@ -704,6 +793,7 @@
 <script src="js/records.js" defer></script>
 <script src="js/quote.js" defer></script>
 <script src="js/web-design.js" defer></script>
+<script src="js/printing.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
