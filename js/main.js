@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ---------- Footer year ---------- */
   var yearEl = document.getElementById('year');
   if (yearEl) {
@@ -23,9 +25,74 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Header shrinks + gains shadow on scroll ---------- */
+  var siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    var updateHeaderState = function () {
+      siteHeader.classList.toggle('is-scrolled', window.scrollY > 12);
+    };
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+  }
+
+  /* ---------- Scroll-triggered reveal animations ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if (revealEls.length) {
+    document.documentElement.classList.add('has-js');
+
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+    } else {
+      revealEls.forEach(function (el) {
+        el.classList.add('in-view');
+      });
+    }
+  }
+
+  /* ---------- Hero diagnostic panel: cursor-following glow + status line ---------- */
+  var heroVisual = document.getElementById('heroVisual');
+  if (heroVisual && !prefersReducedMotion) {
+    heroVisual.addEventListener('mousemove', function (event) {
+      var rect = heroVisual.getBoundingClientRect();
+      var xPercent = ((event.clientX - rect.left) / rect.width) * 100;
+      var yPercent = ((event.clientY - rect.top) / rect.height) * 100;
+      heroVisual.style.setProperty('--mx', xPercent + '%');
+      heroVisual.style.setProperty('--my', yPercent + '%');
+    });
+  }
+
+  /* ---------- Card tilt on hover (desktop pointer only) ---------- */
+  if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.card').forEach(function (card) {
+      card.addEventListener('mousemove', function (event) {
+        var rect = card.getBoundingClientRect();
+        var xPercent = (event.clientX - rect.left) / rect.width - 0.5;
+        var yPercent = (event.clientY - rect.top) / rect.height - 0.5;
+        var rotateX = (-yPercent * 8).toFixed(2);
+        var rotateY = (xPercent * 8).toFixed(2);
+        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
+    });
+  }
+
   /* ---------- Diagnostic status line animation ---------- */
   var diagnosticText = document.getElementById('diagnosticText');
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (diagnosticText && !prefersReducedMotion) {
     var states = ['Diagnosing…', 'Diagnosing… ✓', 'Fixed ✓'];
