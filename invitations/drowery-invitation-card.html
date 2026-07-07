@@ -1,79 +1,147 @@
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <pattern id="motif" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="var(--onyx)"/>
+      <rect x="12" y="12" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="1.4" transform="rotate(45 20 20)"/>
+      <circle cx="20" cy="20" r="3" fill="var(--gold)"/>
+      <circle cx="0" cy="20" r="1.6" fill="var(--gold)"/>
+      <circle cx="40" cy="20" r="1.6" fill="var(--gold)"/>
+    </pattern>
+    <pattern id="sidemotif" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="var(--parchment-deep)"/>
+      <path d="M15 4 L26 15 L15 26 L4 15 Z" fill="none" stroke="var(--gold)" stroke-width="1.1"/>
+      <circle cx="15" cy="15" r="2.2" fill="var(--gold-deep)"/>
+    </pattern>
+  </defs>
+</svg>
+
 <div class="stage">
-  <section class="card" role="img" aria-label="Invitation card: A Day of Recognition and Commitment, hosted by Khano's Father and Mama, for Dakalo and Mpumi, 1 August 2026 at 11:00 AM">
+  <p class="stage-note">Bi-fold card &mdash; four faces. Fold down the centre: <strong>Back</strong> sits behind <strong>Front</strong>; open it to reveal <strong>Inside&nbsp;Left</strong> and <strong>Inside&nbsp;Right</strong>.</p>
 
-    <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <pattern id="motif" width="40" height="40" patternUnits="userSpaceOnUse">
-          <rect width="40" height="40" fill="var(--onyx)"/>
-          <rect x="12" y="12" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="1.4" transform="rotate(45 20 20)"/>
-          <circle cx="20" cy="20" r="3" fill="var(--gold)"/>
-          <circle cx="0" cy="20" r="1.6" fill="var(--gold)"/>
-          <circle cx="40" cy="20" r="1.6" fill="var(--gold)"/>
-        </pattern>
-      </defs>
-      <rect width="400" height="40" fill="url(#motif)"/>
-      <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
-      <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
-    </svg>
+  <div class="gallery">
 
-    <div class="frame">
-      <svg class="side-band left" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <pattern id="sidemotif" width="30" height="30" patternUnits="userSpaceOnUse">
-            <rect width="30" height="30" fill="var(--parchment-deep)"/>
-            <path d="M15 4 L26 15 L15 26 L4 15 Z" fill="none" stroke="var(--gold)" stroke-width="1.1"/>
-            <circle cx="15" cy="15" r="2.2" fill="var(--gold-deep)"/>
-          </pattern>
-        </defs>
-        <rect width="30" height="500" fill="url(#sidemotif)"/>
-      </svg>
-
-      <svg class="side-band right" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="30" height="500" fill="url(#sidemotif)"/>
-      </svg>
-
-      <div class="content">
-        <p class="eyebrow">Khano&rsquo;s Father &amp; Mama</p>
-
-        <h1 class="title">A Day of Recognition<br>&amp; Commitment</h1>
-
-        <div class="divider" aria-hidden="true">
-          <span class="line"></span>
-          <span class="diamond"></span>
-          <span class="line"></span>
-        </div>
-
-        <p class="names">Dakalo &amp; Mpumi</p>
-
-        <svg class="silhouette" viewBox="0 0 300 220" aria-hidden="true">
-          <ellipse cx="150" cy="212" rx="118" ry="8" fill="var(--ink)" opacity="0.08"/>
-
-          <path d="M60 220 C58 150 66 108 96 90 C88 78 86 60 96 46 C106 30 130 26 144 40 C156 52 156 70 146 82 C168 96 178 122 178 150 L178 220 Z" fill="var(--ink)"/>
-          <path d="M96 96 C104 108 108 122 96 138 C88 148 92 158 100 162 L96 168 C82 160 76 144 82 128 C86 116 90 104 96 96 Z" fill="var(--onyx-soft)" opacity="0.9"/>
-          <path d="M74 118 L84 112 L92 120 L82 128 Z" fill="var(--paper)" opacity="0.85"/>
-          <path d="M64 148 L76 142 L84 150 L72 158 Z" fill="var(--paper)" opacity="0.85"/>
-
-          <path d="M240 220 C242 172 236 140 214 122 C224 112 228 96 220 82 C212 68 190 64 178 76 C168 86 168 102 176 112 C156 126 148 150 148 176 L148 220 Z" fill="var(--ink)"/>
-          <rect x="196" y="98" width="9" height="9" fill="var(--paper)" opacity="0.9" transform="rotate(45 200.5 102.5)"/>
-
-          <circle cx="160" cy="150" r="20" fill="var(--ink)"/>
-          <path d="M144 168 C144 190 176 190 176 168 L176 220 L144 220 Z" fill="var(--ink)"/>
+    <figure class="face-wrap">
+      <div class="card">
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
         </svg>
-
-        <div class="details">
-          <p><span class="label">Date</span>01 / 08 / 2026</p>
-          <p><span class="label">Time</span>11:00 AM</p>
-          <p><span class="label">Venue</span>[Venue Address]</p>
+        <div class="frame">
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+          <div class="content">
+            <p class="eyebrow">Khano&rsquo;s Father &amp; Mama</p>
+            <h1 class="title">A Day of Recognition<br>&amp; Commitment</h1>
+            <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+            <p class="names">Dakalo &amp; Mpumi</p>
+            <svg class="silhouette" viewBox="0 0 300 220" aria-hidden="true">
+              <ellipse cx="150" cy="212" rx="118" ry="8" fill="var(--ink)" opacity="0.08"/>
+              <path d="M60 220 C58 150 66 108 96 90 C88 78 86 60 96 46 C106 30 130 26 144 40 C156 52 156 70 146 82 C168 96 178 122 178 150 L178 220 Z" fill="var(--ink)"/>
+              <path d="M96 96 C104 108 108 122 96 138 C88 148 92 158 100 162 L96 168 C82 160 76 144 82 128 C86 116 90 104 96 96 Z" fill="var(--onyx-soft)" opacity="0.9"/>
+              <path d="M74 118 L84 112 L92 120 L82 128 Z" fill="var(--paper)" opacity="0.85"/>
+              <path d="M64 148 L76 142 L84 150 L72 158 Z" fill="var(--paper)" opacity="0.85"/>
+              <path d="M240 220 C242 172 236 140 214 122 C224 112 228 96 220 82 C212 68 190 64 178 76 C168 86 168 102 176 112 C156 126 148 150 148 176 L148 220 Z" fill="var(--ink)"/>
+              <rect x="196" y="98" width="9" height="9" fill="var(--paper)" opacity="0.9" transform="rotate(45 200.5 102.5)"/>
+              <circle cx="160" cy="150" r="20" fill="var(--ink)"/>
+              <path d="M144 168 C144 190 176 190 176 168 L176 220 L144 220 Z" fill="var(--ink)"/>
+            </svg>
+          </div>
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
         </div>
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
       </div>
-    </div>
+      <figcaption>Front</figcaption>
+    </figure>
 
-    <svg class="pattern-band bottom" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="400" height="40" fill="url(#motif)"/>
-      <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
-      <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
-    </svg>
-  </section>
+    <figure class="face-wrap">
+      <div class="card">
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
+        <div class="frame">
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+          <div class="content inside">
+            <p class="script">With hearts full of gratitude,<br>we humbly invite you to join us&mdash;</p>
+            <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+            <p class="script small">to honour tradition, celebrate family,<br>and witness a day of recognition<br>and commitment.</p>
+            <div class="monogram" aria-hidden="true">D&amp;M</div>
+          </div>
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+        </div>
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
+      </div>
+      <figcaption>Inside Left</figcaption>
+    </figure>
+
+    <figure class="face-wrap">
+      <div class="card">
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
+        <div class="frame">
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+          <div class="content inside">
+            <p class="eyebrow small-eyebrow">Please join us</p>
+            <div class="details large">
+              <p><span class="label">Date</span>01 / 08 / 2026</p>
+              <p><span class="label">Time</span>11:00 AM</p>
+              <p><span class="label">Venue</span>[Venue Address]</p>
+            </div>
+            <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+            <p class="script small">We look forward to celebrating<br>with you.</p>
+          </div>
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+        </div>
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
+      </div>
+      <figcaption>Inside Right</figcaption>
+    </figure>
+
+    <figure class="face-wrap">
+      <div class="card">
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
+        <div class="frame">
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+          <div class="content back">
+            <svg class="crest" viewBox="0 0 120 120" aria-hidden="true">
+              <rect x="30" y="30" width="60" height="60" fill="none" stroke="var(--gold)" stroke-width="1.6" transform="rotate(45 60 60)"/>
+              <rect x="42" y="42" width="36" height="36" fill="none" stroke="var(--gold-deep)" stroke-width="1.2" transform="rotate(45 60 60)"/>
+              <circle cx="60" cy="60" r="5" fill="var(--gold-deep)"/>
+            </svg>
+            <p class="script back-line">With love and gratitude</p>
+          </div>
+          <svg class="side-band" viewBox="0 0 30 500" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="500" fill="url(#sidemotif)"/></svg>
+        </div>
+        <svg class="pattern-band" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="40" fill="url(#motif)"/>
+          <line x1="0" y1="2" x2="400" y2="2" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+          <line x1="0" y1="38" x2="400" y2="38" stroke="var(--gold)" stroke-width="0.8" opacity="0.8"/>
+        </svg>
+      </div>
+      <figcaption>Back</figcaption>
+    </figure>
+
+  </div>
 </div>
 
 <style>
@@ -94,30 +162,62 @@
   body {
     margin: 0;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: var(--stage-bg);
     font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   }
 
   .stage {
     width: 100%;
+    padding: clamp(16px, 4vw, 40px) clamp(12px, 3vw, 32px) clamp(40px, 6vw, 64px);
+  }
+
+  .stage-note {
+    max-width: 900px;
+    margin: 0 auto clamp(18px, 3vw, 28px);
+    text-align: center;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: #4a4030;
+  }
+
+  .gallery {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: clamp(16px, 4vw, 48px) clamp(12px, 3vw, 32px);
+    align-items: flex-start;
+    gap: clamp(20px, 3vw, 36px);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .face-wrap {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: min(42vw, 260px);
+    min-width: 200px;
+  }
+
+  figcaption {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #4a4030;
   }
 
   .card {
     position: relative;
-    width: min(92vw, 460px);
+    width: 100%;
     aspect-ratio: 2 / 3.15;
     background:
       radial-gradient(140% 90% at 50% 8%, rgba(255,255,255,0.55), transparent 55%),
       repeating-conic-gradient(from 90deg at 50% -10%, rgba(184,134,46,0.16) 0deg 4deg, transparent 4deg 12deg),
       linear-gradient(180deg, var(--paper) 0%, var(--parchment) 45%, var(--parchment-deep) 100%);
-    box-shadow: 0 30px 60px -20px rgba(23, 18, 9, 0.45), 0 2px 0 rgba(255,255,255,0.4) inset;
+    box-shadow: 0 24px 48px -18px rgba(23, 18, 9, 0.4), 0 2px 0 rgba(255,255,255,0.4) inset;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -126,7 +226,7 @@
   .pattern-band {
     display: block;
     width: 100%;
-    height: clamp(22px, 6%, 34px);
+    height: clamp(18px, 6%, 30px);
     flex: 0 0 auto;
   }
 
@@ -134,99 +234,89 @@
     position: relative;
     flex: 1 1 auto;
     display: grid;
-    grid-template-columns: clamp(10px, 3.2%, 16px) 1fr clamp(10px, 3.2%, 16px);
+    grid-template-columns: clamp(8px, 3.2%, 14px) 1fr clamp(8px, 3.2%, 14px);
   }
 
-  .side-band {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+  .side-band { display: block; width: 100%; height: 100%; }
 
   .content {
     position: relative;
-    padding: clamp(14px, 3.4%, 26px) clamp(10px, 3%, 20px);
+    padding: clamp(10px, 3.4%, 20px) clamp(8px, 3%, 16px);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     color: var(--ink);
-    gap: clamp(6px, 1.6%, 14px);
+    gap: clamp(5px, 1.4%, 12px);
   }
 
   .eyebrow {
-    margin: clamp(6px, 1.5%, 14px) 0 0;
+    margin: clamp(4px, 1.5%, 10px) 0 0;
     font-style: italic;
-    font-weight: 400;
-    font-size: clamp(1rem, 4.6vw, 1.5rem);
+    font-size: clamp(0.85rem, 3.6vw, 1.2rem);
     color: var(--onyx-soft);
-    letter-spacing: 0.01em;
   }
+  .small-eyebrow { margin-bottom: clamp(4px, 1%, 10px); }
 
   .title {
     margin: 0;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
     line-height: 1.28;
-    font-size: clamp(1.15rem, 5.4vw, 1.7rem);
+    font-size: clamp(0.9rem, 4.2vw, 1.3rem);
     text-wrap: balance;
-    color: var(--ink);
   }
 
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 60%;
-    margin: 2px 0;
-  }
-  .divider .line {
-    height: 1px;
-    flex: 1;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .divider .diamond {
-    width: 7px;
-    height: 7px;
-    background: var(--gold-deep);
-    transform: rotate(45deg);
-    flex: 0 0 auto;
-  }
+  .divider { display: flex; align-items: center; gap: 8px; width: 60%; margin: 2px 0; }
+  .divider .line { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .divider .diamond { width: 6px; height: 6px; background: var(--gold-deep); transform: rotate(45deg); flex: 0 0 auto; }
 
   .names {
     margin: 0;
     font-style: italic;
     font-weight: 600;
-    font-size: clamp(1.5rem, 7.2vw, 2.4rem);
-    color: var(--ink);
+    font-size: clamp(1.1rem, 5.6vw, 1.8rem);
   }
 
-  .silhouette {
-    width: clamp(120px, 42%, 190px);
-    height: auto;
-    margin: clamp(2px, 1%, 10px) 0;
-  }
+  .silhouette { width: clamp(90px, 42%, 150px); height: auto; margin: clamp(2px, 1%, 8px) 0; }
 
-  .details {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(2px, 0.8%, 6px);
-    font-size: clamp(0.85rem, 3.6vw, 1.05rem);
-    padding-bottom: clamp(4px, 1%, 10px);
-  }
+  .details { margin: 4px 0; display: flex; flex-direction: column; gap: clamp(4px, 1.2%, 10px); font-size: clamp(0.72rem, 3.2vw, 0.95rem); }
+  .details.large { font-size: clamp(0.8rem, 3.6vw, 1.05rem); }
   .details p { margin: 0; }
   .details .label {
     font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 0.72em;
+    font-size: 0.7em;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--gold-deep);
     margin-right: 0.6em;
   }
 
-  @media (max-width: 380px) {
-    .eyebrow { font-size: 1.05rem; }
+  .content.inside { justify-content: center; flex: 1; }
+
+  .script {
+    margin: 0;
+    font-style: italic;
+    font-size: clamp(0.85rem, 3.8vw, 1.15rem);
+    line-height: 1.5;
+  }
+  .script.small { font-size: clamp(0.72rem, 3.2vw, 0.95rem); }
+  .script.back-line { color: var(--onyx-soft); }
+
+  .monogram {
+    margin-top: clamp(6px, 2%, 16px);
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+  }
+
+  .content.back { justify-content: center; flex: 1; gap: clamp(10px, 3%, 20px); }
+  .crest { width: clamp(60px, 26%, 90px); height: auto; }
+
+  @media (max-width: 620px) {
+    .face-wrap { width: min(78vw, 300px); }
   }
 </style>
