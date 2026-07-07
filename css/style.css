@@ -883,6 +883,13 @@ html.has-js .reveal.in-view {
   color: var(--ink);
 }
 
+.quote-group-note {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
 .quote-item {
   display: flex;
   align-items: center;
@@ -911,16 +918,63 @@ html.has-js .reveal.in-view {
 }
 
 .quote-item-price {
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 700;
+  color: var(--ink);
   white-space: nowrap;
+}
+
+.quote-market-price {
+  font-weight: 400;
+  font-size: 0.85em;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-right: 6px;
 }
 
 .quote-device-fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin-top: 8px;
+  margin: 4px 0 16px;
+}
+
+.quote-select-row {
+  margin-bottom: 14px;
+}
+
+.quote-select-row label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.quote-select-row select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(16, 26, 41, 0.2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+  color: var(--ink);
+}
+
+.quote-select-row select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.15);
+  outline: none;
+}
+
+.quote-result-list {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.quote-result-list li {
+  margin-bottom: 2px;
 }
 
 .quote-total-row {
@@ -959,15 +1013,19 @@ html.has-js .reveal.in-view {
 }
 
 .quote-result-details {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   margin: 20px 0;
 }
 
 .quote-result-details dt {
   font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: var(--muted);
+  margin-bottom: 2px;
 }
 
 .quote-result-details dd {

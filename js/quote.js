@@ -15,39 +15,83 @@ document.addEventListener('DOMContentLoaded', function () {
     return; // fall back to the button's default #contact anchor behavior
   }
 
-  var checkboxes = form.querySelectorAll('input[name="problem"]');
-  var deviceNameInput = document.getElementById('quoteDeviceName');
-  var modelNumberInput = document.getElementById('quoteModelNumber');
-  var deviceNameError = document.getElementById('quoteDeviceNameError');
-  var modelNumberError = document.getElementById('quoteModelNumberError');
+  var repairCheckboxes = form.querySelectorAll('input[name="repairPart"]');
+  var gamingSelects = form.querySelectorAll('[data-quote-select]');
+  var brandNameInput = document.getElementById('quoteBrandName');
+  var modelInput = document.getElementById('quoteModel');
+  var brandNameError = document.getElementById('quoteBrandNameError');
+  var modelError = document.getElementById('quoteModelError');
+  var softwareIssueInput = document.getElementById('quoteSoftwareIssue');
 
   function resetDialog() {
     form.reset();
     updateTotal();
     problemsErrorEl.textContent = '';
-    deviceNameError.textContent = '';
-    modelNumberError.textContent = '';
-    deviceNameInput.removeAttribute('aria-invalid');
-    modelNumberInput.removeAttribute('aria-invalid');
+    brandNameError.textContent = '';
+    modelError.textContent = '';
+    brandNameInput.removeAttribute('aria-invalid');
+    modelInput.removeAttribute('aria-invalid');
     formView.hidden = false;
     resultView.hidden = true;
   }
 
+  function checkedRepairParts() {
+    return Array.prototype.filter.call(repairCheckboxes, function (checkbox) {
+      return checkbox.checked;
+    });
+  }
+
+  function selectedGamingParts() {
+    return Array.prototype.filter.call(gamingSelects, function (select) {
+      return Number(select.value) > 0;
+    });
+  }
+
   function updateTotal() {
     var total = 0;
-    checkboxes.forEach(function (checkbox) {
-      if (checkbox.checked) {
-        total += Number(checkbox.getAttribute('data-price'));
-      }
+    checkedRepairParts().forEach(function (checkbox) {
+      total += Number(checkbox.getAttribute('data-price'));
+    });
+    selectedGamingParts().forEach(function (select) {
+      total += Number(select.value);
     });
     totalEl.textContent = 'R' + total;
     return total;
   }
 
-  function generateInvoiceId() {
+  function generateTicketId() {
     var year = new Date().getFullYear();
     var random = Math.floor(1000 + Math.random() * 9000);
     return 'ISH-' + year + '-' + random;
+  }
+
+  function addDetailRow(container, label, value) {
+    var row = document.createElement('div');
+    var dt = document.createElement('dt');
+    var dd = document.createElement('dd');
+    dt.textContent = label;
+    dd.textContent = value;
+    row.appendChild(dt);
+    row.appendChild(dd);
+    container.appendChild(row);
+  }
+
+  function addListRow(container, label, items) {
+    var row = document.createElement('div');
+    var dt = document.createElement('dt');
+    var dd = document.createElement('dd');
+    dt.textContent = label;
+    var list = document.createElement('ul');
+    list.className = 'quote-result-list';
+    items.forEach(function (item) {
+      var li = document.createElement('li');
+      li.textContent = item.name + ' — R' + item.price;
+      list.appendChild(li);
+    });
+    dd.appendChild(list);
+    row.appendChild(dt);
+    row.appendChild(dd);
+    container.appendChild(row);
   }
 
   openBtn.addEventListener('click', function (event) {
@@ -70,8 +114,17 @@ document.addEventListener('DOMContentLoaded', function () {
     resetDialog();
   });
 
-  checkboxes.forEach(function (checkbox) {
+  repairCheckboxes.forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
+      updateTotal();
+      if (problemsErrorEl.textContent) {
+        problemsErrorEl.textContent = '';
+      }
+    });
+  });
+
+  gamingSelects.forEach(function (select) {
+    select.addEventListener('change', function () {
       updateTotal();
       if (problemsErrorEl.textContent) {
         problemsErrorEl.textContent = '';
@@ -82,36 +135,46 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    var isValid = true;
-    var checkedBoxes = Array.prototype.filter.call(checkboxes, function (checkbox) {
-      return checkbox.checked;
-    });
+    var repairParts = checkedRepairParts();
+    var gamingParts = selectedGamingParts();
+    var softwareIssue = softwareIssueInput.value.trim();
 
-    if (checkedBoxes.length === 0) {
-      problemsErrorEl.textContent = 'Please select at least one issue.';
+    var isValid = true;
+
+    var hasAnySelection = repairParts.length > 0 || gamingParts.length > 0 || softwareIssue.length > 0;
+    if (!hasAnySelection) {
+      problemsErrorEl.textContent = 'Please select a repair, a gaming PC part, or describe a software issue.';
       isValid = false;
     } else {
       problemsErrorEl.textContent = '';
     }
 
-    var deviceName = deviceNameInput.value.trim();
-    if (!deviceName) {
-      deviceNameError.textContent = 'Please enter the device name.';
-      deviceNameInput.setAttribute('aria-invalid', 'true');
-      isValid = false;
-    } else {
-      deviceNameError.textContent = '';
-      deviceNameInput.removeAttribute('aria-invalid');
-    }
+    var brandName = brandNameInput.value.trim();
+    var model = modelInput.value.trim();
 
-    var modelNumber = modelNumberInput.value.trim();
-    if (!modelNumber) {
-      modelNumberError.textContent = 'Please enter the model number.';
-      modelNumberInput.setAttribute('aria-invalid', 'true');
-      isValid = false;
+    if (repairParts.length > 0) {
+      if (!brandName) {
+        brandNameError.textContent = 'Please enter the brand name.';
+        brandNameInput.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else {
+        brandNameError.textContent = '';
+        brandNameInput.removeAttribute('aria-invalid');
+      }
+
+      if (!model) {
+        modelError.textContent = 'Please enter the model.';
+        modelInput.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else {
+        modelError.textContent = '';
+        modelInput.removeAttribute('aria-invalid');
+      }
     } else {
-      modelNumberError.textContent = '';
-      modelNumberInput.removeAttribute('aria-invalid');
+      brandNameError.textContent = '';
+      modelError.textContent = '';
+      brandNameInput.removeAttribute('aria-invalid');
+      modelInput.removeAttribute('aria-invalid');
     }
 
     if (!isValid) {
@@ -119,25 +182,43 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var total = updateTotal();
-    var invoiceId = generateInvoiceId();
-    var problemNames = checkedBoxes.map(function (checkbox) {
-      return checkbox.value;
+    var ticketId = generateTicketId();
+
+    var repairItems = repairParts.map(function (checkbox) {
+      return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
+    });
+    var gamingItems = gamingParts.map(function (select) {
+      var optionText = select.options[select.selectedIndex].text;
+      var name = select.getAttribute('data-category') + ': ' + optionText.split(' — R')[0];
+      return { name: name, price: Number(select.value) };
     });
 
-    document.getElementById('resultInvoiceId').textContent = invoiceId;
-    document.getElementById('resultDevice').textContent = deviceName;
-    document.getElementById('resultModel').textContent = modelNumber;
-    document.getElementById('resultProblems').textContent = problemNames.join(', ');
-    document.getElementById('resultTotal').textContent = 'R' + total;
+    // ---------- Build the on-screen result ----------
+    var detailsEl = document.getElementById('quoteResultDetails');
+    detailsEl.innerHTML = '';
 
-    var messageLines = [
-      'Repair Quote Request',
-      'Invoice ID: ' + invoiceId,
-      'Device: ' + deviceName,
-      'Model Number: ' + modelNumber,
-      'Issues: ' + problemNames.join(', '),
-      'Estimated Total: R' + total
-    ];
+    addDetailRow(detailsEl, 'Ticket ID', ticketId);
+    if (brandName) addDetailRow(detailsEl, 'Brand', brandName);
+    if (model) addDetailRow(detailsEl, 'Model', model);
+    if (repairItems.length) addListRow(detailsEl, 'Repair Parts', repairItems);
+    if (gamingItems.length) addListRow(detailsEl, 'Gaming PC Components', gamingItems);
+    if (softwareIssue) addDetailRow(detailsEl, 'Software Issue', softwareIssue);
+    addDetailRow(detailsEl, 'Estimated Total', total > 0 ? 'R' + total : 'Diagnosed in-store');
+
+    // ---------- Build the WhatsApp / email message ----------
+    var messageLines = ['Internet Smart Hub — Ticket ' + ticketId];
+    if (brandName) messageLines.push('Brand: ' + brandName);
+    if (model) messageLines.push('Model: ' + model);
+    repairItems.forEach(function (item) {
+      messageLines.push('- ' + item.name + ': R' + item.price);
+    });
+    gamingItems.forEach(function (item) {
+      messageLines.push('- ' + item.name + ': R' + item.price);
+    });
+    if (softwareIssue) {
+      messageLines.push('Software issue: ' + softwareIssue);
+    }
+    messageLines.push('Estimated Total: ' + (total > 0 ? 'R' + total : 'Diagnosed in-store'));
     var message = messageLines.join('\n');
 
     var whatsappLink = document.getElementById('quoteWhatsappLink');
@@ -145,15 +226,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var emailLink = document.getElementById('quoteEmailLink');
     emailLink.href = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Repair Quote ' + invoiceId) +
+      encodeURIComponent('Internet Smart Hub Ticket ' + ticketId) +
       '&body=' + encodeURIComponent(message);
 
     /*
-     * Backend integration point: this quote is not stored or emailed
+     * Backend integration point: this ticket is not stored or emailed
      * automatically — the customer sends it themselves via the WhatsApp or
-     * email links above. To automate delivery, POST the quote details
-     * (invoiceId, deviceName, modelNumber, problemNames, total) to a backend
-     * endpoint or a service like Formspree here.
+     * email links above. To automate delivery or log it to a database,
+     * POST the ticket details (ticketId, brandName, model, repairItems,
+     * gamingItems, softwareIssue, total) to a backend endpoint here.
      */
 
     formView.hidden = true;

@@ -264,98 +264,172 @@
       <form id="quoteForm" novalidate>
         <fieldset class="quote-group">
           <legend>Computer &amp; Laptop Repairs</legend>
+          <p class="quote-group-note">Replaceable hardware, priced 20% below typical market rates.</p>
+
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="quoteBrandName">Brand Name</label>
+              <input type="text" id="quoteBrandName" name="brandName" placeholder="e.g. HP, Dell, Lenovo">
+              <span class="form-error" id="quoteBrandNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="quoteModel">Model</label>
+              <input type="text" id="quoteModel" name="model" placeholder="e.g. Pavilion 15-eh1xxx">
+              <span class="form-error" id="quoteModelError" role="alert"></span>
+            </div>
+          </div>
+
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Virus & Malware Cleanup" data-price="250"><span class="quote-item-label">Virus &amp; Malware Cleanup</span></span>
-            <span class="quote-item-price">R250</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Diagnostic Fee" data-price="240"><span class="quote-item-label">Diagnostic Fee</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R300</span>R240</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Software Troubleshooting" data-price="300"><span class="quote-item-label">Software Troubleshooting</span></span>
-            <span class="quote-item-price">R300</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Laptop Battery Replacement" data-price="640"><span class="quote-item-label">Laptop Battery Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R800</span>R640</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Hardware Diagnosis" data-price="350"><span class="quote-item-label">Hardware Diagnosis</span></span>
-            <span class="quote-item-price">R350</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Laptop Keyboard Replacement" data-price="480"><span class="quote-item-label">Laptop Keyboard Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R600</span>R480</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="RAM / Storage Upgrade" data-price="550"><span class="quote-item-label">RAM / Storage Upgrade</span></span>
-            <span class="quote-item-price">R550</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Screen / Display Replacement" data-price="1440"><span class="quote-item-label">Screen / Display Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R1800</span>R1440</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Keyboard or Battery Replacement" data-price="700"><span class="quote-item-label">Keyboard or Battery Replacement</span></span>
-            <span class="quote-item-price">R700</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="RAM Upgrade / Replacement (8GB)" data-price="560"><span class="quote-item-label">RAM Upgrade / Replacement (8GB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R700</span>R560</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Screen Replacement" data-price="1250"><span class="quote-item-label">Screen Replacement</span></span>
-            <span class="quote-item-price">R1250</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="HDD Replacement (1TB)" data-price="720"><span class="quote-item-label">HDD Replacement (1TB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R900</span>R720</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Motherboard / Advanced Repair" data-price="2200"><span class="quote-item-label">Motherboard / Advanced Repair</span></span>
-            <span class="quote-item-price">R2200</span>
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="SSD Replacement (480GB)" data-price="800"><span class="quote-item-label">SSD Replacement (480GB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R1000</span>R800</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Charging Port / DC Jack Repair" data-price="520"><span class="quote-item-label">Charging Port / DC Jack Repair</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R650</span>R520</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Internal Cooling Fan Replacement" data-price="360"><span class="quote-item-label">Internal Cooling Fan Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R450</span>R360</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Motherboard Repair / Replacement" data-price="2800"><span class="quote-item-label">Motherboard Repair / Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R3500</span>R2800</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Power Adapter / Charger Replacement" data-price="440"><span class="quote-item-label">Power Adapter / Charger Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R550</span>R440</span>
           </label>
         </fieldset>
 
         <fieldset class="quote-group">
           <legend>Gaming PC – Custom Setup</legend>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Gaming PC Tune-Up & Optimization" data-price="1500"><span class="quote-item-label">Gaming PC Tune-Up &amp; Optimization</span></span>
-            <span class="quote-item-price">R1500</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Full Custom Gaming PC Build" data-price="2850"><span class="quote-item-label">Full Custom Gaming PC Build</span></span>
-            <span class="quote-item-price">R2850</span>
-          </label>
+          <p class="quote-group-note">Build your own — pick only the parts you need. RAM is priced 20% below market; everything else is at market value.</p>
+
+          <div class="quote-select-row">
+            <label for="quoteMotherboard">Motherboard (4th Gen Intel)</label>
+            <select id="quoteMotherboard" name="motherboard" data-quote-select data-category="Motherboard">
+              <option value="0">Not needed</option>
+              <option value="950">H81 Chipset (Entry) — R950</option>
+              <option value="1400">B85 Chipset (Mid) — R1400</option>
+              <option value="2200">Z97 Chipset (High-End) — R2200</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteCpu">CPU (4th Generation Intel Core)</label>
+            <select id="quoteCpu" name="cpu" data-quote-select data-category="CPU">
+              <option value="0">Not needed</option>
+              <option value="750">Intel Core i3-4160 — R750</option>
+              <option value="1200">Intel Core i5-4460 — R1200</option>
+              <option value="2100">Intel Core i7-4770 — R2100</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteGpu">Graphics Card</label>
+            <select id="quoteGpu" name="gpu" data-quote-select data-category="Graphics Card">
+              <option value="0">Not needed</option>
+              <option value="650">GT 710 1GB (Entry) — R650</option>
+              <option value="1200">GTX 750 Ti 2GB (Budget) — R1200</option>
+              <option value="2800">GTX 1650 4GB (Mid-Range) — R2800</option>
+              <option value="6500">RTX 3060 8GB (High Performance) — R6500</option>
+              <option value="11500">RTX 3080 12GB (Enthusiast) — R11500</option>
+              <option value="21000">RTX 4080 16GB (High-End Gaming) — R21000</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteRamDesktop">RAM — Desktop (PC3 / DDR3)</label>
+            <select id="quoteRamDesktop" name="ramDesktop" data-quote-select data-category="RAM (Desktop)">
+              <option value="0">Not needed</option>
+              <option value="200">1GB PC3 — R200</option>
+              <option value="360">4GB PC3 — R360</option>
+              <option value="560">8GB PC3 — R560</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteRamLaptop">RAM — Laptop (PC3 / DDR3 SODIMM)</label>
+            <select id="quoteRamLaptop" name="ramLaptop" data-quote-select data-category="RAM (Laptop)">
+              <option value="0">Not needed</option>
+              <option value="224">1GB PC3 — R224</option>
+              <option value="384">4GB PC3 — R384</option>
+              <option value="600">8GB PC3 — R600</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteCooler">Cooler / Fan</label>
+            <select id="quoteCooler" name="cooler" data-quote-select data-category="Cooler / Fan">
+              <option value="0">Not needed</option>
+              <option value="150">Standard Case Fan — R150</option>
+              <option value="350">RGB Case Fan — R350</option>
+              <option value="450">Standard CPU Air Cooler — R450</option>
+              <option value="900">High-End Tower Air Cooler — R900</option>
+              <option value="1500">AIO Liquid Cooler 120mm — R1500</option>
+              <option value="2500">AIO Liquid Cooler 240mm (High-End) — R2500</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteChassis">Gaming PC Chassis</label>
+            <select id="quoteChassis" name="chassis" data-quote-select data-category="Chassis">
+              <option value="0">Not needed</option>
+              <option value="650">Basic ATX Case — R650</option>
+              <option value="1200">Mid-Tower Gaming Case (RGB) — R1200</option>
+              <option value="2200">Full-Tower Premium Case — R2200</option>
+            </select>
+          </div>
         </fieldset>
 
         <fieldset class="quote-group">
           <legend>Software Installation, Updates &amp; Support</legend>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Software Installation / Updates" data-price="280"><span class="quote-item-label">Software Installation / Updates</span></span>
-            <span class="quote-item-price">R280</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Operating System Reinstall" data-price="450"><span class="quote-item-label">Operating System Reinstall</span></span>
-            <span class="quote-item-price">R450</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="problem" value="Data Backup & Transfer" data-price="400"><span class="quote-item-label">Data Backup &amp; Transfer</span></span>
-            <span class="quote-item-price">R400</span>
-          </label>
+          <p class="quote-group-note">Just describe the issue — you'll get a digital ticket to show our technician in-store. No need to diagnose it yourself.</p>
+          <div class="form-group">
+            <label for="quoteSoftwareIssue">Describe the software issue</label>
+            <textarea id="quoteSoftwareIssue" name="softwareIssue" rows="3" placeholder="e.g. Windows won't update, need Office installed, laptop running very slow..."></textarea>
+          </div>
         </fieldset>
 
         <span class="form-error" id="quoteProblemsError" role="alert"></span>
-
-        <div class="quote-device-fields">
-          <div class="form-group">
-            <label for="quoteDeviceName">Device Name</label>
-            <input type="text" id="quoteDeviceName" name="deviceName" placeholder="e.g. HP Pavilion Laptop">
-            <span class="form-error" id="quoteDeviceNameError" role="alert"></span>
-          </div>
-          <div class="form-group">
-            <label for="quoteModelNumber">Model Number</label>
-            <input type="text" id="quoteModelNumber" name="modelNumber" placeholder="e.g. 15-eh1xxx">
-            <span class="form-error" id="quoteModelNumberError" role="alert"></span>
-          </div>
-        </div>
 
         <div class="quote-total-row">
           <span>Estimated Total</span>
           <span class="quote-total" id="quoteTotal">R0</span>
         </div>
 
-        <button type="submit" class="btn btn-primary"><span>Get My Quote</span></button>
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
       </form>
     </div>
 
     <div class="quote-result" id="quoteResult" hidden>
-      <h2>Your Quote is Ready</h2>
-      <dl class="quote-result-details">
-        <div><dt>Invoice ID</dt><dd id="resultInvoiceId"></dd></div>
-        <div><dt>Device</dt><dd id="resultDevice"></dd></div>
-        <div><dt>Model Number</dt><dd id="resultModel"></dd></div>
-        <div><dt>Selected Issues</dt><dd id="resultProblems"></dd></div>
-        <div><dt>Estimated Total</dt><dd id="resultTotal"></dd></div>
-      </dl>
-      <p class="quote-disclaimer">This is an estimate — final pricing is confirmed after in-person diagnosis.</p>
+      <h2>Your Ticket is Ready</h2>
+      <div class="quote-result-details" id="quoteResultDetails"></div>
+      <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store. Software issues are diagnosed in person; show this ticket to our technician.</p>
       <div class="quote-result-actions">
         <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
         <a id="quoteEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
