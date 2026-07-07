@@ -47,13 +47,37 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
 
-  /* ---------- Scroll-triggered reveal animations ---------- */
+  /* ---------- Scroll-triggered reveal animations ----------
+     Uses GSAP + ScrollTrigger when both loaded successfully; falls back to
+     plain IntersectionObserver (or immediate visibility) if the self-hosted
+     vendor files ever fail to load, so content is never stuck hidden. */
   var revealEls = document.querySelectorAll('.reveal');
 
   if (revealEls.length) {
     document.documentElement.classList.add('has-js');
 
-    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      revealEls.forEach(function (el) {
+        var delay = parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0;
+        gsap.fromTo(el,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: delay * 0.07,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              once: true
+            }
+          }
+        );
+      });
+    } else if ('IntersectionObserver' in window && !prefersReducedMotion) {
       var revealObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
@@ -69,6 +93,24 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       revealEls.forEach(function (el) {
         el.classList.add('in-view');
+      });
+    }
+  }
+
+  /* ---------- Hero entrance timeline (GSAP) ---------- */
+  var heroAnimEls = document.querySelectorAll('.hero-anim');
+
+  if (heroAnimEls.length) {
+    if (window.gsap && !prefersReducedMotion) {
+      gsap.timeline({ defaults: { duration: 0.7, ease: 'power2.out' } })
+        .to('.hero-brand', { opacity: 1, y: 0 })
+        .to('.hero h1', { opacity: 1, y: 0 }, '-=0.45')
+        .to('.hero-sub', { opacity: 1, y: 0 }, '-=0.45')
+        .to('.hero-actions', { opacity: 1, y: 0 }, '-=0.4');
+    } else {
+      heroAnimEls.forEach(function (el) {
+        el.style.opacity = 1;
+        el.style.transform = 'none';
       });
     }
   }

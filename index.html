@@ -47,13 +47,13 @@
   <section class="hero" aria-label="Introduction">
     <div class="container hero-inner">
       <div class="hero-content">
-        <div class="hero-brand" aria-hidden="true">
+        <div class="hero-brand hero-anim" aria-hidden="true">
           <span class="hero-brand-line1">Internet</span>
           <span class="hero-brand-line2">Smart Hub</span>
         </div>
-        <h1>Your local hub for computer repairs, gaming PCs &amp; digital services.</h1>
-        <p class="hero-sub">Computer and laptop repairs, custom gaming PC builds, software support, online applications, and web design — all handled by one trusted local team.</p>
-        <div class="hero-actions">
+        <h1 class="hero-anim">Your local hub for computer repairs, gaming PCs &amp; digital services.</h1>
+        <p class="hero-sub hero-anim">Computer and laptop repairs, custom gaming PC builds, software support, online applications, and web design — all handled by one trusted local team.</p>
+        <div class="hero-actions hero-anim">
           <a href="#contact" class="btn btn-primary"><span>Get a Repair Quote</span></a>
           <a href="#services" class="btn btn-secondary"><span>See Services</span></a>
         </div>
@@ -61,6 +61,7 @@
 
       <div class="hero-visual" id="heroVisual" aria-hidden="true">
         <div class="circuit-pattern"></div>
+        <canvas id="heroCanvas"></canvas>
         <div class="scan-line"></div>
         <div class="diagnostic-panel">
           <span class="diagnostic-dot"></span>
@@ -260,6 +261,10 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script src="js/vendor/three.min.js" defer></script>
+<script src="js/vendor/gsap.min.js" defer></script>
+<script src="js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/hero-scene.js" defer></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
