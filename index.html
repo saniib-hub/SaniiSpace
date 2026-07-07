@@ -722,10 +722,42 @@
 
         <fieldset class="quote-group" id="softwareSection">
           <legend>Software Installation, Updates &amp; Support</legend>
-          <p class="quote-group-note">Just describe the issue — you'll get a digital ticket to show our technician in-store. No need to diagnose it yourself.</p>
+          <p class="quote-group-note">Priced at market value. Pick an OS package and any add-ons you need.</p>
+
+          <div class="quote-select-row">
+            <label for="quoteOS">Operating System</label>
+            <select id="quoteOS" name="operatingSystem" data-quote-select data-category="Operating System">
+              <option value="0">Not needed / Already have OS</option>
+              <option value="450">Windows 10 Installation — R450</option>
+              <option value="500">Windows 11 Installation — R500</option>
+              <option value="400">Windows 7 Installation (Legacy) — R400</option>
+              <option value="400">Linux (Ubuntu / Mint) Installation — R400</option>
+              <option value="550">macOS Reinstall / Recovery — R550</option>
+            </select>
+          </div>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Anti-Virus Installation & Setup" data-price="150"><span class="quote-item-label">Anti-Virus Installation &amp; Setup</span></span>
+            <span class="quote-item-price">R150</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Video / Media Player Installation" data-price="100"><span class="quote-item-label">Video / Media Player Installation</span></span>
+            <span class="quote-item-price">R100</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" id="quoteSpecialSoftware" name="softwareAddon" value="Special Software Required" data-price="0"><span class="quote-item-label">Special Software Required</span></span>
+            <span class="quote-item-price">Quote on request</span>
+          </label>
+
+          <div class="form-group" id="specialSoftwareGroup" hidden>
+            <label for="quoteSpecialSoftwareDetails">Describe the software you need</label>
+            <textarea id="quoteSpecialSoftwareDetails" name="specialSoftwareDetails" rows="2" placeholder="e.g. AutoCAD, QuickBooks, a specific game..."></textarea>
+            <span class="form-error" id="quoteSpecialSoftwareError" role="alert"></span>
+          </div>
+
           <div class="form-group">
-            <label for="quoteSoftwareIssue">Describe the software issue</label>
-            <textarea id="quoteSoftwareIssue" name="softwareIssue" rows="3" placeholder="e.g. Windows won't update, need Office installed, laptop running very slow..."></textarea>
+            <label for="quoteSoftwareIssue">Anything else? (optional)</label>
+            <textarea id="quoteSoftwareIssue" name="softwareIssue" rows="2" placeholder="e.g. Windows won't update, laptop running very slow..."></textarea>
           </div>
         </fieldset>
 

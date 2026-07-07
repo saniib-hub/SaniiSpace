@@ -17,11 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var repairCheckboxes = form.querySelectorAll('input[name="repairPart"]');
   var gamingSelects = form.querySelectorAll('[data-quote-select]');
+  var softwareAddonCheckboxes = form.querySelectorAll('input[name="softwareAddon"]');
   var brandNameInput = document.getElementById('quoteBrandName');
   var modelInput = document.getElementById('quoteModel');
   var brandNameError = document.getElementById('quoteBrandNameError');
   var modelError = document.getElementById('quoteModelError');
   var softwareIssueInput = document.getElementById('quoteSoftwareIssue');
+  var specialSoftwareCheckbox = document.getElementById('quoteSpecialSoftware');
+  var specialSoftwareGroup = document.getElementById('specialSoftwareGroup');
+  var specialSoftwareDetailsInput = document.getElementById('quoteSpecialSoftwareDetails');
+  var specialSoftwareError = document.getElementById('quoteSpecialSoftwareError');
 
   function resetDialog() {
     form.reset();
@@ -29,14 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
     problemsErrorEl.textContent = '';
     brandNameError.textContent = '';
     modelError.textContent = '';
+    specialSoftwareError.textContent = '';
     brandNameInput.removeAttribute('aria-invalid');
     modelInput.removeAttribute('aria-invalid');
+    specialSoftwareDetailsInput.removeAttribute('aria-invalid');
+    specialSoftwareGroup.hidden = true;
     formView.hidden = false;
     resultView.hidden = true;
   }
 
   function checkedRepairParts() {
     return Array.prototype.filter.call(repairCheckboxes, function (checkbox) {
+      return checkbox.checked;
+    });
+  }
+
+  function checkedSoftwareAddons() {
+    return Array.prototype.filter.call(softwareAddonCheckboxes, function (checkbox) {
       return checkbox.checked;
     });
   }
@@ -54,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     selectedGamingParts().forEach(function (select) {
       total += Number(select.value);
+    });
+    checkedSoftwareAddons().forEach(function (checkbox) {
+      total += Number(checkbox.getAttribute('data-price'));
     });
     totalEl.textContent = 'R' + total;
     return total;
@@ -161,18 +178,46 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  softwareAddonCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+      updateTotal();
+      if (problemsErrorEl.textContent) {
+        problemsErrorEl.textContent = '';
+      }
+    });
+  });
+
+  specialSoftwareCheckbox.addEventListener('change', function () {
+    specialSoftwareGroup.hidden = !specialSoftwareCheckbox.checked;
+    if (!specialSoftwareCheckbox.checked) {
+      specialSoftwareError.textContent = '';
+      specialSoftwareDetailsInput.removeAttribute('aria-invalid');
+    }
+  });
+
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     var repairParts = checkedRepairParts();
-    var gamingParts = selectedGamingParts();
+    var allSelects = selectedGamingParts();
+    var osSelects = allSelects.filter(function (select) {
+      return select.getAttribute('data-category') === 'Operating System';
+    });
+    var gamingParts = allSelects.filter(function (select) {
+      return select.getAttribute('data-category') !== 'Operating System';
+    });
+    var softwareAddons = checkedSoftwareAddons();
+    var pricedSoftwareAddons = softwareAddons.filter(function (checkbox) {
+      return checkbox !== specialSoftwareCheckbox;
+    });
     var softwareIssue = softwareIssueInput.value.trim();
 
     var isValid = true;
 
-    var hasAnySelection = repairParts.length > 0 || gamingParts.length > 0 || softwareIssue.length > 0;
+    var hasAnySelection = repairParts.length > 0 || gamingParts.length > 0 ||
+      osSelects.length > 0 || softwareAddons.length > 0 || softwareIssue.length > 0;
     if (!hasAnySelection) {
-      problemsErrorEl.textContent = 'Please select a repair, a gaming PC part, or describe a software issue.';
+      problemsErrorEl.textContent = 'Please select a repair, a gaming PC part, a software package, or describe an issue.';
       isValid = false;
     } else {
       problemsErrorEl.textContent = '';
@@ -206,6 +251,18 @@ document.addEventListener('DOMContentLoaded', function () {
       modelInput.removeAttribute('aria-invalid');
     }
 
+    var specialSoftwareDetails = specialSoftwareDetailsInput.value.trim();
+    if (specialSoftwareCheckbox.checked) {
+      if (!specialSoftwareDetails) {
+        specialSoftwareError.textContent = 'Please describe the software you need.';
+        specialSoftwareDetailsInput.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else {
+        specialSoftwareError.textContent = '';
+        specialSoftwareDetailsInput.removeAttribute('aria-invalid');
+      }
+    }
+
     if (!isValid) {
       return;
     }
@@ -221,6 +278,12 @@ document.addEventListener('DOMContentLoaded', function () {
       var name = select.getAttribute('data-category') + ': ' + optionText.split(' — R')[0];
       return { name: name, price: Number(select.value) };
     });
+    var osItems = osSelects.map(function (select) {
+      return { name: select.options[select.selectedIndex].text.split(' — R')[0], price: Number(select.value) };
+    });
+    var softwareAddonItems = pricedSoftwareAddons.map(function (checkbox) {
+      return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
+    });
 
     // ---------- Build the on-screen result ----------
     var detailsEl = document.getElementById('quoteResultDetails');
@@ -231,7 +294,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (model) addDetailRow(detailsEl, 'Model', model);
     if (repairItems.length) addListRow(detailsEl, 'Repair Parts', repairItems);
     if (gamingItems.length) addListRow(detailsEl, 'Gaming PC Components', gamingItems);
-    if (softwareIssue) addDetailRow(detailsEl, 'Software Issue', softwareIssue);
+    if (osItems.length) addListRow(detailsEl, 'Operating System', osItems);
+    if (softwareAddonItems.length) addListRow(detailsEl, 'Software Add-ons', softwareAddonItems);
+    if (specialSoftwareCheckbox.checked) addDetailRow(detailsEl, 'Special Software Requested', specialSoftwareDetails);
+    if (softwareIssue) addDetailRow(detailsEl, 'Other Notes', softwareIssue);
     addDetailRow(detailsEl, 'Estimated Total', total > 0 ? 'R' + total : 'Diagnosed in-store');
 
     // ---------- Build the WhatsApp / email message ----------
@@ -244,8 +310,17 @@ document.addEventListener('DOMContentLoaded', function () {
     gamingItems.forEach(function (item) {
       messageLines.push('- ' + item.name + ': R' + item.price);
     });
+    osItems.forEach(function (item) {
+      messageLines.push('- ' + item.name + ': R' + item.price);
+    });
+    softwareAddonItems.forEach(function (item) {
+      messageLines.push('- ' + item.name + ': R' + item.price);
+    });
+    if (specialSoftwareCheckbox.checked) {
+      messageLines.push('Special software requested (quote on request): ' + specialSoftwareDetails);
+    }
     if (softwareIssue) {
-      messageLines.push('Software issue: ' + softwareIssue);
+      messageLines.push('Other notes: ' + softwareIssue);
     }
     messageLines.push('Estimated Total: ' + (total > 0 ? 'R' + total : 'Diagnosed in-store'));
     var message = messageLines.join('\n');
