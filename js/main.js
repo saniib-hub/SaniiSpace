@@ -7,6 +7,18 @@ document.addEventListener('DOMContentLoaded', function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  /* ---------- Opening hours: switch to new hours from 1 Aug 2026 ---------- */
+  var openingHoursEl = document.getElementById('openingHours');
+  var hoursNoteEl = document.getElementById('hoursNote');
+  var newHoursCutoff = new Date(2026, 7, 1); // 1 Aug 2026
+
+  if (openingHoursEl && new Date() >= newHoursCutoff) {
+    openingHoursEl.textContent = 'Mon–Fri 06:30–21:00 · Sat 08:00–19:00 · Sun 07:00–20:00';
+    if (hoursNoteEl) {
+      hoursNoteEl.remove();
+    }
+  }
+
   /* ---------- Mobile hamburger menu ---------- */
   var navToggle = document.getElementById('navToggle');
   var primaryNav = document.getElementById('primaryNav');

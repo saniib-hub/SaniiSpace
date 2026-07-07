@@ -681,13 +681,21 @@ html.has-js .reveal.in-view {
   flex-direction: column;
 }
 
-.contact-details span:not(.contact-label) {
+.contact-details span:not(.contact-label):not(.hours-note) {
   color: var(--on-dark-muted);
 }
 
 .contact-details a {
   color: var(--accent);
   font-weight: 600;
+}
+
+.hours-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--accent);
 }
 
 .contact-label {
