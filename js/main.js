@@ -154,6 +154,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Press feedback micro-interaction ----------
+     Delegated so every button/card/list-row gets a quick "pressed" state
+     without wiring up listeners per element. */
+  if (!prefersReducedMotion) {
+    var pressSelector = '.btn, .card, .quote-item, .price-list li, .quote-close, .records-clear-btn';
+
+    var clearPressed = function () {
+      document.querySelectorAll('.is-pressed').forEach(function (el) {
+        el.classList.remove('is-pressed');
+      });
+    };
+
+    document.addEventListener('pointerdown', function (event) {
+      var target = event.target.closest(pressSelector);
+      if (target) {
+        target.classList.add('is-pressed');
+      }
+    });
+
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (type) {
+      document.addEventListener(type, clearPressed, true);
+    });
+  }
+
   /* ---------- Card tilt on hover (desktop pointer only) ---------- */
   if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.querySelectorAll('.card').forEach(function (card) {

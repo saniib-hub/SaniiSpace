@@ -357,6 +357,29 @@ html.has-js .hero-anim {
   box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.18);
 }
 
+/* ---------- Press feedback micro-interaction (buttons, cards, list rows) ----------
+   Toggled via a delegated pointerdown/pointerup listener in main.js so it
+   works uniformly across every clickable card/button without extra markup. */
+.btn.is-pressed {
+  transform: scale(0.95);
+  transition-duration: 0.12s;
+}
+
+.card.is-pressed {
+  transform: scale(0.97) !important;
+  transition-duration: 0.12s;
+}
+
+.quote-item.is-pressed,
+.price-list li.is-pressed {
+  background: rgba(16, 26, 41, 0.05);
+}
+
+.quote-close.is-pressed,
+.records-clear-btn.is-pressed {
+  transform: scale(0.9);
+}
+
 /* Signature diagnostic motif */
 .hero-visual {
   --mx: 70%;
@@ -503,6 +526,28 @@ html.has-js .hero-anim {
   .services .card-grid,
   .for-sale .card-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tech Support & Repairs now has 5 cards too — override the shared 4-card
+   step with the same 2-column + full-span-last-card pattern as Printing. */
+#services .card-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  #services .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #services .card-grid > article:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 980px) {
+  #services .card-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -662,7 +707,10 @@ html.has-js .hero-anim {
 #web-design,
 .quote-open-card,
 .printing-open-card,
-#workstationCard {
+#workstationCard,
+#gamingCard,
+#softwareCard,
+#cellphoneCard {
   cursor: pointer;
 }
 
@@ -1094,7 +1142,7 @@ html.has-js .reveal.in-view {
   font-size: 1.4rem;
   line-height: 1;
   cursor: pointer;
-  transition: background-color 0.2s var(--ease);
+  transition: background-color 0.2s var(--ease), transform 0.12s var(--ease);
 }
 
 .quote-close:hover {
@@ -1135,6 +1183,8 @@ html.has-js .reveal.in-view {
   padding: 10px 4px;
   border-bottom: 1px solid rgba(16, 26, 41, 0.08);
   cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.15s var(--ease);
 }
 
 .quote-item:last-child {
@@ -1274,6 +1324,65 @@ html.has-js .reveal.in-view {
   font-size: 0.85rem;
   color: var(--muted);
   font-style: italic;
+}
+
+/* ---------- Success celebration (ticket/order confirmation) ---------- */
+.success-check {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 12px;
+}
+
+.success-check svg {
+  width: 60px;
+  height: 60px;
+  overflow: visible;
+}
+
+.success-check-circle {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-dasharray: 152;
+  stroke-dashoffset: 152;
+  transform-origin: center;
+}
+
+.success-check-mark {
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.success-check.is-animated .success-check-circle {
+  animation: success-draw-circle 0.5s ease forwards;
+}
+
+.success-check.is-animated .success-check-mark {
+  animation: success-draw-check 0.3s 0.42s ease forwards, success-pop 0.4s 0.42s ease;
+}
+
+.success-check.is-done .success-check-circle,
+.success-check.is-done .success-check-mark {
+  stroke-dashoffset: 0;
+}
+
+@keyframes success-draw-circle {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes success-draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes success-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
 }
 
 .ticket-qr {

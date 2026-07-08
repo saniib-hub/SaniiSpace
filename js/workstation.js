@@ -52,10 +52,26 @@ document.addEventListener('DOMContentLoaded', function () {
     resultView.hidden = true;
   }
 
+  if (window.ISHMotion) {
+    window.ISHMotion.bindDialog(dialog);
+  }
+
+  function closeDialog() {
+    if (window.ISHMotion) {
+      window.ISHMotion.closeDialog(dialog);
+    } else {
+      dialog.close();
+    }
+  }
+
   function openDialog(event) {
     event.preventDefault();
     resetDialog();
-    dialog.showModal();
+    if (window.ISHMotion) {
+      window.ISHMotion.openDialog(dialog);
+    } else {
+      dialog.showModal();
+    }
   }
 
   openCard.addEventListener('click', openDialog);
@@ -66,12 +82,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   closeBtn.addEventListener('click', function () {
-    dialog.close();
+    closeDialog();
   });
 
   dialog.addEventListener('click', function (event) {
     if (event.target === dialog) {
-      dialog.close();
+      closeDialog();
     }
   });
 
@@ -211,13 +227,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /*
-     * Backend integration point: this order is not stored or emailed
-     * automatically — clicking "Place Order Request" opens the customer's
-     * own email client with the order pre-filled (mailto: cannot send mail
-     * directly from JavaScript). To send this automatically without relying
-     * on the customer's own email client, POST it to a backend endpoint or
-     * a service like Formspree here instead.
+     * Clicking "Place Order Request" opens the customer's own email client
+     * with the order pre-filled (mailto: cannot send mail directly from
+     * JavaScript). It's also saved to this browser's local ticket log
+     * (js/records.js). If js/backend-config.js has a Google Sheets
+     * endpoint configured, it's also POSTed there.
      */
+    if (window.ISHBackend) {
+      window.ISHBackend.submit({
+        type: 'Workstation Order',
+        id: ticketId,
+        name: businessOrName,
+        email: email,
+        contact: contactNumber,
+        total: total,
+        summary: message
+      });
+    }
+
     if (window.ISHRecords) {
       window.ISHRecords.save({
         id: ticketId,
@@ -230,6 +257,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     formView.hidden = true;
     resultView.hidden = false;
+
+    if (window.ISHMotion) {
+      window.ISHMotion.celebrate(resultView);
+    }
 
     // Open the customer's email client immediately with the order ready
     window.location.href = emailHref;
