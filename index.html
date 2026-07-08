@@ -1183,7 +1183,7 @@
             <option value="Embroidery Bulk" data-unit-price="108">Embroidery Bulk (10-1000) — R108/piece (was R120)</option>
             <option value="Clothes Printing" data-unit-price="85.50">Clothes Printing (Bulk) — R85.50/piece (was R95)</option>
             <option value="Sheet Printing" data-unit-price="0.90">Sheet Printing (Bulk, 100-100,000) — R0.90/sheet (was R1.00)</option>
-            <option value="Poster Printing" data-unit-price="72">Poster Printing (10-300) — R72/poster (was R80)</option>
+            <option value="Poster Printing" data-unit-price="250">Poster Printing (10-300) — priced by size below</option>
           </select>
         </div>
 
@@ -1198,6 +1198,26 @@
             <option value="Caps">Caps</option>
             <option value="Pants">Pants</option>
             <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="printingPosterSizeGroup" hidden>
+          <label for="printingPosterSize">Poster Size</label>
+          <select id="printingPosterSize" name="posterSize">
+            <optgroup label="Paper Poster (unmounted)">
+              <option value="A4 Paper Poster" data-unit-price="250">A4 (Letter) — R250 each (was R280)</option>
+              <option value="A3 Paper Poster" data-unit-price="320">A3 — R320 each (was R355)</option>
+              <option value="A2 Paper Poster" data-unit-price="450">A2 — R450 each (was R500)</option>
+              <option value="A1 Paper Poster" data-unit-price="650">A1 — R650 each (was R720)</option>
+              <option value="A0 Paper Poster" data-unit-price="950">A0 — R950 each (was R1050)</option>
+            </optgroup>
+            <optgroup label="Mounted Board Poster">
+              <option value="A4 Board Poster" data-unit-price="270">A4 Board — R270 each (was R300)</option>
+              <option value="A3 Board Poster" data-unit-price="350">A3 Board — R350 each (was R390)</option>
+              <option value="A2 Board Poster" data-unit-price="500">A2 Board — R500 each (was R555)</option>
+              <option value="A1 Board Poster" data-unit-price="720">A1 Board — R720 each (was R800)</option>
+              <option value="A0 Board Poster" data-unit-price="1050">A0 Board — R1050 each (was R1170)</option>
+            </optgroup>
           </select>
         </div>
 
@@ -1317,7 +1337,7 @@
 
     <div id="workstationFormView">
       <h2 id="workstationDialogTitle">Workstation Setup</h2>
-      <p class="quote-intro">Pick everything you need for your office, shop or workspace. Prices are 10% below typical market rates.</p>
+      <p class="quote-intro">Pick everything you need for your office, shop or workspace.</p>
 
       <form id="workstationForm" novalidate>
         <fieldset class="quote-group">
@@ -1333,6 +1353,42 @@
           <label class="quote-item">
             <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i7)" data-price="5400"><span class="quote-item-label">PC (4th Gen Intel Core i7)</span></span>
             <span class="quote-item-price"><span class="quote-market-price">R6000</span>R5400</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Laptops (4th Generation)</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Laptop (4th Gen Intel Core i3)" data-price="4200"><span class="quote-item-label">Laptop (4th Gen Intel Core i3)</span></span>
+            <span class="quote-item-price">R4200</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Laptop (4th Gen Intel Core i5)" data-price="5500"><span class="quote-item-label">Laptop (4th Gen Intel Core i5)</span></span>
+            <span class="quote-item-price">R5500</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Laptop (4th Gen Intel Core i7)" data-price="7200"><span class="quote-item-label">Laptop (4th Gen Intel Core i7)</span></span>
+            <span class="quote-item-price">R7200</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Mouse &amp; Keyboards</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Mouse (Wired)" data-price="150"><span class="quote-item-label">Mouse (Wired)</span></span>
+            <span class="quote-item-price">R150</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Mouse (Wireless)" data-price="320"><span class="quote-item-label">Mouse (Wireless)</span></span>
+            <span class="quote-item-price">R320</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Keyboard (Wired)" data-price="250"><span class="quote-item-label">Keyboard (Wired)</span></span>
+            <span class="quote-item-price">R250</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Keyboard (Wireless)" data-price="450"><span class="quote-item-label">Keyboard (Wireless)</span></span>
+            <span class="quote-item-price">R450</span>
           </label>
         </fieldset>
 
