@@ -287,7 +287,7 @@
       </div>
 
       <div class="for-sale-cta reveal">
-        <a href="https://wa.me/27697304534?text=Hi%2C%20I%27d%20like%20to%20check%20what%20second-hand%20stock%20you%20have%20available." target="_blank" rel="noopener noreferrer" class="btn btn-primary"><span>Ask About Current Stock</span></a>
+        <button type="button" class="btn btn-primary stock-inquiry-btn" data-stock-type="Second-Hand"><span>Ask About Current Stock</span></button>
       </div>
     </div>
   </section>
@@ -360,7 +360,7 @@
       </div>
 
       <div class="for-sale-cta reveal">
-        <a href="https://wa.me/27697304534?text=Hi%2C%20I%27d%20like%20to%20check%20prices%20on%20new%20parts%20and%20accessories." target="_blank" rel="noopener noreferrer" class="btn btn-primary"><span>Ask About New Stock</span></a>
+        <button type="button" class="btn btn-primary stock-inquiry-btn" data-stock-type="New"><span>Ask About New Stock</span></button>
       </div>
     </div>
   </section>
@@ -962,6 +962,50 @@
   </div>
 </dialog>
 
+<dialog id="stockInquiryDialog" class="quote-dialog" aria-labelledby="stockInquiryTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="stockInquiryClose" aria-label="Close stock inquiry form">&times;</button>
+
+    <div id="stockInquiryFormView">
+      <h2 id="stockInquiryTitle">Ask About Stock</h2>
+      <p class="quote-intro" id="stockInquiryIntro">Tell us what you're looking for and we'll get back to you.</p>
+
+      <form id="stockInquiryForm" novalidate>
+        <div class="form-group">
+          <label for="stockInquiryMessage">What are you looking for?</label>
+          <textarea id="stockInquiryMessage" name="message" rows="4" placeholder="e.g. Do you have any second-hand 24&quot; monitors in stock?"></textarea>
+          <span class="form-error" id="stockInquiryMessageError" role="alert"></span>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="stockInquiryName">Your Name</label>
+            <input type="text" id="stockInquiryName" name="name" placeholder="e.g. Sipho Mokoena">
+            <span class="form-error" id="stockInquiryNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="stockInquiryContact">Phone or Email (optional)</label>
+            <input type="text" id="stockInquiryContact" name="contact" placeholder="e.g. 082 123 4567">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Send Email</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="stockInquiryResult" hidden>
+      <h2>Thanks — Message Ready to Send</h2>
+      <div class="quote-result-details" id="stockInquiryResultDetails"></div>
+      <p class="quote-disclaimer">Your email app should have opened with this message pre-filled — just hit send. You can also reach us on WhatsApp below.</p>
+      <div class="quote-result-actions">
+        <a id="stockInquiryEmailLink" class="btn btn-primary"><span>Open Email Again</span></a>
+        <a id="stockInquiryWhatsappLink" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp Instead</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="stockInquiryRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-logo">Internet Smart Hub</p>
@@ -995,6 +1039,7 @@
 <script src="js/quote.js" defer></script>
 <script src="js/web-design.js" defer></script>
 <script src="js/printing.js" defer></script>
+<script src="js/stock-inquiry.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
