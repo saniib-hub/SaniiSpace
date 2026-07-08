@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var formView = document.getElementById('printingFormView');
   var resultView = document.getElementById('printingResult');
   var restartBtn = document.getElementById('printingRestart');
+  var totalEl = document.getElementById('printingTotal');
 
   var supportsDialog = dialog && typeof dialog.showModal === 'function';
 
@@ -17,10 +18,16 @@ document.addEventListener('DOMContentLoaded', function () {
   var quantityInput = document.getElementById('printingQuantity');
   var quantityHint = document.getElementById('printingQuantityHint');
   var quantityError = document.getElementById('printingQuantityError');
-  var contactNameInput = document.getElementById('printingContactName');
-  var contactMethodInput = document.getElementById('printingContactMethod');
-  var contactNameError = document.getElementById('printingContactNameError');
-  var contactMethodError = document.getElementById('printingContactMethodError');
+  var firstNameInput = document.getElementById('printingFirstName');
+  var lastNameInput = document.getElementById('printingLastName');
+  var emailInput = document.getElementById('printingEmail');
+  var contactNumberInput = document.getElementById('printingContactNumber');
+  var firstNameError = document.getElementById('printingFirstNameError');
+  var lastNameError = document.getElementById('printingLastNameError');
+  var emailError = document.getElementById('printingEmailError');
+  var contactNumberError = document.getElementById('printingContactNumberError');
+
+  var MIN_ORDER_TOTAL = 10;
 
   var QUANTITY_RANGES = {
     'Bundle Prints': { min: 1, max: 10000, hint: 'Any quantity — let us know how many.' },
@@ -32,6 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var GARMENT_SERVICES = ['Embroidery Bulk', 'Clothes Printing'];
 
+  function currentUnitPrice() {
+    var option = serviceTypeSelect.options[serviceTypeSelect.selectedIndex];
+    return Number(option.getAttribute('data-unit-price'));
+  }
+
   function updateForServiceType() {
     var serviceType = serviceTypeSelect.value;
     var range = QUANTITY_RANGES[serviceType];
@@ -42,8 +54,20 @@ document.addEventListener('DOMContentLoaded', function () {
       quantityInput.min = range.min;
       quantityInput.max = range.max;
       quantityInput.placeholder = 'e.g. ' + range.min;
-      quantityHint.textContent = range.hint;
+      quantityHint.textContent = range.hint + ' Minimum order R' + MIN_ORDER_TOTAL + '.';
     }
+    updateTotal();
+  }
+
+  function updateTotal() {
+    var quantity = Number(quantityInput.value) || 0;
+    var total = quantity * currentUnitPrice();
+    if (total > 0 && total < MIN_ORDER_TOTAL) {
+      total = MIN_ORDER_TOTAL;
+    }
+    total = Math.round(total);
+    totalEl.textContent = 'R' + total;
+    return total;
   }
 
   function resetDialog(presetServiceType) {
@@ -53,16 +77,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     updateForServiceType();
     quantityError.textContent = '';
-    contactNameError.textContent = '';
-    contactMethodError.textContent = '';
-    contactNameInput.removeAttribute('aria-invalid');
-    contactMethodInput.removeAttribute('aria-invalid');
+    firstNameError.textContent = '';
+    lastNameError.textContent = '';
+    emailError.textContent = '';
+    contactNumberError.textContent = '';
+    firstNameInput.removeAttribute('aria-invalid');
+    lastNameInput.removeAttribute('aria-invalid');
+    emailInput.removeAttribute('aria-invalid');
+    contactNumberInput.removeAttribute('aria-invalid');
     quantityInput.removeAttribute('aria-invalid');
     formView.hidden = false;
     resultView.hidden = true;
   }
 
   serviceTypeSelect.addEventListener('change', updateForServiceType);
+  quantityInput.addEventListener('input', updateTotal);
 
   document.querySelectorAll('.printing-open-card').forEach(function (card) {
     var serviceType = card.getAttribute('data-service-type');
@@ -129,25 +158,45 @@ document.addEventListener('DOMContentLoaded', function () {
       quantityInput.removeAttribute('aria-invalid');
     }
 
-    var contactName = contactNameInput.value.trim();
-    var contactMethod = contactMethodInput.value.trim();
+    var firstName = firstNameInput.value.trim();
+    var lastName = lastNameInput.value.trim();
+    var email = emailInput.value.trim();
+    var contactNumber = contactNumberInput.value.trim();
 
-    if (!contactName) {
-      contactNameError.textContent = 'Please enter your name.';
-      contactNameInput.setAttribute('aria-invalid', 'true');
+    if (!firstName) {
+      firstNameError.textContent = 'Please enter your name.';
+      firstNameInput.setAttribute('aria-invalid', 'true');
       isValid = false;
     } else {
-      contactNameError.textContent = '';
-      contactNameInput.removeAttribute('aria-invalid');
+      firstNameError.textContent = '';
+      firstNameInput.removeAttribute('aria-invalid');
     }
 
-    if (!contactMethod) {
-      contactMethodError.textContent = 'Please enter a phone number or email address.';
-      contactMethodInput.setAttribute('aria-invalid', 'true');
+    if (!lastName) {
+      lastNameError.textContent = 'Please enter your surname.';
+      lastNameInput.setAttribute('aria-invalid', 'true');
       isValid = false;
     } else {
-      contactMethodError.textContent = '';
-      contactMethodInput.removeAttribute('aria-invalid');
+      lastNameError.textContent = '';
+      lastNameInput.removeAttribute('aria-invalid');
+    }
+
+    if (!email) {
+      emailError.textContent = 'Please enter your email address.';
+      emailInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else {
+      emailError.textContent = '';
+      emailInput.removeAttribute('aria-invalid');
+    }
+
+    if (!contactNumber) {
+      contactNumberError.textContent = 'Please enter a contact number.';
+      contactNumberInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else {
+      contactNumberError.textContent = '';
+      contactNumberInput.removeAttribute('aria-invalid');
     }
 
     if (!isValid) {
@@ -157,23 +206,31 @@ document.addEventListener('DOMContentLoaded', function () {
     var itemType = !itemTypeGroup.hidden ? document.getElementById('printingItemType').value : null;
     var details = document.getElementById('printingDetails').value.trim();
     var ticketId = generateTicketId();
+    var total = updateTotal();
+    var unitPrice = currentUnitPrice();
 
     var detailsEl = document.getElementById('printingResultDetails');
     detailsEl.innerHTML = '';
     addDetailRow(detailsEl, 'Ticket ID', ticketId);
+    addDetailRow(detailsEl, 'Name', firstName + ' ' + lastName);
+    addDetailRow(detailsEl, 'Email', email);
+    addDetailRow(detailsEl, 'Contact Number', contactNumber);
     addDetailRow(detailsEl, 'Service', serviceType);
     if (itemType) addDetailRow(detailsEl, 'Item / Garment Type', itemType);
-    addDetailRow(detailsEl, 'Quantity', String(quantity));
+    addDetailRow(detailsEl, 'Quantity', String(quantity) + ' @ R' + unitPrice + ' each');
     if (details) addDetailRow(detailsEl, 'Additional Details', details);
-    addDetailRow(detailsEl, 'Contact', contactName + ' — ' + contactMethod);
+    addDetailRow(detailsEl, 'Estimated Total', 'R' + total);
 
     var messageLines = [
-      'Internet Smart Hub — Printing Request ' + ticketId,
+      'Internet Smart Hub — Printing Ticket ' + ticketId,
+      'Name: ' + firstName + ' ' + lastName,
+      'Email: ' + email,
+      'Contact Number: ' + contactNumber,
       'Service: ' + serviceType,
       itemType ? 'Item / Garment Type: ' + itemType : null,
-      'Quantity: ' + quantity,
+      'Quantity: ' + quantity + ' @ R' + unitPrice + ' each',
       details ? 'Additional Details: ' + details : null,
-      'Contact: ' + contactName + ' — ' + contactMethod
+      'Estimated Total: R' + total
     ].filter(function (line) { return line !== null; });
     var message = messageLines.join('\n');
 
@@ -182,8 +239,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var emailLink = document.getElementById('printingEmailLink');
     emailLink.href = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Printing Request ' + ticketId) +
+      encodeURIComponent('Printing Ticket ' + ticketId) +
       '&body=' + encodeURIComponent(message);
+
+    if (window.ISHTicket) {
+      window.ISHTicket.renderQR(document.getElementById('printingResultQR'), message);
+    }
 
     /*
      * Backend integration point: this request is not stored or emailed
@@ -194,9 +255,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.ISHRecords) {
       window.ISHRecords.save({
         id: ticketId,
-        type: 'Printing / Embroidery Request',
+        type: 'Printing / Embroidery Ticket',
         summary: message,
-        total: null,
+        total: total,
         details: message
       });
     }

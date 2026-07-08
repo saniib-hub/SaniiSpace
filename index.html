@@ -930,14 +930,16 @@
       <p class="quote-intro">Tell us what you need and roughly how many, and we'll get back to you with pricing.</p>
 
       <form id="printingForm" novalidate>
+        <p class="quote-group-note">Priced 10% below typical market rates per unit. Minimum order R10.</p>
+
         <div class="form-group">
           <label for="printingServiceType">Service</label>
           <select id="printingServiceType" name="serviceType">
-            <option value="Bundle Prints">Bundle Prints</option>
-            <option value="Embroidery Bulk">Embroidery Bulk (10-1000)</option>
-            <option value="Clothes Printing">Clothes Printing (Bulk)</option>
-            <option value="Sheet Printing">Sheet Printing (Bulk, 100-100,000)</option>
-            <option value="Poster Printing">Poster Printing (10-300)</option>
+            <option value="Bundle Prints" data-unit-price="1.80">Bundle Prints — R1.80/sheet (was R2.00)</option>
+            <option value="Embroidery Bulk" data-unit-price="108">Embroidery Bulk (10-1000) — R108/piece (was R120)</option>
+            <option value="Clothes Printing" data-unit-price="85.50">Clothes Printing (Bulk) — R85.50/piece (was R95)</option>
+            <option value="Sheet Printing" data-unit-price="0.90">Sheet Printing (Bulk, 100-100,000) — R0.90/sheet (was R1.00)</option>
+            <option value="Poster Printing" data-unit-price="72">Poster Printing (10-300) — R72/poster (was R80)</option>
           </select>
         </div>
 
@@ -962,32 +964,54 @@
           <span class="form-error" id="printingQuantityError" role="alert"></span>
         </div>
 
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="printingTotal">R0</span>
+        </div>
+
         <div class="form-group">
           <label for="printingDetails">Anything else we should know?</label>
           <textarea id="printingDetails" name="details" rows="3" placeholder="e.g. design/logo to print, colours, deadline..."></textarea>
         </div>
 
-        <div class="quote-device-fields">
-          <div class="form-group">
-            <label for="printingContactName">Your Name</label>
-            <input type="text" id="printingContactName" name="contactName" placeholder="e.g. Nomvula Dlamini">
-            <span class="form-error" id="printingContactNameError" role="alert"></span>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="printingFirstName">Name</label>
+              <input type="text" id="printingFirstName" name="firstName" placeholder="e.g. Nomvula">
+              <span class="form-error" id="printingFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="printingLastName">Surname</label>
+              <input type="text" id="printingLastName" name="lastName" placeholder="e.g. Dlamini">
+              <span class="form-error" id="printingLastNameError" role="alert"></span>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="printingContactMethod">Phone or Email</label>
-            <input type="text" id="printingContactMethod" name="contactMethod" placeholder="e.g. 082 123 4567">
-            <span class="form-error" id="printingContactMethodError" role="alert"></span>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="printingEmail">Email Address</label>
+              <input type="email" id="printingEmail" name="email" placeholder="e.g. you@example.com">
+              <span class="form-error" id="printingEmailError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="printingContactNumber">Contact Number</label>
+              <input type="text" id="printingContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567">
+              <span class="form-error" id="printingContactNumberError" role="alert"></span>
+            </div>
           </div>
-        </div>
+        </fieldset>
 
-        <button type="submit" class="btn btn-primary"><span>Send My Quote Request</span></button>
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
       </form>
     </div>
 
     <div class="quote-result" id="printingResult" hidden>
-      <h2>Thanks — We've Got Your Request</h2>
+      <h2>Your Ticket is Ready</h2>
       <div class="quote-result-details" id="printingResultDetails"></div>
-      <p class="quote-disclaimer">We'll follow up with pricing once we've looked over your request.</p>
+      <div class="ticket-qr" id="printingResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you ordered.</p>
+      <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store.</p>
       <div class="quote-result-actions">
         <a id="printingWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
         <a id="printingEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
