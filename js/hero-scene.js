@@ -95,6 +95,22 @@
     visibilityObserver.observe(container);
   }
 
+  // Scroll-driven parallax: as the hero scrolls up out of view, the wireframe
+  // and particle field drift at a different rate than the flat page content
+  // and pick up extra spin, giving the scene depth instead of a flat card.
+  var scrollProgress = 0;
+  function updateScrollProgress() {
+    var rect = container.getBoundingClientRect();
+    var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    var progress = 1 - (rect.top + rect.height) / (viewportHeight + rect.height);
+    scrollProgress = Math.min(Math.max(progress, -1), 1);
+  }
+
+  if (!prefersReducedMotion) {
+    updateScrollProgress();
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  }
+
   function animate() {
     requestAnimationFrame(animate);
 
@@ -103,10 +119,15 @@
     }
 
     if (!prefersReducedMotion) {
-      wireframe.rotation.y += 0.0025;
+      wireframe.rotation.y += 0.0025 + scrollProgress * 0.01;
       wireframe.rotation.x += 0.0009;
       particles.rotation.y += 0.0014;
       connectingLines.rotation.y += 0.0014;
+
+      wireframe.position.y = -scrollProgress * 0.7;
+      particles.position.y = -scrollProgress * 0.35;
+      connectingLines.position.y = -scrollProgress * 0.35;
+      camera.position.x = scrollProgress * 0.4;
     }
 
     renderer.render(scene, camera);

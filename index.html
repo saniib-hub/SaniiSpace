@@ -79,7 +79,7 @@
       <p class="section-sub reveal">Straightforward help for your computers, laptops and gaming rigs — no jargon, no runaround.</p>
 
       <div class="card-grid">
-        <article class="card reveal quote-open-card" style="--d:0" id="repairsCard" data-quote-section="repairsSection" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal quote-open-card" style="--d:0" id="repairsCard" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">💻</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -88,7 +88,7 @@
           <p>Fast, reliable repairs to get your computer or laptop back up and running.</p>
           <span class="card-cta">Get a repair quote →</span>
         </article>
-        <article class="card reveal quote-open-card" style="--d:1" id="gamingCard" data-quote-section="gamingSection" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal" style="--d:1" id="gamingCard" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🎮</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -97,7 +97,7 @@
           <p>Custom-built gaming PCs configured and optimized for how you play.</p>
           <span class="card-cta">Build your PC →</span>
         </article>
-        <article class="card reveal quote-open-card" style="--d:2" id="softwareCard" data-quote-section="softwareSection" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal" style="--d:2" id="softwareCard" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🛠️</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -114,6 +114,15 @@
           <h3>Workstation Setup</h3>
           <p>Computer and network setup for offices, shops or any workspace of your choice.</p>
           <span class="card-cta">Get a quote →</span>
+        </article>
+        <article class="card reveal" style="--d:4" id="cellphoneCard" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">📱</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Cell Phone Repairs</h3>
+          <p>iPhone screen, battery and charging port repairs, plus limited Android repairs.</p>
+          <span class="card-cta">Get a repair quote →</span>
         </article>
       </div>
     </div>
@@ -514,7 +523,7 @@
 
     <div id="quoteFormView">
       <h2 id="quoteDialogTitle">Get a Repair Quote</h2>
-      <p class="quote-intro">Select what's wrong, tell us about your device, and get an instant estimate. Grouped by our service categories.</p>
+      <p class="quote-intro">Tell us about your device and select what's wrong to get an instant estimate.</p>
 
       <form id="quoteForm" novalidate>
         <fieldset class="quote-group">
@@ -540,7 +549,7 @@
 
         <fieldset class="quote-group" id="repairsSection">
           <legend>Computer &amp; Laptop Repairs</legend>
-          <p class="quote-group-note">Replaceable hardware, priced 20% below typical market rates.</p>
+          <p class="quote-group-note">Replaceable hardware, competitively priced.</p>
 
           <div class="quote-device-fields">
             <div class="form-group">
@@ -601,13 +610,70 @@
           </label>
         </fieldset>
 
-        <fieldset class="quote-group" id="gamingSection">
+        <span class="form-error" id="quoteProblemsError" role="alert"></span>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="quoteTotal">R0</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="quoteResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
+      <h2>Your Ticket is Ready</h2>
+      <div class="quote-result-details" id="quoteResultDetails"></div>
+      <div class="ticket-qr" id="quoteResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
+      <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store.</p>
+      <div class="quote-result-actions">
+        <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="quoteEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="quoteRestart">Start a new quote</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="gamingDialog" class="quote-dialog" aria-labelledby="gamingDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="gamingClose" aria-label="Close Gaming PC quote form">&times;</button>
+
+    <div id="gamingFormView">
+      <h2 id="gamingDialogTitle">Gaming PC – Custom Setup</h2>
+      <p class="quote-intro">Pick the parts you need for a new build or self-fit upgrade, and get an instant estimate.</p>
+
+      <form id="gamingForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="gamingFirstName">Name</label>
+              <input type="text" id="gamingFirstName" name="firstName" placeholder="e.g. Thabo" autocomplete="given-name">
+              <span class="form-error" id="gamingFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="gamingLastName">Surname</label>
+              <input type="text" id="gamingLastName" name="lastName" placeholder="e.g. Nkosi" autocomplete="family-name">
+              <span class="form-error" id="gamingLastNameError" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gamingContactNumber">Contact Number</label>
+            <input type="text" id="gamingContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567" autocomplete="tel">
+            <span class="form-error" id="gamingContactNumberError" role="alert"></span>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group">
           <legend>Gaming PC – Custom Setup</legend>
-          <p class="quote-group-note">Build your own — pick only the parts you need. RAM is priced 20% below market; everything else is at market value.</p>
+          <p class="quote-group-note">Parts only, for a new build or self-fit upgrade, competitively priced. (Need us to fit a part into your existing device instead? See Computer &amp; Laptop Repairs — those prices include fitting.)</p>
 
           <div class="quote-select-row">
-            <label for="quoteMotherboard">Motherboard (4th Gen Intel)</label>
-            <select id="quoteMotherboard" name="motherboard" data-quote-select data-category="Motherboard">
+            <label for="gamingMotherboard">Motherboard (4th Gen Intel)</label>
+            <select id="gamingMotherboard" name="motherboard" data-quote-select data-category="Motherboard">
               <option value="0">Not needed</option>
               <option value="950">H81 Chipset (Entry) — R950</option>
               <option value="1400">B85 Chipset (Mid) — R1400</option>
@@ -616,8 +682,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteCpu">CPU (4th Generation Intel Core)</label>
-            <select id="quoteCpu" name="cpu" data-quote-select data-category="CPU">
+            <label for="gamingCpu">CPU (4th Generation Intel Core)</label>
+            <select id="gamingCpu" name="cpu" data-quote-select data-category="CPU">
               <option value="0">Not needed</option>
               <option value="750">Intel Core i3-4160 — R750</option>
               <option value="1200">Intel Core i5-4460 — R1200</option>
@@ -626,8 +692,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteGpu">Graphics Card</label>
-            <select id="quoteGpu" name="gpu" data-quote-select data-category="Graphics Card">
+            <label for="gamingGpu">Graphics Card</label>
+            <select id="gamingGpu" name="gpu" data-quote-select data-category="Graphics Card">
               <option value="0">Not needed</option>
               <option value="650">GT 710 1GB (Entry) — R650</option>
               <option value="1200">GTX 750 Ti 2GB (Budget) — R1200</option>
@@ -639,8 +705,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteRamDesktop">RAM — Desktop (PC3 / DDR3)</label>
-            <select id="quoteRamDesktop" name="ramDesktop" data-quote-select data-category="RAM (Desktop)">
+            <label for="gamingRamDesktop">RAM — Desktop (PC3 / DDR3)</label>
+            <select id="gamingRamDesktop" name="ramDesktop" data-quote-select data-category="RAM (Desktop)">
               <option value="0">Not needed</option>
               <option value="200">1GB PC3 — R200</option>
               <option value="360">4GB PC3 — R360</option>
@@ -649,8 +715,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteRamLaptop">RAM — Laptop (PC3 / DDR3 SODIMM)</label>
-            <select id="quoteRamLaptop" name="ramLaptop" data-quote-select data-category="RAM (Laptop)">
+            <label for="gamingRamLaptop">RAM — Laptop (PC3 / DDR3 SODIMM)</label>
+            <select id="gamingRamLaptop" name="ramLaptop" data-quote-select data-category="RAM (Laptop)">
               <option value="0">Not needed</option>
               <option value="224">1GB PC3 — R224</option>
               <option value="384">4GB PC3 — R384</option>
@@ -659,8 +725,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteCooler">Cooler / Fan</label>
-            <select id="quoteCooler" name="cooler" data-quote-select data-category="Cooler / Fan">
+            <label for="gamingCooler">Cooler / Fan</label>
+            <select id="gamingCooler" name="cooler" data-quote-select data-category="Cooler / Fan">
               <option value="0">Not needed</option>
               <option value="150">Standard Case Fan — R150</option>
               <option value="350">RGB Case Fan — R350</option>
@@ -672,8 +738,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteChassis">Gaming PC Chassis</label>
-            <select id="quoteChassis" name="chassis" data-quote-select data-category="Chassis">
+            <label for="gamingChassis">Gaming PC Chassis</label>
+            <select id="gamingChassis" name="chassis" data-quote-select data-category="Chassis">
               <option value="0">Not needed</option>
               <option value="650">Basic ATX Case — R650</option>
               <option value="1200">Mid-Tower Gaming Case (RGB) — R1200</option>
@@ -682,8 +748,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteMonitor">Monitor</label>
-            <select id="quoteMonitor" name="monitor" data-quote-select data-category="Monitor">
+            <label for="gamingMonitor">Monitor</label>
+            <select id="gamingMonitor" name="monitor" data-quote-select data-category="Monitor">
               <option value="0">Not needed</option>
               <option value="1800">21.5" 1080p — R1800</option>
               <option value="2200">24" 1080p — R2200</option>
@@ -693,8 +759,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quotePeripherals">Peripherals (Keyboard &amp; Mouse)</label>
-            <select id="quotePeripherals" name="peripherals" data-quote-select data-category="Peripherals">
+            <label for="gamingPeripherals">Peripherals (Keyboard &amp; Mouse)</label>
+            <select id="gamingPeripherals" name="peripherals" data-quote-select data-category="Peripherals">
               <option value="0">Not needed</option>
               <option value="350">Basic Combo — R350</option>
               <option value="950">Gaming Combo (RGB) — R950</option>
@@ -702,8 +768,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteSsd">SSD (2.5" SATA)</label>
-            <select id="quoteSsd" name="ssd" data-quote-select data-category="SSD">
+            <label for="gamingSsd">SSD (2.5" SATA)</label>
+            <select id="gamingSsd" name="ssd" data-quote-select data-category="SSD">
               <option value="0">Not needed</option>
               <option value="450">240GB — R450</option>
               <option value="650">480GB — R650</option>
@@ -712,8 +778,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteM2">M.2 NVMe SSD</label>
-            <select id="quoteM2" name="m2" data-quote-select data-category="M.2 NVMe SSD">
+            <label for="gamingM2">M.2 NVMe SSD</label>
+            <select id="gamingM2" name="m2" data-quote-select data-category="M.2 NVMe SSD">
               <option value="0">Not needed</option>
               <option value="550">256GB — R550</option>
               <option value="850">512GB — R850</option>
@@ -722,8 +788,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteExternal">External Storage</label>
-            <select id="quoteExternal" name="external" data-quote-select data-category="External Storage">
+            <label for="gamingExternal">External Storage</label>
+            <select id="gamingExternal" name="external" data-quote-select data-category="External Storage">
               <option value="0">Not needed</option>
               <option value="900">External HDD 1TB — R900</option>
               <option value="1400">External HDD 2TB — R1400</option>
@@ -732,8 +798,8 @@
           </div>
 
           <div class="quote-select-row">
-            <label for="quoteAccessories">PC Accessories</label>
-            <select id="quoteAccessories" name="accessories" data-quote-select data-category="PC Accessories">
+            <label for="gamingAccessories">PC Accessories</label>
+            <select id="gamingAccessories" name="accessories" data-quote-select data-category="PC Accessories">
               <option value="0">Not needed</option>
               <option value="250">Basic Pack (cables, thermal paste) — R250</option>
               <option value="650">Premium Pack (RGB strip, sleeved cables, fans) — R650</option>
@@ -741,13 +807,70 @@
           </div>
         </fieldset>
 
-        <fieldset class="quote-group" id="softwareSection">
+        <span class="form-error" id="gamingItemsError" role="alert"></span>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="gamingTotal">R0</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="gamingResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
+      <h2>Your Ticket is Ready</h2>
+      <div class="quote-result-details" id="gamingResultDetails"></div>
+      <div class="ticket-qr" id="gamingResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
+      <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store.</p>
+      <div class="quote-result-actions">
+        <a id="gamingWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="gamingEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="gamingRestart">Start a new quote</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="softwareDialog" class="quote-dialog" aria-labelledby="softwareDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="softwareClose" aria-label="Close software quote form">&times;</button>
+
+    <div id="softwareFormView">
+      <h2 id="softwareDialogTitle">Software Installation, Updates &amp; Support</h2>
+      <p class="quote-intro">Pick a package, add any extras, or just describe the issue — you'll get an instant ticket to show our technician.</p>
+
+      <form id="softwareForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="softwareFirstName">Name</label>
+              <input type="text" id="softwareFirstName" name="firstName" placeholder="e.g. Thabo" autocomplete="given-name">
+              <span class="form-error" id="softwareFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="softwareLastName">Surname</label>
+              <input type="text" id="softwareLastName" name="lastName" placeholder="e.g. Nkosi" autocomplete="family-name">
+              <span class="form-error" id="softwareLastNameError" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="softwareContactNumber">Contact Number</label>
+            <input type="text" id="softwareContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567" autocomplete="tel">
+            <span class="form-error" id="softwareContactNumberError" role="alert"></span>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group">
           <legend>Software Installation, Updates &amp; Support</legend>
-          <p class="quote-group-note">All software priced 20% below typical market rates. Pick an OS package and any add-ons you need.</p>
+          <p class="quote-group-note">Competitively priced. Pick an OS package and any add-ons you need, or just describe the issue below.</p>
 
           <div class="quote-select-row">
-            <label for="quoteOS">Operating System</label>
-            <select id="quoteOS" name="operatingSystem" data-quote-select data-category="Operating System">
+            <label for="softwareOS">Operating System</label>
+            <select id="softwareOS" name="operatingSystem" data-quote-select data-category="Operating System">
               <option value="0">Not needed / Already have OS</option>
               <option value="360">Windows 10 Installation — R360 (was R450)</option>
               <option value="400">Windows 11 Installation — R400 (was R500)</option>
@@ -778,44 +901,164 @@
             <span class="quote-item-price"><span class="quote-market-price">R300</span>R240</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" id="quoteSpecialSoftware" name="softwareAddon" value="Special Software Required" data-price="0"><span class="quote-item-label">Special Software Required</span></span>
+            <span class="quote-item-main"><input type="checkbox" id="softwareSpecialSoftware" name="softwareAddon" value="Special Software Required" data-price="0"><span class="quote-item-label">Special Software Required</span></span>
             <span class="quote-item-price">Quote on request</span>
           </label>
 
-          <div class="form-group" id="specialSoftwareGroup" hidden>
-            <label for="quoteSpecialSoftwareDetails">Describe the software you need</label>
-            <textarea id="quoteSpecialSoftwareDetails" name="specialSoftwareDetails" rows="2" placeholder="e.g. AutoCAD, QuickBooks, a specific game..."></textarea>
-            <span class="form-error" id="quoteSpecialSoftwareError" role="alert"></span>
+          <div class="form-group" id="softwareSpecialSoftwareGroup" hidden>
+            <label for="softwareSpecialSoftwareDetails">Describe the software you need</label>
+            <textarea id="softwareSpecialSoftwareDetails" name="specialSoftwareDetails" rows="2" placeholder="e.g. AutoCAD, QuickBooks, a specific game..."></textarea>
+            <span class="form-error" id="softwareSpecialSoftwareError" role="alert"></span>
           </div>
 
           <div class="form-group">
-            <label for="quoteSoftwareIssue">Anything else? (optional)</label>
-            <textarea id="quoteSoftwareIssue" name="softwareIssue" rows="2" placeholder="e.g. Windows won't update, laptop running very slow..."></textarea>
+            <label for="softwareIssue">Anything else? (optional)</label>
+            <textarea id="softwareIssue" name="softwareIssue" rows="2" placeholder="e.g. Windows won't update, laptop running very slow..."></textarea>
           </div>
         </fieldset>
 
-        <span class="form-error" id="quoteProblemsError" role="alert"></span>
+        <span class="form-error" id="softwareItemsError" role="alert"></span>
 
         <div class="quote-total-row">
           <span>Estimated Total</span>
-          <span class="quote-total" id="quoteTotal">R0</span>
+          <span class="quote-total" id="softwareTotal">R0</span>
         </div>
 
         <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
       </form>
     </div>
 
-    <div class="quote-result" id="quoteResult" hidden>
+    <div class="quote-result" id="softwareResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
       <h2>Your Ticket is Ready</h2>
-      <div class="quote-result-details" id="quoteResultDetails"></div>
-      <div class="ticket-qr" id="quoteResultQR"></div>
+      <div class="quote-result-details" id="softwareResultDetails"></div>
+      <div class="ticket-qr" id="softwareResultQR"></div>
       <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
       <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store. Software issues are diagnosed in person; show this ticket to our technician.</p>
       <div class="quote-result-actions">
-        <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
-        <a id="quoteEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+        <a id="softwareWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="softwareEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
       </div>
-      <button type="button" class="quote-restart" id="quoteRestart">Start a new quote</button>
+      <button type="button" class="quote-restart" id="softwareRestart">Start a new quote</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="cellphoneDialog" class="quote-dialog" aria-labelledby="cellphoneDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="cellphoneClose" aria-label="Close Cell Phone Repairs quote form">&times;</button>
+
+    <div id="cellphoneFormView">
+      <h2 id="cellphoneDialogTitle">Cell Phone Repairs</h2>
+      <p class="quote-intro">Tell us about your phone and the issue, and we'll get back to you to confirm the repair and final price.</p>
+
+      <form id="cellphoneForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="cellphoneFirstName">Name</label>
+              <input type="text" id="cellphoneFirstName" name="firstName" placeholder="e.g. Thabo" autocomplete="given-name">
+              <span class="form-error" id="cellphoneFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="cellphoneLastName">Surname</label>
+              <input type="text" id="cellphoneLastName" name="lastName" placeholder="e.g. Nkosi" autocomplete="family-name">
+              <span class="form-error" id="cellphoneLastNameError" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cellphoneContactNumber">Contact Number</label>
+            <input type="text" id="cellphoneContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567" autocomplete="tel">
+            <span class="form-error" id="cellphoneContactNumberError" role="alert"></span>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group" id="cellphoneSection">
+          <legend>Cell Phone Repairs</legend>
+          <p class="quote-group-note">Market-value pricing. Select what applies and describe the issue — we'll confirm compatibility and final price before starting any work.</p>
+
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="cellphoneBrandName">Brand Name</label>
+              <input type="text" id="cellphoneBrandName" name="brandName" placeholder="e.g. Apple, Samsung, Huawei">
+              <span class="form-error" id="cellphoneBrandNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="cellphoneModel">Model Number</label>
+              <input type="text" id="cellphoneModel" name="model" placeholder="e.g. iPhone 12, Galaxy A14">
+              <span class="form-error" id="cellphoneModelError" role="alert"></span>
+            </div>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="cellphoneScreen">iPhone Screen Replacement</label>
+            <select id="cellphoneScreen" name="iphoneScreen" data-quote-select data-category="iPhone Screen Replacement">
+              <option value="0">Not needed</option>
+              <option value="950">iPhone 6 / 7 / 8 — R950</option>
+              <option value="1800">iPhone X / XR / XS — R1800</option>
+              <option value="2800">iPhone 11 / 12 — R2800</option>
+              <option value="4500">iPhone 13 / 14 / 15 — R4500</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="cellphoneBattery">iPhone Battery Replacement</label>
+            <select id="cellphoneBattery" name="iphoneBattery" data-quote-select data-category="iPhone Battery Replacement">
+              <option value="0">Not needed</option>
+              <option value="899">iPhone 6 / 7 / 8 / XR — R899</option>
+              <option value="1099">iPhone X / XS / 11 — R1099</option>
+              <option value="1399">iPhone 12 — R1399</option>
+              <option value="2399">iPhone 13 / 14 / 15 — R2399</option>
+            </select>
+          </div>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="cellphonePart" value="Charging Port Repair (iPhone)" data-price="850"><span class="quote-item-label">Charging Port Repair (iPhone)</span></span>
+            <span class="quote-item-price">R850</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="cellphonePart" value="Charging Port Repair (Android)" data-price="650"><span class="quote-item-label">Charging Port Repair (Android)</span></span>
+            <span class="quote-item-price">R650</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="cellphonePart" value="Android Screen Replacement (Limited Models)" data-price="1200"><span class="quote-item-label">Android Screen Replacement (Limited Models)</span></span>
+            <span class="quote-item-price">R1200</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="cellphonePart" value="Android Battery Replacement (Limited Models)" data-price="650"><span class="quote-item-label">Android Battery Replacement (Limited Models)</span></span>
+            <span class="quote-item-price">R650</span>
+          </label>
+          <p class="quote-group-note">Android repairs are limited to select models — we'll confirm we can source parts for yours before booking you in.</p>
+
+          <div class="form-group">
+            <label for="cellphoneIssue">Describe the issue</label>
+            <textarea id="cellphoneIssue" name="issue" rows="3" placeholder="e.g. Screen is cracked and touch doesn't respond in the top corner..."></textarea>
+            <span class="form-error" id="cellphoneIssueError" role="alert"></span>
+          </div>
+        </fieldset>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="cellphoneTotal">R0</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="cellphoneResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
+      <h2>Your Ticket is Ready</h2>
+      <div class="quote-result-details" id="cellphoneResultDetails"></div>
+      <div class="ticket-qr" id="cellphoneResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
+      <p class="quote-disclaimer">Prices are indicative market-value estimates — we'll review your ticket and get back to you to confirm the repair and final price.</p>
+      <div class="quote-result-actions">
+        <a id="cellphoneWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="cellphoneEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="cellphoneRestart">Start a new quote</button>
     </div>
   </div>
 </dialog>
@@ -909,6 +1152,7 @@
     </div>
 
     <div class="quote-result" id="webDesignResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
       <h2>Thanks — We've Got Your Brief</h2>
       <div class="quote-result-details" id="webDesignResultDetails"></div>
       <p class="quote-disclaimer">We'll follow up with a proper quote once we've looked over your answers.</p>
@@ -1007,6 +1251,7 @@
     </div>
 
     <div class="quote-result" id="printingResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
       <h2>Your Ticket is Ready</h2>
       <div class="quote-result-details" id="printingResultDetails"></div>
       <div class="ticket-qr" id="printingResultQR"></div>
@@ -1053,6 +1298,7 @@
     </div>
 
     <div class="quote-result" id="stockInquiryResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
       <h2>Thanks — Message Ready to Send</h2>
       <div class="quote-result-details" id="stockInquiryResultDetails"></div>
       <p class="quote-disclaimer">Your email app should have opened with this message pre-filled — just hit send. You can also reach us on WhatsApp below.</p>
@@ -1151,6 +1397,7 @@
     </div>
 
     <div class="quote-result" id="workstationResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
       <h2>Order Request Sent</h2>
       <div class="quote-result-details" id="workstationResultDetails"></div>
       <div class="ticket-qr" id="workstationResultQR"></div>
@@ -1197,8 +1444,14 @@
 <script src="js/vendor/qrcode.js" defer></script>
 <script src="js/vendor/qrcode_UTF8.js" defer></script>
 <script src="js/ticket.js" defer></script>
+<script src="js/motion.js" defer></script>
 <script src="js/records.js" defer></script>
+<script src="js/backend-config.js" defer></script>
+<script src="js/backend.js" defer></script>
 <script src="js/quote.js" defer></script>
+<script src="js/gaming.js" defer></script>
+<script src="js/software.js" defer></script>
+<script src="js/cellphone.js" defer></script>
 <script src="js/web-design.js" defer></script>
 <script src="js/printing.js" defer></script>
 <script src="js/stock-inquiry.js" defer></script>

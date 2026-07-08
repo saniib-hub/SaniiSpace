@@ -93,13 +93,33 @@ document.addEventListener('DOMContentLoaded', function () {
   serviceTypeSelect.addEventListener('change', updateForServiceType);
   quantityInput.addEventListener('input', updateTotal);
 
+  if (window.ISHMotion) {
+    window.ISHMotion.bindDialog(dialog);
+  }
+
+  function showDialog() {
+    if (window.ISHMotion) {
+      window.ISHMotion.openDialog(dialog);
+    } else {
+      dialog.showModal();
+    }
+  }
+
+  function closeDialog() {
+    if (window.ISHMotion) {
+      window.ISHMotion.closeDialog(dialog);
+    } else {
+      dialog.close();
+    }
+  }
+
   document.querySelectorAll('.printing-open-card').forEach(function (card) {
     var serviceType = card.getAttribute('data-service-type');
 
     function open(event) {
       event.preventDefault();
       resetDialog(serviceType);
-      dialog.showModal();
+      showDialog();
     }
 
     card.addEventListener('click', open);
@@ -111,12 +131,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   closeBtn.addEventListener('click', function () {
-    dialog.close();
+    closeDialog();
   });
 
   dialog.addEventListener('click', function (event) {
     if (event.target === dialog) {
-      dialog.close();
+      closeDialog();
     }
   });
 
@@ -247,10 +267,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /*
-     * Backend integration point: this request is not stored or emailed
-     * automatically — the customer sends it themselves via the WhatsApp or
-     * email links above. To automate delivery, POST the request details to
-     * a backend endpoint here.
+     * This request is not automated by default — the customer sends it via
+     * the WhatsApp or email links above, and it's saved to this browser's
+     * local ticket log (js/records.js). If js/backend-config.js has a
+     * Google Sheets endpoint configured, it's also POSTed there.
      */
     if (window.ISHRecords) {
       window.ISHRecords.save({
@@ -262,7 +282,23 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    if (window.ISHBackend) {
+      window.ISHBackend.submit({
+        type: 'Printing / Embroidery Ticket',
+        id: ticketId,
+        name: firstName + ' ' + lastName,
+        email: email,
+        contact: contactNumber,
+        total: total,
+        summary: message
+      });
+    }
+
     formView.hidden = true;
     resultView.hidden = false;
+
+    if (window.ISHMotion) {
+      window.ISHMotion.celebrate(resultView);
+    }
   });
 });

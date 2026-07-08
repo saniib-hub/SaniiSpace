@@ -39,20 +39,36 @@ document.addEventListener('DOMContentLoaded', function () {
     introEl.textContent = 'Tell us what ' + currentStockType.toLowerCase() + ' item you\'re looking for and we\'ll get back to you.';
   }
 
+  if (window.ISHMotion) {
+    window.ISHMotion.bindDialog(dialog);
+  }
+
+  function closeDialog() {
+    if (window.ISHMotion) {
+      window.ISHMotion.closeDialog(dialog);
+    } else {
+      dialog.close();
+    }
+  }
+
   triggerButtons.forEach(function (button) {
     button.addEventListener('click', function () {
       resetDialog(button.getAttribute('data-stock-type'));
-      dialog.showModal();
+      if (window.ISHMotion) {
+        window.ISHMotion.openDialog(dialog);
+      } else {
+        dialog.showModal();
+      }
     });
   });
 
   closeBtn.addEventListener('click', function () {
-    dialog.close();
+    closeDialog();
   });
 
   dialog.addEventListener('click', function (event) {
     if (event.target === dialog) {
-      dialog.close();
+      closeDialog();
     }
   });
 
@@ -137,13 +153,23 @@ document.addEventListener('DOMContentLoaded', function () {
     whatsappLink.href = 'https://wa.me/27697304534?text=' + encodeURIComponent(fullMessage);
 
     /*
-     * Backend integration point: this inquiry is not stored or emailed
-     * automatically — clicking "Send Email" below opens the customer's own
-     * email client with the message pre-filled (mailto: links cannot send
-     * mail directly from JavaScript). To send this automatically without
-     * the customer's own email client, POST it to a backend endpoint or a
-     * service like Formspree here instead.
+     * Clicking "Send Email" opens the customer's own email client with the
+     * message pre-filled (mailto: links cannot send mail directly from
+     * JavaScript). It's also saved to this browser's local ticket log
+     * (js/records.js). If js/backend-config.js has a Google Sheets
+     * endpoint configured, it's also POSTed there.
      */
+    if (window.ISHBackend) {
+      window.ISHBackend.submit({
+        type: 'Stock Inquiry (' + currentStockType + ')',
+        id: inquiryId,
+        name: name,
+        contact: contact,
+        total: null,
+        summary: fullMessage
+      });
+    }
+
     if (window.ISHRecords) {
       window.ISHRecords.save({
         id: inquiryId,
@@ -156,6 +182,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     formView.hidden = true;
     resultView.hidden = false;
+
+    if (window.ISHMotion) {
+      window.ISHMotion.celebrate(resultView);
+    }
 
     // Open the customer's email client immediately with the message ready
     window.location.href = emailHref;

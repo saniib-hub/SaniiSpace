@@ -112,19 +112,35 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  if (window.ISHMotion) {
+    window.ISHMotion.bindDialog(dialog);
+  }
+
+  function closeDialog() {
+    if (window.ISHMotion) {
+      window.ISHMotion.closeDialog(dialog);
+    } else {
+      dialog.close();
+    }
+  }
+
   openLink.addEventListener('click', function (event) {
     event.preventDefault();
     render();
-    dialog.showModal();
+    if (window.ISHMotion) {
+      window.ISHMotion.openDialog(dialog);
+    } else {
+      dialog.showModal();
+    }
   });
 
   closeBtn.addEventListener('click', function () {
-    dialog.close();
+    closeDialog();
   });
 
   dialog.addEventListener('click', function (event) {
     if (event.target === dialog) {
-      dialog.close();
+      closeDialog();
     }
   });
 
