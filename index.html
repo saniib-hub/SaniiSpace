@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internet Smart Hub — Computer Repairs, Gaming PCs, Software Support & Web Design</title>
+<meta name="description" content="Internet Smart Hub: computer & laptop repairs, custom gaming PC setup, software installation & support, workstation setup, online applications (SARS, Labour, UIF, PSIRA), web design & cloud setup, and bulk printing & embroidery.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Internet Smart Hub — Computer Repairs, Gaming PCs, Software Support & Web Design">
+<meta property="og:description" content="Your local hub for computer repairs, gaming PCs, software support, online applications and web design.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="logo">Internet <span class="logo-accent">Smart Hub</span></a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation menu">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#digital-services">Digital Services</a></li>
+        <li><a href="#for-sale-used">For Sale</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Introduction">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-brand hero-anim" aria-hidden="true">
+          <span class="hero-brand-line1">Internet</span>
+          <span class="hero-brand-line2">Smart Hub</span>
+        </div>
+        <h1 class="hero-anim">Your local hub for computer repairs, gaming PCs &amp; digital services.</h1>
+        <p class="hero-sub hero-anim">Computer and laptop repairs, custom gaming PC builds, software support, online applications, and web design — all handled by one trusted local team.</p>
+        <div class="hero-actions hero-anim">
+          <a href="#contact" class="btn btn-primary" id="getQuoteBtn"><span>Get a Repair Quote</span></a>
+          <a href="#services" class="btn btn-secondary"><span>See Services</span></a>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual" aria-hidden="true">
+        <div class="circuit-pattern"></div>
+        <canvas id="heroCanvas"></canvas>
+        <div class="scan-line"></div>
+        <div class="diagnostic-panel">
+          <span class="diagnostic-dot"></span>
+          <span class="diagnostic-text" id="diagnosticText">Diagnosing…</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services" aria-label="Tech support and repair services">
+    <div class="container">
+      <h2 class="section-title reveal">Tech Support &amp; Repairs</h2>
+      <p class="section-sub reveal">Straightforward help for your computers, laptops and gaming rigs — no jargon, no runaround.</p>
+
+      <div class="card-grid">
+        <article class="card reveal quote-open-card" style="--d:0" id="repairsCard" data-quote-section="repairsSection" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">💻</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Computer &amp; Laptop Repairs</h3>
+          <p>Fast, reliable repairs to get your computer or laptop back up and running.</p>
+          <span class="card-cta">Get a repair quote →</span>
+        </article>
+        <article class="card reveal quote-open-card" style="--d:1" id="gamingCard" data-quote-section="gamingSection" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🎮</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Gaming PC – Custom Setup</h3>
+          <p>Custom-built gaming PCs configured and optimized for how you play.</p>
+          <span class="card-cta">Build your PC →</span>
+        </article>
+        <article class="card reveal quote-open-card" style="--d:2" id="softwareCard" data-quote-section="softwareSection" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🛠️</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Software Installation, Updates &amp; Support</h3>
+          <p>Installs, updates and ongoing support to keep your software running smoothly.</p>
+          <span class="card-cta">Describe your issue →</span>
+        </article>
+        <article class="card reveal quote-open-card" style="--d:3" id="workstationCard" data-quote-section="repairsSection" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🏢</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Workstation Setup</h3>
+          <p>Computer and network setup for offices, shops or any workspace of your choice.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Printing & Embroidery (part of Services) -->
+  <section class="services" id="printing" aria-label="Printing and embroidery services">
+    <div class="container">
+      <h2 class="section-title reveal">Printing &amp; Embroidery</h2>
+      <p class="section-sub reveal">Bulk printing and embroidery for businesses, events and personal projects.</p>
+
+      <div class="card-grid">
+        <article class="card reveal printing-open-card" style="--d:0" data-service-type="Bundle Prints" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">📦</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Bundle Prints</h3>
+          <p>Print your documents in bulk bundles, ready to go.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+        <article class="card reveal printing-open-card" style="--d:1" data-service-type="Embroidery Bulk" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🧵</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Embroidery Bulk (10-1000)</h3>
+          <p>Custom embroidery on T-shirts, work suits, hoodies, beanies, hats, caps, pants &amp; more.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+        <article class="card reveal printing-open-card" style="--d:2" data-service-type="Clothes Printing" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">👕</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Clothes Printing (Bulk)</h3>
+          <p>Bulk printing on T-shirts, hoodies, caps and other garments.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+        <article class="card reveal printing-open-card" style="--d:3" data-service-type="Sheet Printing" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">📄</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Sheet Printing (Bulk)</h3>
+          <p>Bulk sheet printing, from 100 up to 100,000 sheets.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+        <article class="card reveal printing-open-card" style="--d:4" data-service-type="Poster Printing" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🖼️</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Poster Printing (10-300)</h3>
+          <p>Poster printing in bulk, from 10 up to 300 copies.</p>
+          <span class="card-cta">Get a quote →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Services -->
+  <section class="digital-services" id="digital-services" aria-label="Online and digital services">
+    <div class="container">
+      <h2 class="section-title reveal">Online &amp; Digital Services</h2>
+      <p class="section-sub reveal">From government applications to getting your business online — we handle the digital side for you.</p>
+
+      <div class="card-grid">
+        <article class="card walk-in-card reveal" style="--d:0" tabindex="0" role="button" aria-describedby="walkInBadge1">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🖱️</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Online Applications</h3>
+          <p>Help completing and submitting your online applications and forms.</p>
+          <span class="walk-in-badge" id="walkInBadge1" role="tooltip">
+            <span class="walk-in-icon" aria-hidden="true">🚶</span>
+            Walk-in service — visit our shop
+          </span>
+        </article>
+        <article class="card walk-in-card reveal" style="--d:1" tabindex="0" role="button" aria-describedby="walkInBadge2">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🪪</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>SARS, Labour, UIF &amp; PSIRA</h3>
+          <p>Assistance with SARS, Labour, UIF and PSIRA registrations and applications.</p>
+          <span class="walk-in-badge" id="walkInBadge2" role="tooltip">
+            <span class="walk-in-icon" aria-hidden="true">🚶</span>
+            Walk-in service — visit our shop
+          </span>
+        </article>
+        <article class="card reveal" id="web-design" style="--d:2" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🌐</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Web Design &amp; Cloud Setup</h3>
+          <p>Simple, professional websites and cloud setup to help your business get online.</p>
+          <span class="card-cta">Tell us about your project →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second-Hand For Sale -->
+  <section class="for-sale for-sale-used" id="for-sale-used" aria-label="Second-hand hardware for sale">
+    <div class="container">
+      <span class="badge badge-sale reveal">For Sale</span>
+      <h2 class="section-title reveal">Second-Hand Hardware</h2>
+      <p class="section-sub reveal">Tested, working second-hand stock. Prices below are typical starting prices — the exact price depends on the specific unit and its condition. Ask us what's in stock right now.</p>
+
+      <div class="card-grid">
+        <article class="card reveal" style="--d:0">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🖥️</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>PCs &amp; Peripherals</h3>
+          <ul class="price-list">
+            <li><span>PC Box (Desktop)</span><span>From R999</span></li>
+            <li><span>Monitor</span><span>From R350</span></li>
+            <li><span>Keyboard</span><span>From R80</span></li>
+            <li><span>Mouse</span><span>From R60</span></li>
+            <li><span>Printer</span><span>From R350</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal" style="--d:1">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🔧</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Components</h3>
+          <ul class="price-list">
+            <li><span>Motherboard</span><span>From R450</span></li>
+            <li><span>Power Supply</span><span>From R300</span></li>
+            <li><span>RAM</span><span>From R300</span></li>
+            <li><span>Graphics Card</span><span>From R1800</span></li>
+            <li><span>CPU</span><span>From R500</span></li>
+            <li><span>Hard Drive</span><span>From R300</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal" style="--d:2">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🔌</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Cables &amp; Adapters</h3>
+          <ul class="price-list">
+            <li><span>VGA Cable</span><span>From R100</span></li>
+            <li><span>HDMI to VGA</span><span>From R150</span></li>
+            <li><span>DVI Cable</span><span>From R120</span></li>
+            <li><span>DisplayPort</span><span>From R150</span></li>
+            <li><span>DisplayPort to VGA</span><span>From R150</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal" style="--d:3">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🔋</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Laptop Chargers</h3>
+          <p>Replacement chargers for most laptop brands.</p>
+          <ul class="price-list">
+            <li><span>Laptop Charger</span><span>From R250</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="for-sale-cta reveal">
+        <button type="button" class="btn btn-primary stock-inquiry-btn" data-stock-type="Second-Hand"><span>Ask About Current Stock</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Parts For Sale -->
+  <section class="for-sale for-sale-new" id="for-sale-new" aria-label="New hardware for sale">
+    <div class="container">
+      <span class="badge badge-sale reveal">New Stock</span>
+      <h2 class="section-title reveal">Brand New Hardware</h2>
+      <p class="section-sub reveal">Boxed, brand-new parts and accessories. Prices below are typical starting prices — contact us for exact pricing and availability.</p>
+
+      <div class="card-grid">
+        <article class="card reveal" style="--d:0">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🖥️</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>PCs &amp; Peripherals</h3>
+          <ul class="price-list">
+            <li><span>PC (Entry Level)</span><span>From R6500</span></li>
+            <li><span>Monitor</span><span>From R1800</span></li>
+            <li><span>Keyboard</span><span>From R150</span></li>
+            <li><span>Mouse</span><span>From R120</span></li>
+            <li><span>Printer</span><span>From R1200</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal" style="--d:1">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🔧</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Components</h3>
+          <ul class="price-list">
+            <li><span>Motherboard</span><span>From R1200</span></li>
+            <li><span>Power Supply</span><span>From R600</span></li>
+            <li><span>RAM</span><span>From R499</span></li>
+            <li><span>Graphics Card</span><span>From R2200</span></li>
+            <li><span>CPU</span><span>From R1500</span></li>
+            <li><span>Hard Drive</span><span>From R650</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal" style="--d:2">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🔌</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Cables &amp; Adapters</h3>
+          <ul class="price-list">
+            <li><span>VGA Cable</span><span>From R150</span></li>
+            <li><span>HDMI to VGA</span><span>From R200</span></li>
+            <li><span>DVI Cable</span><span>From R180</span></li>
+            <li><span>DisplayPort</span><span>From R180</span></li>
+            <li><span>DisplayPort to VGA</span><span>From R200</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal" style="--d:3">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">🔋</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Laptop Chargers</h3>
+          <p>New replacement chargers for most laptop brands.</p>
+          <ul class="price-list">
+            <li><span>Laptop Charger</span><span>From R750</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="for-sale-cta reveal">
+        <button type="button" class="btn btn-primary stock-inquiry-btn" data-stock-type="New"><span>Ask About New Stock</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon strip -->
+  <section class="coming-soon" aria-label="Coming soon">
+    <div class="container coming-soon-inner reveal">
+      <span class="badge">Coming Soon</span>
+      <p>Cell phones for purchase — coming soon.</p>
+    </div>
+  </section>
+
+  <!-- About / Our Story -->
+  <section class="about-story" id="about" aria-label="About Internet Smart Hub">
+    <div class="container">
+      <h2 class="section-title reveal">Our Story</h2>
+      <p class="section-sub reveal">From a backroom hustle to a trusted local hub.</p>
+
+      <div class="timeline">
+        <div class="timeline-item reveal" style="--d:0">
+          <span class="timeline-year">2014</span>
+          <h3>Started From the Backrooms</h3>
+          <p>Internet Smart Hub began small — fixing computers and phones out of the backrooms, built on word of mouth and getting the job done right.</p>
+        </div>
+        <div class="timeline-item reveal" style="--d:1">
+          <span class="timeline-year">2019</span>
+          <h3>Went Mobile</h3>
+          <p>We took the workshop on the road, bringing repairs and support directly to customers wherever they needed us.</p>
+        </div>
+        <div class="timeline-item reveal" style="--d:2">
+          <span class="timeline-year">2025</span>
+          <h3>Opened Our Alexandra Shop</h3>
+          <p>In July 2025, we planted our flag with a proper base of operation in Alexandra — a home for everything we do.</p>
+        </div>
+        <div class="timeline-item reveal" style="--d:3">
+          <span class="timeline-year">Today</span>
+          <h3>Steady Growth, Strong Delivery</h3>
+          <p>We keep growing, one satisfied customer at a time — the same honest, reliable service that got us here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why choose us -->
+  <section class="why-us" id="why-us" aria-label="Why choose Internet Smart Hub">
+    <div class="container">
+      <h2 class="section-title reveal">Why Choose Us</h2>
+
+      <div class="why-grid">
+        <div class="why-item reveal" style="--d:0">
+          <div class="why-icon" aria-hidden="true">⚡</div>
+          <h3>Fast Turnaround</h3>
+          <p>We know you need your devices back — we work quickly without cutting corners.</p>
+        </div>
+        <div class="why-item reveal" style="--d:1">
+          <div class="why-icon" aria-hidden="true">🤝</div>
+          <h3>Honest Diagnosis</h3>
+          <p>We tell you exactly what's wrong and what it'll take to fix it. No surprises.</p>
+        </div>
+        <div class="why-item reveal" style="--d:2">
+          <div class="why-icon" aria-hidden="true">📍</div>
+          <h3>One Stop for Tech &amp; Digital</h3>
+          <p>Repairs, gaming builds, applications and web design — all under one roof.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact" aria-label="Contact us">
+    <div class="container contact-inner">
+      <div class="contact-info reveal">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">Need a repair, a gaming PC build, or just have a question? Reach out any way that suits you.</p>
+
+        <ul class="contact-details">
+          <li>
+            <span class="contact-label">Phone</span>
+            <a href="tel:+27697304534">069 730 4534</a>
+          </li>
+          <li>
+            <span class="contact-label">WhatsApp</span>
+            <a href="https://wa.me/27697304534" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
+          </li>
+          <li>
+            <span class="contact-label">Email</span>
+            <a href="mailto:internetsmarthub@gmail.com">internetsmarthub@gmail.com</a>
+          </li>
+          <li>
+            <span class="contact-label">Address</span>
+            <span>38-16th Avenue, Alexandra, 2090</span>
+          </li>
+          <li>
+            <span class="contact-label">Opening Hours</span>
+            <span id="openingHours">Mon–Fri 07:30–19:30 · Sat 09:00–18:00 · Sun 08:30–19:00</span>
+            <span class="hours-note" id="hoursNote">Hours are extending from 1 Aug: Mon–Fri 06:30–21:00 · Sat 08:00–19:00 · Sun 07:00–20:00</span>
+          </li>
+        </ul>
+
+        <div class="contact-qr reveal">
+          <img src="assets/qr-location.png" alt="QR code linking to Internet Smart Hub's location on Google Maps" width="120" height="120" loading="lazy">
+          <div class="contact-qr-text">
+            <span class="contact-label">Find Us</span>
+            <p>Scan the code to get directions to our shop.</p>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=5844%2016th%20Avenue%2C%20Alexandra%2C%202090%2C%20South%20Africa" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name">
+          <span class="form-error" id="nameError" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="contactMethod">Phone or Email</label>
+          <input type="text" id="contactMethod" name="contactMethod" required autocomplete="email">
+          <span class="form-error" id="contactMethodError" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">What do you need help with?</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <span class="form-error" id="messageError" role="alert"></span>
+        </div>
+
+        <!--
+          Backend integration point:
+          This form currently validates on the client only and shows a success
+          message without sending data anywhere. To make it functional, wire it
+          up to a backend endpoint or a service like Formspree, e.g.:
+          <form action="https://formspree.io/f/yourFormId" method="POST">
+        -->
+
+        <button type="submit" class="btn btn-primary"><span>Send Message</span></button>
+
+        <p class="form-success" id="formSuccess" role="status" hidden>
+          Thanks! Your message has been received — we'll get back to you soon.
+        </p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<dialog id="quoteDialog" class="quote-dialog" aria-labelledby="quoteDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="quoteClose" aria-label="Close quote form">&times;</button>
+
+    <div id="quoteFormView">
+      <h2 id="quoteDialogTitle">Get a Repair Quote</h2>
+      <p class="quote-intro">Select what's wrong, tell us about your device, and get an instant estimate. Grouped by our service categories.</p>
+
+      <form id="quoteForm" novalidate>
+        <fieldset class="quote-group" id="repairsSection">
+          <legend>Computer &amp; Laptop Repairs</legend>
+          <p class="quote-group-note">Replaceable hardware, priced 20% below typical market rates.</p>
+
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="quoteBrandName">Brand Name</label>
+              <input type="text" id="quoteBrandName" name="brandName" placeholder="e.g. HP, Dell, Lenovo">
+              <span class="form-error" id="quoteBrandNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="quoteModel">Model</label>
+              <input type="text" id="quoteModel" name="model" placeholder="e.g. Pavilion 15-eh1xxx">
+              <span class="form-error" id="quoteModelError" role="alert"></span>
+            </div>
+          </div>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Diagnostic Fee" data-price="240"><span class="quote-item-label">Diagnostic Fee</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R300</span>R240</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Laptop Battery Replacement" data-price="640"><span class="quote-item-label">Laptop Battery Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R800</span>R640</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Laptop Keyboard Replacement" data-price="480"><span class="quote-item-label">Laptop Keyboard Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R600</span>R480</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Screen / Display Replacement" data-price="1440"><span class="quote-item-label">Screen / Display Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R1800</span>R1440</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="RAM Upgrade / Replacement (8GB)" data-price="560"><span class="quote-item-label">RAM Upgrade / Replacement (8GB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R700</span>R560</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="HDD Replacement (1TB)" data-price="720"><span class="quote-item-label">HDD Replacement (1TB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R900</span>R720</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="SSD Replacement (480GB)" data-price="800"><span class="quote-item-label">SSD Replacement (480GB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R1000</span>R800</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Charging Port / DC Jack Repair" data-price="520"><span class="quote-item-label">Charging Port / DC Jack Repair</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R650</span>R520</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Internal Cooling Fan Replacement" data-price="360"><span class="quote-item-label">Internal Cooling Fan Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R450</span>R360</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Motherboard Repair / Replacement" data-price="2800"><span class="quote-item-label">Motherboard Repair / Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R3500</span>R2800</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="repairPart" value="Power Adapter / Charger Replacement" data-price="440"><span class="quote-item-label">Power Adapter / Charger Replacement</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R550</span>R440</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group" id="gamingSection">
+          <legend>Gaming PC – Custom Setup</legend>
+          <p class="quote-group-note">Build your own — pick only the parts you need. RAM is priced 20% below market; everything else is at market value.</p>
+
+          <div class="quote-select-row">
+            <label for="quoteMotherboard">Motherboard (4th Gen Intel)</label>
+            <select id="quoteMotherboard" name="motherboard" data-quote-select data-category="Motherboard">
+              <option value="0">Not needed</option>
+              <option value="950">H81 Chipset (Entry) — R950</option>
+              <option value="1400">B85 Chipset (Mid) — R1400</option>
+              <option value="2200">Z97 Chipset (High-End) — R2200</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteCpu">CPU (4th Generation Intel Core)</label>
+            <select id="quoteCpu" name="cpu" data-quote-select data-category="CPU">
+              <option value="0">Not needed</option>
+              <option value="750">Intel Core i3-4160 — R750</option>
+              <option value="1200">Intel Core i5-4460 — R1200</option>
+              <option value="2100">Intel Core i7-4770 — R2100</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteGpu">Graphics Card</label>
+            <select id="quoteGpu" name="gpu" data-quote-select data-category="Graphics Card">
+              <option value="0">Not needed</option>
+              <option value="650">GT 710 1GB (Entry) — R650</option>
+              <option value="1200">GTX 750 Ti 2GB (Budget) — R1200</option>
+              <option value="2800">GTX 1650 4GB (Mid-Range) — R2800</option>
+              <option value="6500">RTX 3060 8GB (High Performance) — R6500</option>
+              <option value="11500">RTX 3080 12GB (Enthusiast) — R11500</option>
+              <option value="21000">RTX 4080 16GB (High-End Gaming) — R21000</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteRamDesktop">RAM — Desktop (PC3 / DDR3)</label>
+            <select id="quoteRamDesktop" name="ramDesktop" data-quote-select data-category="RAM (Desktop)">
+              <option value="0">Not needed</option>
+              <option value="200">1GB PC3 — R200</option>
+              <option value="360">4GB PC3 — R360</option>
+              <option value="560">8GB PC3 — R560</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteRamLaptop">RAM — Laptop (PC3 / DDR3 SODIMM)</label>
+            <select id="quoteRamLaptop" name="ramLaptop" data-quote-select data-category="RAM (Laptop)">
+              <option value="0">Not needed</option>
+              <option value="224">1GB PC3 — R224</option>
+              <option value="384">4GB PC3 — R384</option>
+              <option value="600">8GB PC3 — R600</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteCooler">Cooler / Fan</label>
+            <select id="quoteCooler" name="cooler" data-quote-select data-category="Cooler / Fan">
+              <option value="0">Not needed</option>
+              <option value="150">Standard Case Fan — R150</option>
+              <option value="350">RGB Case Fan — R350</option>
+              <option value="450">Standard CPU Air Cooler — R450</option>
+              <option value="900">High-End Tower Air Cooler — R900</option>
+              <option value="1500">AIO Liquid Cooler 120mm — R1500</option>
+              <option value="2500">AIO Liquid Cooler 240mm (High-End) — R2500</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteChassis">Gaming PC Chassis</label>
+            <select id="quoteChassis" name="chassis" data-quote-select data-category="Chassis">
+              <option value="0">Not needed</option>
+              <option value="650">Basic ATX Case — R650</option>
+              <option value="1200">Mid-Tower Gaming Case (RGB) — R1200</option>
+              <option value="2200">Full-Tower Premium Case — R2200</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteMonitor">Monitor</label>
+            <select id="quoteMonitor" name="monitor" data-quote-select data-category="Monitor">
+              <option value="0">Not needed</option>
+              <option value="1800">21.5" 1080p — R1800</option>
+              <option value="2200">24" 1080p — R2200</option>
+              <option value="4200">27" 1440p — R4200</option>
+              <option value="7500">32" 4K — R7500</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quotePeripherals">Peripherals (Keyboard &amp; Mouse)</label>
+            <select id="quotePeripherals" name="peripherals" data-quote-select data-category="Peripherals">
+              <option value="0">Not needed</option>
+              <option value="350">Basic Combo — R350</option>
+              <option value="950">Gaming Combo (RGB) — R950</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteSsd">SSD (2.5" SATA)</label>
+            <select id="quoteSsd" name="ssd" data-quote-select data-category="SSD">
+              <option value="0">Not needed</option>
+              <option value="450">240GB — R450</option>
+              <option value="650">480GB — R650</option>
+              <option value="1100">1TB — R1100</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteM2">M.2 NVMe SSD</label>
+            <select id="quoteM2" name="m2" data-quote-select data-category="M.2 NVMe SSD">
+              <option value="0">Not needed</option>
+              <option value="550">256GB — R550</option>
+              <option value="850">512GB — R850</option>
+              <option value="1400">1TB — R1400</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteExternal">External Storage</label>
+            <select id="quoteExternal" name="external" data-quote-select data-category="External Storage">
+              <option value="0">Not needed</option>
+              <option value="900">External HDD 1TB — R900</option>
+              <option value="1400">External HDD 2TB — R1400</option>
+              <option value="1600">External SSD 1TB — R1600</option>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="quoteAccessories">PC Accessories</label>
+            <select id="quoteAccessories" name="accessories" data-quote-select data-category="PC Accessories">
+              <option value="0">Not needed</option>
+              <option value="250">Basic Pack (cables, thermal paste) — R250</option>
+              <option value="650">Premium Pack (RGB strip, sleeved cables, fans) — R650</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group" id="softwareSection">
+          <legend>Software Installation, Updates &amp; Support</legend>
+          <p class="quote-group-note">Priced at market value. Pick an OS package and any add-ons you need.</p>
+
+          <div class="quote-select-row">
+            <label for="quoteOS">Operating System</label>
+            <select id="quoteOS" name="operatingSystem" data-quote-select data-category="Operating System">
+              <option value="0">Not needed / Already have OS</option>
+              <option value="450">Windows 10 Installation — R450</option>
+              <option value="500">Windows 11 Installation — R500</option>
+              <option value="400">Windows 7 Installation (Legacy) — R400</option>
+              <option value="400">Linux (Ubuntu / Mint) Installation — R400</option>
+              <option value="550">macOS Reinstall / Recovery — R550</option>
+            </select>
+          </div>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Anti-Virus Installation & Setup" data-price="150"><span class="quote-item-label">Anti-Virus Installation &amp; Setup</span></span>
+            <span class="quote-item-price">R150</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Video / Media Player Installation" data-price="100"><span class="quote-item-label">Video / Media Player Installation</span></span>
+            <span class="quote-item-price">R100</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" id="quoteSpecialSoftware" name="softwareAddon" value="Special Software Required" data-price="0"><span class="quote-item-label">Special Software Required</span></span>
+            <span class="quote-item-price">Quote on request</span>
+          </label>
+
+          <div class="form-group" id="specialSoftwareGroup" hidden>
+            <label for="quoteSpecialSoftwareDetails">Describe the software you need</label>
+            <textarea id="quoteSpecialSoftwareDetails" name="specialSoftwareDetails" rows="2" placeholder="e.g. AutoCAD, QuickBooks, a specific game..."></textarea>
+            <span class="form-error" id="quoteSpecialSoftwareError" role="alert"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="quoteSoftwareIssue">Anything else? (optional)</label>
+            <textarea id="quoteSoftwareIssue" name="softwareIssue" rows="2" placeholder="e.g. Windows won't update, laptop running very slow..."></textarea>
+          </div>
+        </fieldset>
+
+        <span class="form-error" id="quoteProblemsError" role="alert"></span>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="quoteTotal">R0</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="quoteResult" hidden>
+      <h2>Your Ticket is Ready</h2>
+      <div class="quote-result-details" id="quoteResultDetails"></div>
+      <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store. Software issues are diagnosed in person; show this ticket to our technician.</p>
+      <div class="quote-result-actions">
+        <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="quoteEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="quoteRestart">Start a new quote</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="webDesignDialog" class="quote-dialog" aria-labelledby="webDesignDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="webDesignClose" aria-label="Close web design brief form">&times;</button>
+
+    <div id="webDesignFormView">
+      <h2 id="webDesignDialogTitle">Tell Us About Your Project</h2>
+      <p class="quote-intro">Answer a few quick questions and we'll get back to you with what's involved.</p>
+
+      <form id="webDesignForm" novalidate>
+        <div class="form-group">
+          <label for="wdProjectType">What do you need?</label>
+          <select id="wdProjectType" name="projectType">
+            <option value="New Website">New Website</option>
+            <option value="Redesign of Existing Website">Redesign of Existing Website</option>
+            <option value="Online Store / E-commerce">Online Store / E-commerce</option>
+            <option value="Booking / Reservation System">Booking / Reservation System</option>
+            <option value="Custom Web App or System">Custom Web App or System</option>
+            <option value="Not Sure Yet">Not Sure Yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="wdExistingSite">Existing website (if any)</label>
+          <input type="text" id="wdExistingSite" name="existingSite" placeholder="e.g. www.yourbusiness.co.za, or leave blank">
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="wdPages">Approximate pages needed</label>
+            <select id="wdPages" name="pages">
+              <option value="1-3 pages">1-3 pages</option>
+              <option value="4-6 pages">4-6 pages</option>
+              <option value="7-10 pages">7-10 pages</option>
+              <option value="10+ pages">10+ pages</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wdTimeline">Preferred timeline</label>
+            <select id="wdTimeline" name="timeline">
+              <option value="As soon as possible">As soon as possible</option>
+              <option value="2-4 weeks">2-4 weeks</option>
+              <option value="1-3 months">1-3 months</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="wdHosting">Need cloud / hosting setup too?</label>
+            <select id="wdHosting" name="hosting">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="Not sure">Not sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wdBranding">Logo / branding ready?</label>
+            <select id="wdBranding" name="branding">
+              <option value="Yes, it's ready">Yes, it's ready</option>
+              <option value="No, need help with this too">No, need help with this too</option>
+              <option value="Somewhat">Somewhat</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="wdDetails">Anything else we should know?</label>
+          <textarea id="wdDetails" name="details" rows="3" placeholder="e.g. must-have features, competitor sites you like, budget range..."></textarea>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="wdContactName">Your Name</label>
+            <input type="text" id="wdContactName" name="contactName" placeholder="e.g. Thabo Nkosi">
+            <span class="form-error" id="wdContactNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="wdContactMethod">Phone or Email</label>
+            <input type="text" id="wdContactMethod" name="contactMethod" placeholder="e.g. 082 123 4567">
+            <span class="form-error" id="wdContactMethodError" role="alert"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Send My Brief</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="webDesignResult" hidden>
+      <h2>Thanks — We've Got Your Brief</h2>
+      <div class="quote-result-details" id="webDesignResultDetails"></div>
+      <p class="quote-disclaimer">We'll follow up with a proper quote once we've looked over your answers.</p>
+      <div class="quote-result-actions">
+        <a id="webDesignWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="webDesignEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="webDesignRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="printingDialog" class="quote-dialog" aria-labelledby="printingDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="printingClose" aria-label="Close printing quote form">&times;</button>
+
+    <div id="printingFormView">
+      <h2 id="printingDialogTitle">Get a Printing / Embroidery Quote</h2>
+      <p class="quote-intro">Tell us what you need and roughly how many, and we'll get back to you with pricing.</p>
+
+      <form id="printingForm" novalidate>
+        <div class="form-group">
+          <label for="printingServiceType">Service</label>
+          <select id="printingServiceType" name="serviceType">
+            <option value="Bundle Prints">Bundle Prints</option>
+            <option value="Embroidery Bulk">Embroidery Bulk (10-1000)</option>
+            <option value="Clothes Printing">Clothes Printing (Bulk)</option>
+            <option value="Sheet Printing">Sheet Printing (Bulk, 100-100,000)</option>
+            <option value="Poster Printing">Poster Printing (10-300)</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="printingItemTypeGroup" hidden>
+          <label for="printingItemType">Item / Garment Type</label>
+          <select id="printingItemType" name="itemType">
+            <option value="T-Shirts">T-Shirts</option>
+            <option value="Work Suits">Work Suits</option>
+            <option value="Hoodies">Hoodies</option>
+            <option value="Beanies">Beanies</option>
+            <option value="Hats">Hats</option>
+            <option value="Caps">Caps</option>
+            <option value="Pants">Pants</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="printingQuantity">Quantity</label>
+          <input type="number" id="printingQuantity" name="quantity" min="1" placeholder="e.g. 50">
+          <span class="quote-group-note" id="printingQuantityHint"></span>
+          <span class="form-error" id="printingQuantityError" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="printingDetails">Anything else we should know?</label>
+          <textarea id="printingDetails" name="details" rows="3" placeholder="e.g. design/logo to print, colours, deadline..."></textarea>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="printingContactName">Your Name</label>
+            <input type="text" id="printingContactName" name="contactName" placeholder="e.g. Nomvula Dlamini">
+            <span class="form-error" id="printingContactNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="printingContactMethod">Phone or Email</label>
+            <input type="text" id="printingContactMethod" name="contactMethod" placeholder="e.g. 082 123 4567">
+            <span class="form-error" id="printingContactMethodError" role="alert"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Send My Quote Request</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="printingResult" hidden>
+      <h2>Thanks — We've Got Your Request</h2>
+      <div class="quote-result-details" id="printingResultDetails"></div>
+      <p class="quote-disclaimer">We'll follow up with pricing once we've looked over your request.</p>
+      <div class="quote-result-actions">
+        <a id="printingWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
+        <a id="printingEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="printingRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="stockInquiryDialog" class="quote-dialog" aria-labelledby="stockInquiryTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="stockInquiryClose" aria-label="Close stock inquiry form">&times;</button>
+
+    <div id="stockInquiryFormView">
+      <h2 id="stockInquiryTitle">Ask About Stock</h2>
+      <p class="quote-intro" id="stockInquiryIntro">Tell us what you're looking for and we'll get back to you.</p>
+
+      <form id="stockInquiryForm" novalidate>
+        <div class="form-group">
+          <label for="stockInquiryMessage">What are you looking for?</label>
+          <textarea id="stockInquiryMessage" name="message" rows="4" placeholder="e.g. Do you have any second-hand 24&quot; monitors in stock?"></textarea>
+          <span class="form-error" id="stockInquiryMessageError" role="alert"></span>
+        </div>
+
+        <div class="quote-device-fields">
+          <div class="form-group">
+            <label for="stockInquiryName">Your Name</label>
+            <input type="text" id="stockInquiryName" name="name" placeholder="e.g. Sipho Mokoena">
+            <span class="form-error" id="stockInquiryNameError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="stockInquiryContact">Phone or Email (optional)</label>
+            <input type="text" id="stockInquiryContact" name="contact" placeholder="e.g. 082 123 4567">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Send Email</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="stockInquiryResult" hidden>
+      <h2>Thanks — Message Ready to Send</h2>
+      <div class="quote-result-details" id="stockInquiryResultDetails"></div>
+      <p class="quote-disclaimer">Your email app should have opened with this message pre-filled — just hit send. You can also reach us on WhatsApp below.</p>
+      <div class="quote-result-actions">
+        <a id="stockInquiryEmailLink" class="btn btn-primary"><span>Open Email Again</span></a>
+        <a id="stockInquiryWhatsappLink" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp Instead</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="stockInquiryRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">Internet Smart Hub</p>
+    <p class="footer-summary">Computer &amp; laptop repairs · Gaming PC builds · Software support · Web design · Printing &amp; embroidery</p>
+    <p class="footer-copy">&copy; <span id="year"></span> Internet Smart Hub. All rights reserved.</p>
+    <a href="#" class="footer-staff-link" id="viewRecordsLink">Staff: View Saved Tickets</a>
+  </div>
+</footer>
+
+<dialog id="recordsDialog" class="quote-dialog" aria-labelledby="recordsDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="recordsClose" aria-label="Close saved tickets">&times;</button>
+    <h2 id="recordsDialogTitle">Saved Tickets &amp; Briefs</h2>
+    <p class="quote-intro">Saved on this device only — not a shared database. Clearing browser data or using a different device won't show these.</p>
+
+    <p class="records-empty" id="recordsEmpty" hidden>No tickets saved on this device yet.</p>
+    <ul class="records-list" id="recordsList"></ul>
+
+    <div class="records-actions">
+      <button type="button" class="btn btn-secondary" id="recordsExport" hidden><span>Export as CSV</span></button>
+      <button type="button" class="quote-restart" id="recordsClear" hidden>Clear all saved tickets</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/vendor/three.min.js" defer></script>
+<script src="js/vendor/gsap.min.js" defer></script>
+<script src="js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/hero-scene.js" defer></script>
+<script src="js/records.js" defer></script>
+<script src="js/quote.js" defer></script>
+<script src="js/web-design.js" defer></script>
+<script src="js/printing.js" defer></script>
+<script src="js/stock-inquiry.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
