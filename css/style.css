@@ -661,7 +661,8 @@ html.has-js .hero-anim {
 /* ---------- Web Design card hint ---------- */
 #web-design,
 .quote-open-card,
-.printing-open-card {
+.printing-open-card,
+#workstationCard {
   cursor: pointer;
 }
 
@@ -1273,6 +1274,28 @@ html.has-js .reveal.in-view {
   font-size: 0.85rem;
   color: var(--muted);
   font-style: italic;
+}
+
+.ticket-qr {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 8px;
+}
+
+.ticket-qr img {
+  width: 160px;
+  height: 160px;
+  border: 8px solid #fff;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+}
+
+.ticket-qr-caption {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 16px;
 }
 
 .quote-result-actions {

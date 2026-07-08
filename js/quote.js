@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var repairCheckboxes = form.querySelectorAll('input[name="repairPart"]');
   var gamingSelects = form.querySelectorAll('[data-quote-select]');
   var softwareAddonCheckboxes = form.querySelectorAll('input[name="softwareAddon"]');
+  var firstNameInput = document.getElementById('quoteFirstName');
+  var lastNameInput = document.getElementById('quoteLastName');
+  var contactNumberInput = document.getElementById('quoteContactNumber');
+  var firstNameError = document.getElementById('quoteFirstNameError');
+  var lastNameError = document.getElementById('quoteLastNameError');
+  var contactNumberError = document.getElementById('quoteContactNumberError');
   var brandNameInput = document.getElementById('quoteBrandName');
   var modelInput = document.getElementById('quoteModel');
   var brandNameError = document.getElementById('quoteBrandNameError');
@@ -32,9 +38,15 @@ document.addEventListener('DOMContentLoaded', function () {
     form.reset();
     updateTotal();
     problemsErrorEl.textContent = '';
+    firstNameError.textContent = '';
+    lastNameError.textContent = '';
+    contactNumberError.textContent = '';
     brandNameError.textContent = '';
     modelError.textContent = '';
     specialSoftwareError.textContent = '';
+    firstNameInput.removeAttribute('aria-invalid');
+    lastNameInput.removeAttribute('aria-invalid');
+    contactNumberInput.removeAttribute('aria-invalid');
     brandNameInput.removeAttribute('aria-invalid');
     modelInput.removeAttribute('aria-invalid');
     specialSoftwareDetailsInput.removeAttribute('aria-invalid');
@@ -223,6 +235,37 @@ document.addEventListener('DOMContentLoaded', function () {
       problemsErrorEl.textContent = '';
     }
 
+    var firstName = firstNameInput.value.trim();
+    var lastName = lastNameInput.value.trim();
+    var contactNumber = contactNumberInput.value.trim();
+
+    if (!firstName) {
+      firstNameError.textContent = 'Please enter your name.';
+      firstNameInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else {
+      firstNameError.textContent = '';
+      firstNameInput.removeAttribute('aria-invalid');
+    }
+
+    if (!lastName) {
+      lastNameError.textContent = 'Please enter your surname.';
+      lastNameInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else {
+      lastNameError.textContent = '';
+      lastNameInput.removeAttribute('aria-invalid');
+    }
+
+    if (!contactNumber) {
+      contactNumberError.textContent = 'Please enter a contact number.';
+      contactNumberInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else {
+      contactNumberError.textContent = '';
+      contactNumberInput.removeAttribute('aria-invalid');
+    }
+
     var brandName = brandNameInput.value.trim();
     var model = modelInput.value.trim();
 
@@ -290,6 +333,8 @@ document.addEventListener('DOMContentLoaded', function () {
     detailsEl.innerHTML = '';
 
     addDetailRow(detailsEl, 'Ticket ID', ticketId);
+    addDetailRow(detailsEl, 'Name', firstName + ' ' + lastName);
+    addDetailRow(detailsEl, 'Contact Number', contactNumber);
     if (brandName) addDetailRow(detailsEl, 'Brand', brandName);
     if (model) addDetailRow(detailsEl, 'Model', model);
     if (repairItems.length) addListRow(detailsEl, 'Repair Parts', repairItems);
@@ -302,6 +347,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ---------- Build the WhatsApp / email message ----------
     var messageLines = ['Internet Smart Hub — Ticket ' + ticketId];
+    messageLines.push('Name: ' + firstName + ' ' + lastName);
+    messageLines.push('Contact Number: ' + contactNumber);
     if (brandName) messageLines.push('Brand: ' + brandName);
     if (model) messageLines.push('Model: ' + model);
     repairItems.forEach(function (item) {
@@ -332,6 +379,10 @@ document.addEventListener('DOMContentLoaded', function () {
     emailLink.href = 'mailto:internetsmarthub@gmail.com?subject=' +
       encodeURIComponent('Internet Smart Hub Ticket ' + ticketId) +
       '&body=' + encodeURIComponent(message);
+
+    if (window.ISHTicket) {
+      window.ISHTicket.renderQR(document.getElementById('quoteResultQR'), message);
+    }
 
     /*
      * Backend integration point: this ticket is not stored or emailed

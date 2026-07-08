@@ -106,7 +106,7 @@
           <p>Installs, updates and ongoing support to keep your software running smoothly.</p>
           <span class="card-cta">Describe your issue →</span>
         </article>
-        <article class="card reveal quote-open-card" style="--d:3" id="workstationCard" data-quote-section="repairsSection" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal" style="--d:3" id="workstationCard" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🏢</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -517,6 +517,27 @@
       <p class="quote-intro">Select what's wrong, tell us about your device, and get an instant estimate. Grouped by our service categories.</p>
 
       <form id="quoteForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="quoteFirstName">Name</label>
+              <input type="text" id="quoteFirstName" name="firstName" placeholder="e.g. Thabo" autocomplete="given-name">
+              <span class="form-error" id="quoteFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="quoteLastName">Surname</label>
+              <input type="text" id="quoteLastName" name="lastName" placeholder="e.g. Nkosi" autocomplete="family-name">
+              <span class="form-error" id="quoteLastNameError" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="quoteContactNumber">Contact Number</label>
+            <input type="text" id="quoteContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567" autocomplete="tel">
+            <span class="form-error" id="quoteContactNumberError" role="alert"></span>
+          </div>
+        </fieldset>
+
         <fieldset class="quote-group" id="repairsSection">
           <legend>Computer &amp; Laptop Repairs</legend>
           <p class="quote-group-note">Replaceable hardware, priced 20% below typical market rates.</p>
@@ -722,27 +743,39 @@
 
         <fieldset class="quote-group" id="softwareSection">
           <legend>Software Installation, Updates &amp; Support</legend>
-          <p class="quote-group-note">Priced at market value. Pick an OS package and any add-ons you need.</p>
+          <p class="quote-group-note">All software priced 20% below typical market rates. Pick an OS package and any add-ons you need.</p>
 
           <div class="quote-select-row">
             <label for="quoteOS">Operating System</label>
             <select id="quoteOS" name="operatingSystem" data-quote-select data-category="Operating System">
               <option value="0">Not needed / Already have OS</option>
-              <option value="450">Windows 10 Installation — R450</option>
-              <option value="500">Windows 11 Installation — R500</option>
-              <option value="400">Windows 7 Installation (Legacy) — R400</option>
-              <option value="400">Linux (Ubuntu / Mint) Installation — R400</option>
-              <option value="550">macOS Reinstall / Recovery — R550</option>
+              <option value="360">Windows 10 Installation — R360 (was R450)</option>
+              <option value="400">Windows 11 Installation — R400 (was R500)</option>
+              <option value="320">Windows 7 Installation (Legacy) — R320 (was R400)</option>
+              <option value="320">Linux (Ubuntu / Mint) Installation — R320 (was R400)</option>
+              <option value="440">macOS Reinstall / Recovery — R440 (was R550)</option>
             </select>
           </div>
 
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Anti-Virus Installation & Setup" data-price="150"><span class="quote-item-label">Anti-Virus Installation &amp; Setup</span></span>
-            <span class="quote-item-price">R150</span>
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Anti-Virus Installation & Setup" data-price="160"><span class="quote-item-label">Anti-Virus Installation &amp; Setup</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R200</span>R160</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Video / Media Player Installation" data-price="100"><span class="quote-item-label">Video / Media Player Installation</span></span>
-            <span class="quote-item-price">R100</span>
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Video / Media Player Installation" data-price="120"><span class="quote-item-label">Video / Media Player Installation</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R150</span>R120</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Office Suite Installation (MS Office / LibreOffice)" data-price="280"><span class="quote-item-label">Office Suite Installation (MS Office / LibreOffice)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R350</span>R280</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="PDF & Document Tools Installation" data-price="120"><span class="quote-item-label">PDF &amp; Document Tools Installation</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R150</span>R120</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Photo Editing Software Installation" data-price="240"><span class="quote-item-label">Photo Editing Software Installation</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R300</span>R240</span>
           </label>
           <label class="quote-item">
             <span class="quote-item-main"><input type="checkbox" id="quoteSpecialSoftware" name="softwareAddon" value="Special Software Required" data-price="0"><span class="quote-item-label">Special Software Required</span></span>
@@ -775,6 +808,8 @@
     <div class="quote-result" id="quoteResult" hidden>
       <h2>Your Ticket is Ready</h2>
       <div class="quote-result-details" id="quoteResultDetails"></div>
+      <div class="ticket-qr" id="quoteResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
       <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store. Software issues are diagnosed in person; show this ticket to our technician.</p>
       <div class="quote-result-actions">
         <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
@@ -895,14 +930,16 @@
       <p class="quote-intro">Tell us what you need and roughly how many, and we'll get back to you with pricing.</p>
 
       <form id="printingForm" novalidate>
+        <p class="quote-group-note">Priced 10% below typical market rates per unit. Minimum order R10.</p>
+
         <div class="form-group">
           <label for="printingServiceType">Service</label>
           <select id="printingServiceType" name="serviceType">
-            <option value="Bundle Prints">Bundle Prints</option>
-            <option value="Embroidery Bulk">Embroidery Bulk (10-1000)</option>
-            <option value="Clothes Printing">Clothes Printing (Bulk)</option>
-            <option value="Sheet Printing">Sheet Printing (Bulk, 100-100,000)</option>
-            <option value="Poster Printing">Poster Printing (10-300)</option>
+            <option value="Bundle Prints" data-unit-price="1.80">Bundle Prints — R1.80/sheet (was R2.00)</option>
+            <option value="Embroidery Bulk" data-unit-price="108">Embroidery Bulk (10-1000) — R108/piece (was R120)</option>
+            <option value="Clothes Printing" data-unit-price="85.50">Clothes Printing (Bulk) — R85.50/piece (was R95)</option>
+            <option value="Sheet Printing" data-unit-price="0.90">Sheet Printing (Bulk, 100-100,000) — R0.90/sheet (was R1.00)</option>
+            <option value="Poster Printing" data-unit-price="72">Poster Printing (10-300) — R72/poster (was R80)</option>
           </select>
         </div>
 
@@ -927,32 +964,54 @@
           <span class="form-error" id="printingQuantityError" role="alert"></span>
         </div>
 
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="printingTotal">R0</span>
+        </div>
+
         <div class="form-group">
           <label for="printingDetails">Anything else we should know?</label>
           <textarea id="printingDetails" name="details" rows="3" placeholder="e.g. design/logo to print, colours, deadline..."></textarea>
         </div>
 
-        <div class="quote-device-fields">
-          <div class="form-group">
-            <label for="printingContactName">Your Name</label>
-            <input type="text" id="printingContactName" name="contactName" placeholder="e.g. Nomvula Dlamini">
-            <span class="form-error" id="printingContactNameError" role="alert"></span>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="printingFirstName">Name</label>
+              <input type="text" id="printingFirstName" name="firstName" placeholder="e.g. Nomvula">
+              <span class="form-error" id="printingFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="printingLastName">Surname</label>
+              <input type="text" id="printingLastName" name="lastName" placeholder="e.g. Dlamini">
+              <span class="form-error" id="printingLastNameError" role="alert"></span>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="printingContactMethod">Phone or Email</label>
-            <input type="text" id="printingContactMethod" name="contactMethod" placeholder="e.g. 082 123 4567">
-            <span class="form-error" id="printingContactMethodError" role="alert"></span>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="printingEmail">Email Address</label>
+              <input type="email" id="printingEmail" name="email" placeholder="e.g. you@example.com">
+              <span class="form-error" id="printingEmailError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="printingContactNumber">Contact Number</label>
+              <input type="text" id="printingContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567">
+              <span class="form-error" id="printingContactNumberError" role="alert"></span>
+            </div>
           </div>
-        </div>
+        </fieldset>
 
-        <button type="submit" class="btn btn-primary"><span>Send My Quote Request</span></button>
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
       </form>
     </div>
 
     <div class="quote-result" id="printingResult" hidden>
-      <h2>Thanks — We've Got Your Request</h2>
+      <h2>Your Ticket is Ready</h2>
       <div class="quote-result-details" id="printingResultDetails"></div>
-      <p class="quote-disclaimer">We'll follow up with pricing once we've looked over your request.</p>
+      <div class="ticket-qr" id="printingResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you ordered.</p>
+      <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store.</p>
       <div class="quote-result-actions">
         <a id="printingWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
         <a id="printingEmailLink" class="btn btn-secondary"><span>Send via Email</span></a>
@@ -1006,6 +1065,106 @@
   </div>
 </dialog>
 
+<dialog id="workstationDialog" class="quote-dialog" aria-labelledby="workstationDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="workstationClose" aria-label="Close workstation setup form">&times;</button>
+
+    <div id="workstationFormView">
+      <h2 id="workstationDialogTitle">Workstation Setup</h2>
+      <p class="quote-intro">Pick everything you need for your office, shop or workspace. Prices are 10% below typical market rates.</p>
+
+      <form id="workstationForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>PC Models (4th Generation)</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i3)" data-price="3150"><span class="quote-item-label">PC (4th Gen Intel Core i3)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R3500</span>R3150</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i5)" data-price="4050"><span class="quote-item-label">PC (4th Gen Intel Core i5)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R4500</span>R4050</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i7)" data-price="5400"><span class="quote-item-label">PC (4th Gen Intel Core i7)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R6000</span>R5400</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Peripherals &amp; Accessories</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Monitor" data-price="1620"><span class="quote-item-label">Monitor</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R1800</span>R1620</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Headset (with Microphone)" data-price="495"><span class="quote-item-label">Headset (with Microphone)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R550</span>R495</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Headphones" data-price="315"><span class="quote-item-label">Headphones</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R350</span>R315</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Landline / Desk Phone" data-price="405"><span class="quote-item-label">Landline / Desk Phone</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R450</span>R405</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="USB Flash Drive (32GB)" data-price="135"><span class="quote-item-label">USB Flash Drive (32GB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R150</span>R135</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Bluetooth Speaker (Speakerphone, for calls)" data-price="810"><span class="quote-item-label">Bluetooth Speaker (Speakerphone, for calls)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R900</span>R810</span>
+          </label>
+        </fieldset>
+
+        <span class="form-error" id="workstationItemsError" role="alert"></span>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="workstationTotal">R0</span>
+        </div>
+
+        <fieldset class="quote-group">
+          <legend>To Carry Out Your Order</legend>
+          <div class="form-group">
+            <label for="workstationName">Business Name, or Your Name</label>
+            <input type="text" id="workstationName" name="businessOrName" placeholder="e.g. Alexandra Hair Studio, or Thabo Nkosi">
+            <span class="form-error" id="workstationNameError" role="alert"></span>
+          </div>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="workstationEmail">Email Address</label>
+              <input type="email" id="workstationEmail" name="email" placeholder="e.g. you@example.com">
+              <span class="form-error" id="workstationEmailError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="workstationContactNumber">Contact Number</label>
+              <input type="text" id="workstationContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567">
+              <span class="form-error" id="workstationContactNumberError" role="alert"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary"><span>Place Order Request</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="workstationResult" hidden>
+      <h2>Order Request Sent</h2>
+      <div class="quote-result-details" id="workstationResultDetails"></div>
+      <div class="ticket-qr" id="workstationResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you ordered.</p>
+      <p class="quote-disclaimer">Your email app should have opened with this order pre-filled to internetsmarthub@gmail.com — just hit send. Prices are indicative and confirmed once we're in touch.</p>
+      <div class="quote-result-actions">
+        <a id="workstationEmailLink" class="btn btn-primary"><span>Open Email Again</span></a>
+        <a id="workstationWhatsappLink" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp Instead</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="workstationRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-logo">Internet Smart Hub</p>
@@ -1035,11 +1194,15 @@
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/hero-scene.js" defer></script>
+<script src="js/vendor/qrcode.js" defer></script>
+<script src="js/vendor/qrcode_UTF8.js" defer></script>
+<script src="js/ticket.js" defer></script>
 <script src="js/records.js" defer></script>
 <script src="js/quote.js" defer></script>
 <script src="js/web-design.js" defer></script>
 <script src="js/printing.js" defer></script>
 <script src="js/stock-inquiry.js" defer></script>
+<script src="js/workstation.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
