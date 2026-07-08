@@ -517,6 +517,27 @@
       <p class="quote-intro">Select what's wrong, tell us about your device, and get an instant estimate. Grouped by our service categories.</p>
 
       <form id="quoteForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="quoteFirstName">Name</label>
+              <input type="text" id="quoteFirstName" name="firstName" placeholder="e.g. Thabo" autocomplete="given-name">
+              <span class="form-error" id="quoteFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="quoteLastName">Surname</label>
+              <input type="text" id="quoteLastName" name="lastName" placeholder="e.g. Nkosi" autocomplete="family-name">
+              <span class="form-error" id="quoteLastNameError" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="quoteContactNumber">Contact Number</label>
+            <input type="text" id="quoteContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567" autocomplete="tel">
+            <span class="form-error" id="quoteContactNumberError" role="alert"></span>
+          </div>
+        </fieldset>
+
         <fieldset class="quote-group" id="repairsSection">
           <legend>Computer &amp; Laptop Repairs</legend>
           <p class="quote-group-note">Replaceable hardware, priced 20% below typical market rates.</p>
@@ -722,27 +743,39 @@
 
         <fieldset class="quote-group" id="softwareSection">
           <legend>Software Installation, Updates &amp; Support</legend>
-          <p class="quote-group-note">Priced at market value. Pick an OS package and any add-ons you need.</p>
+          <p class="quote-group-note">All software priced 20% below typical market rates. Pick an OS package and any add-ons you need.</p>
 
           <div class="quote-select-row">
             <label for="quoteOS">Operating System</label>
             <select id="quoteOS" name="operatingSystem" data-quote-select data-category="Operating System">
               <option value="0">Not needed / Already have OS</option>
-              <option value="450">Windows 10 Installation — R450</option>
-              <option value="500">Windows 11 Installation — R500</option>
-              <option value="400">Windows 7 Installation (Legacy) — R400</option>
-              <option value="400">Linux (Ubuntu / Mint) Installation — R400</option>
-              <option value="550">macOS Reinstall / Recovery — R550</option>
+              <option value="360">Windows 10 Installation — R360 (was R450)</option>
+              <option value="400">Windows 11 Installation — R400 (was R500)</option>
+              <option value="320">Windows 7 Installation (Legacy) — R320 (was R400)</option>
+              <option value="320">Linux (Ubuntu / Mint) Installation — R320 (was R400)</option>
+              <option value="440">macOS Reinstall / Recovery — R440 (was R550)</option>
             </select>
           </div>
 
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Anti-Virus Installation & Setup" data-price="150"><span class="quote-item-label">Anti-Virus Installation &amp; Setup</span></span>
-            <span class="quote-item-price">R150</span>
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Anti-Virus Installation & Setup" data-price="160"><span class="quote-item-label">Anti-Virus Installation &amp; Setup</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R200</span>R160</span>
           </label>
           <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Video / Media Player Installation" data-price="100"><span class="quote-item-label">Video / Media Player Installation</span></span>
-            <span class="quote-item-price">R100</span>
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Video / Media Player Installation" data-price="120"><span class="quote-item-label">Video / Media Player Installation</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R150</span>R120</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Office Suite Installation (MS Office / LibreOffice)" data-price="280"><span class="quote-item-label">Office Suite Installation (MS Office / LibreOffice)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R350</span>R280</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="PDF & Document Tools Installation" data-price="120"><span class="quote-item-label">PDF &amp; Document Tools Installation</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R150</span>R120</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="softwareAddon" value="Photo Editing Software Installation" data-price="240"><span class="quote-item-label">Photo Editing Software Installation</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R300</span>R240</span>
           </label>
           <label class="quote-item">
             <span class="quote-item-main"><input type="checkbox" id="quoteSpecialSoftware" name="softwareAddon" value="Special Software Required" data-price="0"><span class="quote-item-label">Special Software Required</span></span>
@@ -775,6 +808,8 @@
     <div class="quote-result" id="quoteResult" hidden>
       <h2>Your Ticket is Ready</h2>
       <div class="quote-result-details" id="quoteResultDetails"></div>
+      <div class="ticket-qr" id="quoteResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
       <p class="quote-disclaimer">Prices are indicative estimates based on typical market rates and may vary — final pricing is confirmed in-store. Software issues are diagnosed in person; show this ticket to our technician.</p>
       <div class="quote-result-actions">
         <a id="quoteWhatsappLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp</span></a>
@@ -1035,11 +1070,15 @@
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/hero-scene.js" defer></script>
+<script src="js/vendor/qrcode.js" defer></script>
+<script src="js/vendor/qrcode_UTF8.js" defer></script>
+<script src="js/ticket.js" defer></script>
 <script src="js/records.js" defer></script>
 <script src="js/quote.js" defer></script>
 <script src="js/web-design.js" defer></script>
 <script src="js/printing.js" defer></script>
 <script src="js/stock-inquiry.js" defer></script>
+<script src="js/workstation.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
