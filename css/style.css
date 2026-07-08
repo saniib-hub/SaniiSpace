@@ -661,7 +661,8 @@ html.has-js .hero-anim {
 /* ---------- Web Design card hint ---------- */
 #web-design,
 .quote-open-card,
-.printing-open-card {
+.printing-open-card,
+#workstationCard {
   cursor: pointer;
 }
 

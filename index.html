@@ -106,7 +106,7 @@
           <p>Installs, updates and ongoing support to keep your software running smoothly.</p>
           <span class="card-cta">Describe your issue →</span>
         </article>
-        <article class="card reveal quote-open-card" style="--d:3" id="workstationCard" data-quote-section="repairsSection" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal" style="--d:3" id="workstationCard" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🏢</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -1061,6 +1061,106 @@
         <a id="stockInquiryWhatsappLink" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp Instead</span></a>
       </div>
       <button type="button" class="quote-restart" id="stockInquiryRestart">Start over</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="workstationDialog" class="quote-dialog" aria-labelledby="workstationDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="workstationClose" aria-label="Close workstation setup form">&times;</button>
+
+    <div id="workstationFormView">
+      <h2 id="workstationDialogTitle">Workstation Setup</h2>
+      <p class="quote-intro">Pick everything you need for your office, shop or workspace. Prices are 10% below typical market rates.</p>
+
+      <form id="workstationForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>PC Models (4th Generation)</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i3)" data-price="3150"><span class="quote-item-label">PC (4th Gen Intel Core i3)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R3500</span>R3150</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i5)" data-price="4050"><span class="quote-item-label">PC (4th Gen Intel Core i5)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R4500</span>R4050</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i7)" data-price="5400"><span class="quote-item-label">PC (4th Gen Intel Core i7)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R6000</span>R5400</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Peripherals &amp; Accessories</legend>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Monitor" data-price="1620"><span class="quote-item-label">Monitor</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R1800</span>R1620</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Headset (with Microphone)" data-price="495"><span class="quote-item-label">Headset (with Microphone)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R550</span>R495</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Headphones" data-price="315"><span class="quote-item-label">Headphones</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R350</span>R315</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Landline / Desk Phone" data-price="405"><span class="quote-item-label">Landline / Desk Phone</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R450</span>R405</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="USB Flash Drive (32GB)" data-price="135"><span class="quote-item-label">USB Flash Drive (32GB)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R150</span>R135</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Bluetooth Speaker (Speakerphone, for calls)" data-price="810"><span class="quote-item-label">Bluetooth Speaker (Speakerphone, for calls)</span></span>
+            <span class="quote-item-price"><span class="quote-market-price">R900</span>R810</span>
+          </label>
+        </fieldset>
+
+        <span class="form-error" id="workstationItemsError" role="alert"></span>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="workstationTotal">R0</span>
+        </div>
+
+        <fieldset class="quote-group">
+          <legend>To Carry Out Your Order</legend>
+          <div class="form-group">
+            <label for="workstationName">Business Name, or Your Name</label>
+            <input type="text" id="workstationName" name="businessOrName" placeholder="e.g. Alexandra Hair Studio, or Thabo Nkosi">
+            <span class="form-error" id="workstationNameError" role="alert"></span>
+          </div>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="workstationEmail">Email Address</label>
+              <input type="email" id="workstationEmail" name="email" placeholder="e.g. you@example.com">
+              <span class="form-error" id="workstationEmailError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="workstationContactNumber">Contact Number</label>
+              <input type="text" id="workstationContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567">
+              <span class="form-error" id="workstationContactNumberError" role="alert"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary"><span>Place Order Request</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="workstationResult" hidden>
+      <h2>Order Request Sent</h2>
+      <div class="quote-result-details" id="workstationResultDetails"></div>
+      <div class="ticket-qr" id="workstationResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you ordered.</p>
+      <p class="quote-disclaimer">Your email app should have opened with this order pre-filled to internetsmarthub@gmail.com — just hit send. Prices are indicative and confirmed once we're in touch.</p>
+      <div class="quote-result-actions">
+        <a id="workstationEmailLink" class="btn btn-primary"><span>Open Email Again</span></a>
+        <a id="workstationWhatsappLink" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><span>Send via WhatsApp Instead</span></a>
+      </div>
+      <button type="button" class="quote-restart" id="workstationRestart">Start over</button>
     </div>
   </div>
 </dialog>
