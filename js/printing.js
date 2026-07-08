@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var serviceTypeSelect = document.getElementById('printingServiceType');
   var itemTypeGroup = document.getElementById('printingItemTypeGroup');
+  var posterSizeGroup = document.getElementById('printingPosterSizeGroup');
+  var posterSizeSelect = document.getElementById('printingPosterSize');
   var quantityInput = document.getElementById('printingQuantity');
   var quantityHint = document.getElementById('printingQuantityHint');
   var quantityError = document.getElementById('printingQuantityError');
@@ -40,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var GARMENT_SERVICES = ['Embroidery Bulk', 'Clothes Printing'];
 
   function currentUnitPrice() {
+    if (serviceTypeSelect.value === 'Poster Printing') {
+      var posterOption = posterSizeSelect.options[posterSizeSelect.selectedIndex];
+      return Number(posterOption.getAttribute('data-unit-price'));
+    }
     var option = serviceTypeSelect.options[serviceTypeSelect.selectedIndex];
     return Number(option.getAttribute('data-unit-price'));
   }
@@ -49,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var range = QUANTITY_RANGES[serviceType];
 
     itemTypeGroup.hidden = GARMENT_SERVICES.indexOf(serviceType) === -1;
+    posterSizeGroup.hidden = serviceType !== 'Poster Printing';
 
     if (range) {
       quantityInput.min = range.min;
@@ -91,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   serviceTypeSelect.addEventListener('change', updateForServiceType);
+  posterSizeSelect.addEventListener('change', updateTotal);
   quantityInput.addEventListener('input', updateTotal);
 
   if (window.ISHMotion) {
@@ -224,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var itemType = !itemTypeGroup.hidden ? document.getElementById('printingItemType').value : null;
+    var posterSize = !posterSizeGroup.hidden ? posterSizeSelect.value : null;
     var details = document.getElementById('printingDetails').value.trim();
     var ticketId = generateTicketId();
     var total = updateTotal();
@@ -237,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addDetailRow(detailsEl, 'Contact Number', contactNumber);
     addDetailRow(detailsEl, 'Service', serviceType);
     if (itemType) addDetailRow(detailsEl, 'Item / Garment Type', itemType);
+    if (posterSize) addDetailRow(detailsEl, 'Poster Size', posterSize);
     addDetailRow(detailsEl, 'Quantity', String(quantity) + ' @ R' + unitPrice + ' each');
     if (details) addDetailRow(detailsEl, 'Additional Details', details);
     addDetailRow(detailsEl, 'Estimated Total', 'R' + total);
@@ -248,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'Contact Number: ' + contactNumber,
       'Service: ' + serviceType,
       itemType ? 'Item / Garment Type: ' + itemType : null,
+      posterSize ? 'Poster Size: ' + posterSize : null,
       'Quantity: ' + quantity + ' @ R' + unitPrice + ' each',
       details ? 'Additional Details: ' + details : null,
       'Estimated Total: R' + total
