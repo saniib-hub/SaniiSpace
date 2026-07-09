@@ -19,7 +19,18 @@ working reference implementation and a real backtest result (75% win rate
 on 8 trades, 100 days, EUR/USD + GBP/USD — small sample, directionally
 promising, not proof). Run it with `python3 ict_ttrades_backtest.py` from
 this directory; it regenerates `backtest_summary.txt` and
-`backtest_trades.csv`.
+`backtest_trades.csv`. `verify_backtest.py` independently re-derives every
+trade from raw OHLC (0 discrepancies as of this writing) — see
+`verification_report.md`.
+
+There is now also a browser dashboard (`api/` FastAPI backend +
+`web/` React/shadcn frontend, see the top-level README.md for how to run
+both) that visualizes the backtest, the verification report, and has a
+Live Monitor tab wired for OANDA daily candles — but the OANDA client in
+`api/oanda_client.py` has only been tested against mocked HTTP responses,
+never a real account, and the live monitor only re-runs the **daily**-bar
+engine, not the intraday port described in step 3 below. The intraday port
+itself has NOT been done yet.
 
 ## What "done" looks like
 
