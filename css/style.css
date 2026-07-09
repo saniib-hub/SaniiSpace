@@ -1832,6 +1832,15 @@ html.has-js .reveal.in-view {
   margin: 0;
 }
 
+.footer-credit {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  margin: 10px 0 0;
+}
+
 .footer-staff-link {
   display: inline-block;
   margin-top: 12px;
