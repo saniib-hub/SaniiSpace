@@ -744,35 +744,54 @@
 
       <form id="workstationForm" novalidate>
         <fieldset class="quote-group">
-          <legend>PC Models (4th Generation)</legend>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i3)" data-price="3150"><span class="quote-item-label">PC (4th Gen Intel Core i3)</span></span>
-            <span class="quote-item-price"><span class="quote-market-price">R3500</span>R3150</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i5)" data-price="4050"><span class="quote-item-label">PC (4th Gen Intel Core i5)</span></span>
-            <span class="quote-item-price"><span class="quote-market-price">R4500</span>R4050</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="PC (4th Gen Intel Core i7)" data-price="5400"><span class="quote-item-label">PC (4th Gen Intel Core i7)</span></span>
-            <span class="quote-item-price"><span class="quote-market-price">R6000</span>R5400</span>
-          </label>
-        </fieldset>
+          <legend>Computers (4th – 12th Generation)</legend>
+          <p class="quote-group-note">Pick a desktop, a laptop, or both — from budget-friendly 4th gen up to recent 12th gen.</p>
 
-        <fieldset class="quote-group">
-          <legend>Laptops (4th Generation)</legend>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Laptop (4th Gen Intel Core i3)" data-price="4200"><span class="quote-item-label">Laptop (4th Gen Intel Core i3)</span></span>
-            <span class="quote-item-price">R4200</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Laptop (4th Gen Intel Core i5)" data-price="5500"><span class="quote-item-label">Laptop (4th Gen Intel Core i5)</span></span>
-            <span class="quote-item-price">R5500</span>
-          </label>
-          <label class="quote-item">
-            <span class="quote-item-main"><input type="checkbox" name="workstationItem" value="Laptop (4th Gen Intel Core i7)" data-price="7200"><span class="quote-item-label">Laptop (4th Gen Intel Core i7)</span></span>
-            <span class="quote-item-price">R7200</span>
-          </label>
+          <div class="quote-select-row">
+            <label for="workstationDesktop">Desktop PC</label>
+            <select id="workstationDesktop" name="desktopPc" data-quote-select data-category="Desktop PC">
+              <option value="0">Not needed</option>
+              <optgroup label="4th Generation">
+                <option value="3150">4th Gen Intel Core i3 — R3150</option>
+                <option value="4050">4th Gen Intel Core i5 — R4050</option>
+                <option value="5400">4th Gen Intel Core i7 — R5400</option>
+              </optgroup>
+              <optgroup label="6th – 8th Generation">
+                <option value="4800">6th Gen Intel Core i5 — R4800</option>
+                <option value="6200">8th Gen Intel Core i5 — R6200</option>
+                <option value="7500">8th Gen Intel Core i7 — R7500</option>
+              </optgroup>
+              <optgroup label="10th – 12th Generation">
+                <option value="8000">10th Gen Intel Core i5 — R8000</option>
+                <option value="9800">10th Gen Intel Core i7 — R9800</option>
+                <option value="10500">12th Gen Intel Core i5 — R10500</option>
+                <option value="13500">12th Gen Intel Core i7 — R13500</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="quote-select-row">
+            <label for="workstationLaptop">Laptop</label>
+            <select id="workstationLaptop" name="laptop" data-quote-select data-category="Laptop">
+              <option value="0">Not needed</option>
+              <optgroup label="4th Generation">
+                <option value="4200">4th Gen Intel Core i3 — R4200</option>
+                <option value="5500">4th Gen Intel Core i5 — R5500</option>
+                <option value="7200">4th Gen Intel Core i7 — R7200</option>
+              </optgroup>
+              <optgroup label="6th – 8th Generation">
+                <option value="6300">6th Gen Intel Core i5 — R6300</option>
+                <option value="7800">8th Gen Intel Core i5 — R7800</option>
+                <option value="9200">8th Gen Intel Core i7 — R9200</option>
+              </optgroup>
+              <optgroup label="10th – 12th Generation">
+                <option value="9800">10th Gen Intel Core i5 — R9800</option>
+                <option value="11500">10th Gen Intel Core i7 — R11500</option>
+                <option value="12500">12th Gen Intel Core i5 — R12500</option>
+                <option value="15500">12th Gen Intel Core i7 — R15500</option>
+              </optgroup>
+            </select>
+          </div>
         </fieldset>
 
         <fieldset class="quote-group">
