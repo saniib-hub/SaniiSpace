@@ -610,9 +610,13 @@ html.has-js .hero-anim {
 }
 
 .card-icon {
-  font-size: 2rem;
+  font-size: 2.75rem;
   display: inline-block;
   transition: transform 0.35s var(--ease);
+}
+
+.card-icon-lg {
+  font-size: 3.75rem;
 }
 
 .card:hover .card-icon {
