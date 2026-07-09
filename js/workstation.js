@@ -212,26 +212,15 @@ document.addEventListener('DOMContentLoaded', function () {
     messageLines.push('Estimated Total: R' + total);
     var message = messageLines.join('\n');
 
-    var emailHref = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Workstation Order ' + ticketId) +
-      '&body=' + encodeURIComponent(message);
-
-    var emailLink = document.getElementById('workstationEmailLink');
-    emailLink.href = emailHref;
-
-    var whatsappLink = document.getElementById('workstationWhatsappLink');
-    whatsappLink.href = 'https://wa.me/27697304534?text=' + encodeURIComponent(message);
-
     if (window.ISHTicket) {
       window.ISHTicket.renderQR(document.getElementById('workstationResultQR'), message);
     }
 
     /*
-     * Clicking "Place Order Request" opens the customer's own email client
-     * with the order pre-filled (mailto: cannot send mail directly from
-     * JavaScript). It's also saved to this browser's local ticket log
-     * (js/records.js). If js/backend-config.js has a Google Sheets
-     * endpoint configured, it's also POSTed there.
+     * Saved to this browser's local ticket log (js/records.js). If
+     * js/backend-config.js has a Google Sheets endpoint configured, this
+     * is also POSTed there, which logs it to the Sheet and automatically
+     * emails the shop — no action needed from the customer.
      */
     if (window.ISHBackend) {
       window.ISHBackend.submit({
@@ -261,8 +250,5 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.ISHMotion) {
       window.ISHMotion.celebrate(resultView);
     }
-
-    // Open the customer's email client immediately with the order ready
-    window.location.href = emailHref;
   });
 });

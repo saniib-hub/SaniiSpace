@@ -142,22 +142,11 @@ document.addEventListener('DOMContentLoaded', function () {
     addDetailRow(detailsEl, 'Name', name);
     if (contact) addDetailRow(detailsEl, 'Contact', contact);
 
-    var emailHref = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Stock Inquiry ' + inquiryId + ' (' + currentStockType + ')') +
-      '&body=' + encodeURIComponent(fullMessage);
-
-    var emailLink = document.getElementById('stockInquiryEmailLink');
-    emailLink.href = emailHref;
-
-    var whatsappLink = document.getElementById('stockInquiryWhatsappLink');
-    whatsappLink.href = 'https://wa.me/27697304534?text=' + encodeURIComponent(fullMessage);
-
     /*
-     * Clicking "Send Email" opens the customer's own email client with the
-     * message pre-filled (mailto: links cannot send mail directly from
-     * JavaScript). It's also saved to this browser's local ticket log
-     * (js/records.js). If js/backend-config.js has a Google Sheets
-     * endpoint configured, it's also POSTed there.
+     * Saved to this browser's local ticket log (js/records.js). If
+     * js/backend-config.js has a Google Sheets endpoint configured, this
+     * is also POSTed there, which logs it to the Sheet and automatically
+     * emails the shop — no action needed from the customer.
      */
     if (window.ISHBackend) {
       window.ISHBackend.submit({
@@ -186,8 +175,5 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.ISHMotion) {
       window.ISHMotion.celebrate(resultView);
     }
-
-    // Open the customer's email client immediately with the message ready
-    window.location.href = emailHref;
   });
 });
