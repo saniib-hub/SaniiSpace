@@ -18,4 +18,4 @@
  * row in that spreadsheet (in addition to the WhatsApp/email the customer
  * sends themselves).
  */
-window.ISH_BACKEND_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbw08QU7w2eBQkR-7jtfvHzYXl6f8S6m7EweWNnfOMkNsdAvjtueHVT5TsHa5BcI4gxV4g/exec';
+window.ISH_BACKEND_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbyQGnLbudf0PvNDiEcDM64Zz0RC14TIXXtu0kkDBy1IFibN6PJb2QZroNHU-5Rrcog9NQ/exec';
