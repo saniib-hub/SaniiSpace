@@ -151,19 +151,11 @@ document.addEventListener('DOMContentLoaded', function () {
     ].filter(function (line) { return line !== null; });
     var message = messageLines.join('\n');
 
-    var whatsappLink = document.getElementById('webDesignWhatsappLink');
-    whatsappLink.href = 'https://wa.me/27697304534?text=' + encodeURIComponent(message);
-
-    var emailLink = document.getElementById('webDesignEmailLink');
-    emailLink.href = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Web Design Brief ' + briefId) +
-      '&body=' + encodeURIComponent(message);
-
     /*
-     * This brief is not automated by default — the customer sends it via
-     * the WhatsApp or email links above, and it's saved to this browser's
-     * local ticket log (js/records.js). If js/backend-config.js has a
-     * Google Sheets endpoint configured, it's also POSTed there.
+     * Saved to this browser's local ticket log (js/records.js). If
+     * js/backend-config.js has a Google Sheets endpoint configured, this
+     * is also POSTed there, which logs it to the Sheet and automatically
+     * emails the shop — no action needed from the customer.
      */
     if (window.ISHBackend) {
       window.ISHBackend.submit({

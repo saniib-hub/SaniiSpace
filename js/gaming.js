@@ -212,23 +212,15 @@ document.addEventListener('DOMContentLoaded', function () {
     messageLines.push('Estimated Total: R' + total);
     var message = messageLines.join('\n');
 
-    var whatsappLink = document.getElementById('gamingWhatsappLink');
-    whatsappLink.href = 'https://wa.me/27697304534?text=' + encodeURIComponent(message);
-
-    var emailLink = document.getElementById('gamingEmailLink');
-    emailLink.href = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Gaming PC Ticket ' + ticketId) +
-      '&body=' + encodeURIComponent(message);
-
     if (window.ISHTicket) {
       window.ISHTicket.renderQR(document.getElementById('gamingResultQR'), message);
     }
 
     /*
-     * This ticket is not automated by default — the customer sends it via
-     * the WhatsApp or email links above, and it's saved to this browser's
-     * local ticket log (js/records.js). If js/backend-config.js has a
-     * Google Sheets endpoint configured, it's also POSTed there.
+     * Saved to this browser's local ticket log (js/records.js). If
+     * js/backend-config.js has a Google Sheets endpoint configured, this
+     * is also POSTed there, which logs it to the Sheet and automatically
+     * emails the shop — no action needed from the customer.
      */
     if (window.ISHRecords) {
       window.ISHRecords.save({

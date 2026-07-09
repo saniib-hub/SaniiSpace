@@ -258,25 +258,16 @@ document.addEventListener('DOMContentLoaded', function () {
     messageLines.push('Estimated Total: R' + total);
     var message = messageLines.join('\n');
 
-    var whatsappLink = document.getElementById('quoteWhatsappLink');
-    whatsappLink.href = 'https://wa.me/27697304534?text=' + encodeURIComponent(message);
-
-    var emailLink = document.getElementById('quoteEmailLink');
-    emailLink.href = 'mailto:internetsmarthub@gmail.com?subject=' +
-      encodeURIComponent('Internet Smart Hub Repair Ticket ' + ticketId) +
-      '&body=' + encodeURIComponent(message);
-
     if (window.ISHTicket) {
       window.ISHTicket.renderQR(document.getElementById('quoteResultQR'), message);
     }
 
     /*
-     * This ticket is not automated by default — the customer sends it
-     * themselves via the WhatsApp or email links above. It's also saved to
-     * this browser's local ticket log (see js/records.js), a same-device
-     * convenience log, not a shared database. If js/backend-config.js has
-     * a Google Sheets endpoint configured, it's also POSTed there so it
-     * shows up centrally regardless of which device the customer used.
+     * Saved to this browser's local ticket log (see js/records.js), a
+     * same-device convenience log, not a shared database. If
+     * js/backend-config.js has a Google Sheets endpoint configured, this
+     * is also POSTed there, which logs it to the Sheet and automatically
+     * emails the shop — no action needed from the customer.
      */
     if (window.ISHRecords) {
       window.ISHRecords.save({
