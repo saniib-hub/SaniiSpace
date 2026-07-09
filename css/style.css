@@ -1614,6 +1614,25 @@ html.has-js .reveal.in-view {
   outline: none;
 }
 
+.quote-qty-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.quote-qty-inline label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.quote-qty-inline select {
+  width: auto;
+  min-width: 110px;
+  padding: 8px 10px;
+}
+
 .quote-result-list {
   list-style: disc;
   padding-left: 18px;
