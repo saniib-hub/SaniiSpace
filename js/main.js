@@ -313,4 +313,18 @@ document.addEventListener('DOMContentLoaded', function () {
       form.reset();
     });
   }
+
+  /* ---------- Deep-linked service cards (nav dropdown submenus) ----------
+     Nav dropdown items link to e.g. services.html#gamingCard. This runs
+     last, after every other click handler on this page (including the
+     walk-in-card ones just above) has been attached, so clicking the
+     matching card here actually opens that service's ticket dialog /
+     walk-in badge instead of just scrolling to it. */
+  if (window.location.hash) {
+    var deepLinkTarget = document.getElementById(window.location.hash.slice(1));
+    if (deepLinkTarget && typeof deepLinkTarget.click === 'function') {
+      deepLinkTarget.scrollIntoView({ block: 'center' });
+      deepLinkTarget.click();
+    }
+  }
 });
