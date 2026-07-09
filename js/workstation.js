@@ -17,6 +17,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var itemCheckboxes = form.querySelectorAll('input[name="workstationItem"]');
   var computerSelects = form.querySelectorAll('[data-quote-select]');
+  var qtySelects = form.querySelectorAll('.workstation-qty');
+  var BULK_QTY = 'bulk';
+
+  // Quantity dropdowns: 1-50, then "Above 50" which switches that line to
+  // invoice-on-request instead of an instant price.
+  qtySelects.forEach(function (qtySelect) {
+    for (var i = 1; i <= 50; i++) {
+      var option = document.createElement('option');
+      option.value = String(i);
+      option.textContent = String(i);
+      qtySelect.appendChild(option);
+    }
+    var bulkOption = document.createElement('option');
+    bulkOption.value = BULK_QTY;
+    bulkOption.textContent = 'Above 50 — invoice will be sent';
+    qtySelect.appendChild(bulkOption);
+  });
+
+  function qtyFor(computerSelect) {
+    var qtySelect = form.querySelector('.workstation-qty[data-qty-for="' + computerSelect.id + '"]');
+    return qtySelect ? qtySelect.value : '1';
+  }
+
   var nameInput = document.getElementById('workstationName');
   var emailInput = document.getElementById('workstationEmail');
   var contactNumberInput = document.getElementById('workstationContactNumber');
@@ -36,15 +59,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function hasBulkSelection() {
+    return selectedComputers().some(function (select) {
+      return qtyFor(select) === BULK_QTY;
+    });
+  }
+
   function updateTotal() {
     var total = 0;
     checkedItems().forEach(function (checkbox) {
       total += Number(checkbox.getAttribute('data-price'));
     });
     selectedComputers().forEach(function (select) {
-      total += Number(select.value);
+      var qty = qtyFor(select);
+      if (qty !== BULK_QTY) {
+        total += Number(select.value) * Number(qty);
+      }
     });
-    totalEl.textContent = 'R' + total;
+    totalEl.textContent = 'R' + total + (hasBulkSelection() ? ' + bulk items (invoiced)' : '');
     return total;
   }
 
@@ -123,6 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  qtySelects.forEach(function (qtySelect) {
+    qtySelect.addEventListener('change', updateTotal);
+  });
+
   function addDetailRow(container, label, value) {
     var row = document.createElement('div');
     var dt = document.createElement('dt');
@@ -143,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     list.className = 'quote-result-list';
     items.forEach(function (item) {
       var li = document.createElement('li');
-      li.textContent = item.name + ' — R' + item.price;
+      li.textContent = item.name + ' — ' + item.priceText;
       list.appendChild(li);
     });
     dd.appendChild(list);
@@ -208,17 +244,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var total = updateTotal();
+    var hasBulk = hasBulkSelection();
     var ticketId = generateTicketId();
     var computerItems = computers.map(function (select) {
       var optionText = select.options[select.selectedIndex].text;
+      var baseName = select.getAttribute('data-category') + ': ' + optionText.split(' — R')[0];
+      var qty = qtyFor(select);
+      if (qty === BULK_QTY) {
+        return {
+          name: baseName + ' × 50+',
+          priceText: 'bulk order, invoice will be sent'
+        };
+      }
       return {
-        name: select.getAttribute('data-category') + ': ' + optionText.split(' — R')[0],
-        price: Number(select.value)
+        name: baseName + ' × ' + qty,
+        priceText: 'R' + Number(select.value) * Number(qty)
       };
     });
     var orderItems = computerItems.concat(items.map(function (checkbox) {
-      return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
+      return { name: checkbox.value, priceText: 'R' + Number(checkbox.getAttribute('data-price')) };
     }));
+
+    var totalText = 'R' + total + (hasBulk ? ' + bulk items — invoice will be sent' : '');
 
     var detailsEl = document.getElementById('workstationResultDetails');
     detailsEl.innerHTML = '';
@@ -227,16 +274,16 @@ document.addEventListener('DOMContentLoaded', function () {
     addDetailRow(detailsEl, 'Email', email);
     addDetailRow(detailsEl, 'Contact Number', contactNumber);
     addListRow(detailsEl, 'Items', orderItems);
-    addDetailRow(detailsEl, 'Estimated Total', 'R' + total);
+    addDetailRow(detailsEl, 'Estimated Total', totalText);
 
     var messageLines = ['Internet Smart Hub — Workstation Order ' + ticketId];
     messageLines.push('Business / Name: ' + businessOrName);
     messageLines.push('Email: ' + email);
     messageLines.push('Contact Number: ' + contactNumber);
     orderItems.forEach(function (item) {
-      messageLines.push('- ' + item.name + ': R' + item.price);
+      messageLines.push('- ' + item.name + ': ' + item.priceText);
     });
-    messageLines.push('Estimated Total: R' + total);
+    messageLines.push('Estimated Total: ' + totalText);
     var message = messageLines.join('\n');
 
     if (window.ISHTicket) {
