@@ -192,88 +192,6 @@ button {
   right: 0;
 }
 
-/* ---------- Nav dropdowns (Services / Digital Services submenus) ----------
-   Desktop: hover or keyboard focus anywhere inside the item reveals the
-   submenu. Each submenu link deep-links to a specific service card via
-   hash (e.g. services.html#gamingCard); js/main.js opens that card's
-   ticket dialog automatically on page load when the hash matches. */
-.nav-dropdown {
-  position: relative;
-}
-
-.nav-dropdown > a::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-left: 6px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: translateY(-2px) rotate(45deg);
-  transition: transform 0.2s var(--ease);
-}
-
-.nav-dropdown:hover > a::before,
-.nav-dropdown:focus-within > a::before {
-  transform: translateY(1px) rotate(225deg);
-}
-
-/* Higher specificity than the shared ".primary-nav ul { display: flex }"
-   rule, which would otherwise cascade into this nested list too and lay
-   the submenu out as a horizontal, overflowing row. */
-.primary-nav .nav-dropdown-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -8px);
-  min-width: 240px;
-  margin-top: 14px;
-  padding: 8px;
-  background: var(--dark-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-hover);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0.2s;
-  z-index: 50;
-}
-
-.nav-dropdown:hover .nav-dropdown-menu,
-.nav-dropdown:focus-within .nav-dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translate(-50%, 0);
-}
-
-.nav-dropdown-menu li {
-  border: none;
-}
-
-.nav-dropdown-menu a {
-  display: block;
-  padding: 9px 12px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--on-dark-muted);
-  white-space: nowrap;
-}
-
-.nav-dropdown-menu a::after {
-  display: none;
-}
-
-.nav-dropdown-menu a:hover,
-.nav-dropdown-menu a:focus-visible {
-  color: var(--on-dark);
-  background: rgba(255, 255, 255, 0.08);
-}
 
 .nav-toggle {
   display: none;
@@ -2067,39 +1985,6 @@ html.has-js .reveal.in-view {
   .primary-nav a {
     display: block;
     padding: 14px 0;
-  }
-
-  /* No hover on touch — the submenu is just always visible, indented,
-     directly under its parent link instead of a hover-reveal popover. */
-  .nav-dropdown > a::before {
-    float: right;
-    margin-top: 8px;
-  }
-
-  .primary-nav .nav-dropdown-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: none;
-    margin: 0 0 6px;
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  .nav-dropdown-menu li {
-    border-bottom: none;
-  }
-
-  .nav-dropdown-menu a {
-    padding: 10px 0 10px 16px;
-    color: var(--on-dark-muted);
-    border-left: 2px solid rgba(255, 255, 255, 0.12);
   }
 }
 
