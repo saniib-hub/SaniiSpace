@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   var itemCheckboxes = form.querySelectorAll('input[name="workstationItem"]');
+  var computerSelects = form.querySelectorAll('[data-quote-select]');
   var nameInput = document.getElementById('workstationName');
   var emailInput = document.getElementById('workstationEmail');
   var contactNumberInput = document.getElementById('workstationContactNumber');
@@ -29,10 +30,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function selectedComputers() {
+    return Array.prototype.filter.call(computerSelects, function (select) {
+      return Number(select.value) > 0;
+    });
+  }
+
   function updateTotal() {
     var total = 0;
     checkedItems().forEach(function (checkbox) {
       total += Number(checkbox.getAttribute('data-price'));
+    });
+    selectedComputers().forEach(function (select) {
+      total += Number(select.value);
     });
     totalEl.textContent = 'R' + total;
     return total;
@@ -104,6 +114,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  computerSelects.forEach(function (select) {
+    select.addEventListener('change', function () {
+      updateTotal();
+      if (itemsErrorEl.textContent) {
+        itemsErrorEl.textContent = '';
+      }
+    });
+  });
+
   function addDetailRow(container, label, value) {
     var row = document.createElement('div');
     var dt = document.createElement('dt');
@@ -143,9 +162,10 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
 
     var items = checkedItems();
+    var computers = selectedComputers();
     var isValid = true;
 
-    if (items.length === 0) {
+    if (items.length === 0 && computers.length === 0) {
       itemsErrorEl.textContent = 'Please select at least one item.';
       isValid = false;
     } else {
@@ -189,9 +209,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var total = updateTotal();
     var ticketId = generateTicketId();
-    var orderItems = items.map(function (checkbox) {
-      return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
+    var computerItems = computers.map(function (select) {
+      var optionText = select.options[select.selectedIndex].text;
+      return {
+        name: select.getAttribute('data-category') + ': ' + optionText.split(' — R')[0],
+        price: Number(select.value)
+      };
     });
+    var orderItems = computerItems.concat(items.map(function (checkbox) {
+      return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
+    }));
 
     var detailsEl = document.getElementById('workstationResultDetails');
     detailsEl.innerHTML = '';
