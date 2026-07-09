@@ -37,8 +37,27 @@
 
     <nav class="primary-nav" id="primaryNav" aria-label="Primary">
       <ul>
-        <li><a href="services.html" aria-current="page">Services</a></li>
-        <li><a href="digital-services.html">Digital Services</a></li>
+        <li class="nav-dropdown"><a href="services.html" aria-current="page">Services</a>
+            <ul class="nav-dropdown-menu">
+              <li><a href="services.html#repairsCard">Computer &amp; Laptop Repairs</a></li>
+              <li><a href="services.html#gamingCard">Gaming PC &ndash; Custom Setup</a></li>
+              <li><a href="services.html#softwareCard">Software Installation &amp; Support</a></li>
+              <li><a href="services.html#workstationCard">Workstation Setup</a></li>
+              <li><a href="services.html#cellphoneCard">Cell Phone Repairs</a></li>
+              <li><a href="services.html#bundlePrintsCard">Bundle Prints</a></li>
+              <li><a href="services.html#embroideryBulkCard">Embroidery Bulk</a></li>
+              <li><a href="services.html#clothesPrintingCard">Clothes Printing</a></li>
+              <li><a href="services.html#sheetPrintingCard">Sheet Printing</a></li>
+              <li><a href="services.html#posterPrintingCard">Poster Printing</a></li>
+            </ul>
+          </li>
+        <li class="nav-dropdown"><a href="digital-services.html">Digital Services</a>
+            <ul class="nav-dropdown-menu">
+              <li><a href="digital-services.html#onlineApplicationsCard">Online Applications</a></li>
+              <li><a href="digital-services.html#sarsCard">SARS, Labour, UIF &amp; PSIRA</a></li>
+              <li><a href="digital-services.html#web-design">Web Design &amp; Cloud Setup</a></li>
+            </ul>
+          </li>
         <li><a href="for-sale.html">For Sale</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -117,7 +136,7 @@
       <p class="section-sub reveal">Bulk printing and embroidery for businesses, events and personal projects.</p>
 
       <div class="card-grid">
-        <article class="card reveal printing-open-card" style="--d:0" data-service-type="Bundle Prints" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal printing-open-card" id="bundlePrintsCard" style="--d:0" data-service-type="Bundle Prints" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">📦</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -126,7 +145,7 @@
           <p>Print your documents in bulk bundles, ready to go.</p>
           <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal printing-open-card" style="--d:1" data-service-type="Embroidery Bulk" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal printing-open-card" id="embroideryBulkCard" style="--d:1" data-service-type="Embroidery Bulk" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🧵</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -135,7 +154,7 @@
           <p>Custom embroidery on T-shirts, work suits, hoodies, beanies, hats, caps, pants &amp; more.</p>
           <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal printing-open-card" style="--d:2" data-service-type="Clothes Printing" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal printing-open-card" id="clothesPrintingCard" style="--d:2" data-service-type="Clothes Printing" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon card-icon-lg" aria-hidden="true">👕</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -144,7 +163,7 @@
           <p>Bulk printing on T-shirts, hoodies, caps and other garments.</p>
           <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal printing-open-card" style="--d:3" data-service-type="Sheet Printing" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal printing-open-card" id="sheetPrintingCard" style="--d:3" data-service-type="Sheet Printing" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">📄</div>
             <span class="card-check" aria-hidden="true">✓</span>
@@ -153,7 +172,7 @@
           <p>Bulk sheet printing, from 100 up to 100,000 sheets.</p>
           <span class="card-cta">Get a quote →</span>
         </article>
-        <article class="card reveal printing-open-card" style="--d:4" data-service-type="Poster Printing" tabindex="0" role="button" aria-haspopup="dialog">
+        <article class="card reveal printing-open-card" id="posterPrintingCard" style="--d:4" data-service-type="Poster Printing" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
             <div class="card-icon" aria-hidden="true">🖼️</div>
             <span class="card-check" aria-hidden="true">✓</span>
