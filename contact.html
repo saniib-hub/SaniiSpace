@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Internet Smart Hub</title>
+<meta name="description" content="Get in touch with Internet Smart Hub in Alexandra, Johannesburg — phone, WhatsApp, email, address, opening hours and directions.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Contact Us | Internet Smart Hub">
+<meta property="og:description" content="Get in touch with Internet Smart Hub in Alexandra, Johannesburg — phone, WhatsApp, email, address, opening hours and directions.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="sticky-cta-bar" aria-label="Quick actions">
+  <a href="https://wa.me/27697304534" target="_blank" rel="noopener noreferrer" class="sticky-cta-btn sticky-cta-whatsapp"><span aria-hidden="true">💬</span> WhatsApp</a>
+  <a href="services.html" class="sticky-cta-btn sticky-cta-quote"><span aria-hidden="true">⚡</span> Get a Quote</a>
+</div>
+
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">Internet <span class="logo-accent">Smart Hub</span></a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation menu">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="digital-services.html">Digital Services</a></li>
+        <li><a href="for-sale.html">For Sale</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="contact" id="contact" aria-label="Contact us">
+    <div class="container contact-inner">
+      <div class="contact-info reveal">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">Need a repair, a gaming PC build, or just have a question? Reach out any way that suits you.</p>
+
+        <ul class="contact-details">
+          <li>
+            <span class="contact-label">Phone</span>
+            <a href="tel:+27697304534">069 730 4534</a>
+          </li>
+          <li>
+            <span class="contact-label">WhatsApp</span>
+            <a href="https://wa.me/27697304534" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
+          </li>
+          <li>
+            <span class="contact-label">Email</span>
+            <a href="mailto:internetsmarthub@gmail.com">internetsmarthub@gmail.com</a>
+          </li>
+          <li>
+            <span class="contact-label">Address</span>
+            <span>38-16th Avenue, Alexandra, 2090</span>
+          </li>
+          <li>
+            <span class="contact-label">Opening Hours</span>
+            <span id="openingHours">Mon–Fri 07:30–19:30 · Sat 09:00–18:00 · Sun 08:30–19:00</span>
+            <span class="hours-note" id="hoursNote">Hours are extending from 1 Aug: Mon–Fri 06:30–21:00 · Sat 08:00–19:00 · Sun 07:00–20:00</span>
+          </li>
+        </ul>
+
+        <div class="contact-qr reveal">
+          <img src="assets/qr-location.png" alt="QR code linking to Internet Smart Hub's location on Google Maps" width="120" height="120" loading="lazy">
+          <div class="contact-qr-text">
+            <span class="contact-label">Find Us</span>
+            <p>Scan the code to get directions to our shop.</p>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=5844%2016th%20Avenue%2C%20Alexandra%2C%202090%2C%20South%20Africa" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name">
+          <span class="form-error" id="nameError" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="contactMethod">Phone or Email</label>
+          <input type="text" id="contactMethod" name="contactMethod" required autocomplete="email">
+          <span class="form-error" id="contactMethodError" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">What do you need help with?</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <span class="form-error" id="messageError" role="alert"></span>
+        </div>
+
+        <!--
+          Backend integration point:
+          This form currently validates on the client only and shows a success
+          message without sending data anywhere. To make it functional, wire it
+          up to a backend endpoint or a service like Formspree, e.g.:
+          <form action="https://formspree.io/f/yourFormId" method="POST">
+        -->
+
+        <button type="submit" class="btn btn-primary"><span>Send Message</span></button>
+
+        <p class="form-success" id="formSuccess" role="status" hidden>
+          Thanks! Your message has been received — we'll get back to you soon.
+        </p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+
+
+<dialog id="recordsDialog" class="quote-dialog" aria-labelledby="recordsDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="recordsClose" aria-label="Close saved tickets">&times;</button>
+    <h2 id="recordsDialogTitle">Saved Tickets &amp; Briefs</h2>
+    <p class="quote-intro">Saved on this device only — not a shared database. Clearing browser data or using a different device won't show these.</p>
+
+    <p class="records-empty" id="recordsEmpty" hidden>No tickets saved on this device yet.</p>
+    <ul class="records-list" id="recordsList"></ul>
+
+    <div class="records-actions">
+      <button type="button" class="btn btn-secondary" id="recordsExport" hidden><span>Export as CSV</span></button>
+      <button type="button" class="quote-restart" id="recordsClear" hidden>Clear all saved tickets</button>
+    </div>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">Internet Smart Hub</p>
+    <p class="footer-summary">Computer &amp; laptop repairs · Gaming PC builds · Software support · Web design · Printing &amp; embroidery</p>
+    <p class="footer-contact">38-16th Avenue, Alexandra, 2090 · <a href="tel:+27697304534">069 730 4534</a> · <a href="mailto:internetsmarthub@gmail.com">internetsmarthub@gmail.com</a></p>
+    <p class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <span aria-hidden="true">·</span>
+      <a href="#" class="footer-staff-link" id="viewRecordsLink">Staff: View Saved Tickets</a>
+    </p>
+    <p class="footer-copy">&copy; <span id="year"></span> Internet Smart Hub. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/vendor/three.min.js" defer></script>
+<script src="js/vendor/gsap.min.js" defer></script>
+<script src="js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/hero-scene.js" defer></script>
+<script src="js/vendor/qrcode.js" defer></script>
+<script src="js/vendor/qrcode_UTF8.js" defer></script>
+<script src="js/ticket.js" defer></script>
+<script src="js/motion.js" defer></script>
+<script src="js/records.js" defer></script>
+<script src="js/backend-config.js" defer></script>
+<script src="js/backend.js" defer></script>
+<script src="js/quote.js" defer></script>
+<script src="js/gaming.js" defer></script>
+<script src="js/software.js" defer></script>
+<script src="js/cellphone.js" defer></script>
+<script src="js/web-design.js" defer></script>
+<script src="js/printing.js" defer></script>
+<script src="js/stock-inquiry.js" defer></script>
+<script src="js/workstation.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>

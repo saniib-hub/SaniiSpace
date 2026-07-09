@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   var dialog = document.getElementById('quoteDialog');
-  var openBtn = document.getElementById('getQuoteBtn');
   var closeBtn = document.getElementById('quoteClose');
   var form = document.getElementById('quoteForm');
   var formView = document.getElementById('quoteFormView');
@@ -11,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var supportsDialog = dialog && typeof dialog.showModal === 'function';
 
-  if (!supportsDialog || !openBtn || !form) {
-    return; // fall back to the button's default #contact anchor behavior
+  if (!supportsDialog || !form) {
+    return;
   }
 
   var repairCheckboxes = form.querySelectorAll('input[name="repairPart"]');
@@ -115,11 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
       dialog.close();
     }
   }
-
-  openBtn.addEventListener('click', function (event) {
-    event.preventDefault();
-    openDialog();
-  });
 
   document.querySelectorAll('.quote-open-card').forEach(function (card) {
     card.addEventListener('click', function (event) {

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | Internet Smart Hub</title>
+<meta name="description" content="How Internet Smart Hub collects and uses information submitted through this website's quote and contact forms.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Privacy Policy | Internet Smart Hub">
+<meta property="og:description" content="How Internet Smart Hub collects and uses information submitted through this website's quote and contact forms.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="sticky-cta-bar" aria-label="Quick actions">
+  <a href="https://wa.me/27697304534" target="_blank" rel="noopener noreferrer" class="sticky-cta-btn sticky-cta-whatsapp"><span aria-hidden="true">💬</span> WhatsApp</a>
+  <a href="services.html" class="sticky-cta-btn sticky-cta-quote"><span aria-hidden="true">⚡</span> Get a Quote</a>
+</div>
+
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">Internet <span class="logo-accent">Smart Hub</span></a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation menu">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="digital-services.html">Digital Services</a></li>
+        <li><a href="for-sale.html">For Sale</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-banner reveal" aria-label="Privacy Policy">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p>What we collect through this site, why, and how to reach us about it.</p>
+    </div>
+  </section>
+  <section class="legal-page" aria-label="Privacy policy">
+    <div class="container">
+      <div class="legal-content reveal">
+        <h2>What we collect</h2>
+        <p>When you use a quote, order or inquiry form on this site, we collect what you type in: your name, contact number, and email address where asked, plus the details of what you're requesting (e.g. device brand/model, items selected, message). We don't collect anything else automatically — no tracking cookies, no ad networks.</p>
+
+        <h2>Why we collect it</h2>
+        <p>Only to respond to your quote, order or inquiry — to work out pricing, contact you back, and keep a record of what was agreed if you come into the shop.</p>
+
+        <h2>Where it goes</h2>
+        <p>Submissions are stored in a private database/spreadsheet accessible only to the shop owner, and may trigger an email notification to the shop. Nothing is sold, shared, or used for marketing to third parties.</p>
+
+        <h2>Your ticket &amp; QR code</h2>
+        <p>Each ticket is also saved to your own device's local browser storage so you can view it again on the same device, and includes a QR code you can show in-store — this QR code just encodes your own ticket details, nothing more.</p>
+
+        <h2>Getting your information removed</h2>
+        <p>Contact us any time at <a href="mailto:internetsmarthub@gmail.com">internetsmarthub@gmail.com</a> or <a href="tel:+27697304534">069 730 4534</a> and we'll delete your submitted details on request.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+
+<dialog id="recordsDialog" class="quote-dialog" aria-labelledby="recordsDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="recordsClose" aria-label="Close saved tickets">&times;</button>
+    <h2 id="recordsDialogTitle">Saved Tickets &amp; Briefs</h2>
+    <p class="quote-intro">Saved on this device only — not a shared database. Clearing browser data or using a different device won't show these.</p>
+
+    <p class="records-empty" id="recordsEmpty" hidden>No tickets saved on this device yet.</p>
+    <ul class="records-list" id="recordsList"></ul>
+
+    <div class="records-actions">
+      <button type="button" class="btn btn-secondary" id="recordsExport" hidden><span>Export as CSV</span></button>
+      <button type="button" class="quote-restart" id="recordsClear" hidden>Clear all saved tickets</button>
+    </div>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">Internet Smart Hub</p>
+    <p class="footer-summary">Computer &amp; laptop repairs · Gaming PC builds · Software support · Web design · Printing &amp; embroidery</p>
+    <p class="footer-contact">38-16th Avenue, Alexandra, 2090 · <a href="tel:+27697304534">069 730 4534</a> · <a href="mailto:internetsmarthub@gmail.com">internetsmarthub@gmail.com</a></p>
+    <p class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <span aria-hidden="true">·</span>
+      <a href="#" class="footer-staff-link" id="viewRecordsLink">Staff: View Saved Tickets</a>
+    </p>
+    <p class="footer-copy">&copy; <span id="year"></span> Internet Smart Hub. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/vendor/three.min.js" defer></script>
+<script src="js/vendor/gsap.min.js" defer></script>
+<script src="js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/hero-scene.js" defer></script>
+<script src="js/vendor/qrcode.js" defer></script>
+<script src="js/vendor/qrcode_UTF8.js" defer></script>
+<script src="js/ticket.js" defer></script>
+<script src="js/motion.js" defer></script>
+<script src="js/records.js" defer></script>
+<script src="js/backend-config.js" defer></script>
+<script src="js/backend.js" defer></script>
+<script src="js/quote.js" defer></script>
+<script src="js/gaming.js" defer></script>
+<script src="js/software.js" defer></script>
+<script src="js/cellphone.js" defer></script>
+<script src="js/web-design.js" defer></script>
+<script src="js/printing.js" defer></script>
+<script src="js/stock-inquiry.js" defer></script>
+<script src="js/workstation.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>

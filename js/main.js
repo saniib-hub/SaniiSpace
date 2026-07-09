@@ -88,10 +88,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
       revealEls.forEach(function (el) {
         var delay = parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0;
+        var direction = el.getAttribute('data-reveal');
+        var fromVars = { opacity: 0 };
+        if (direction === 'left') {
+          fromVars.x = -32;
+        } else if (direction === 'right') {
+          fromVars.x = 32;
+        } else {
+          fromVars.y = 24;
+        }
+
         gsap.fromTo(el,
-          { opacity: 0, y: 24 },
+          fromVars,
           {
             opacity: 1,
+            x: 0,
             y: 0,
             duration: 0.6,
             delay: delay * 0.07,
@@ -120,6 +131,50 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       revealEls.forEach(function (el) {
         el.classList.add('in-view');
+      });
+    }
+  }
+
+  /* ---------- Stat counters (count up once when scrolled into view) ---------- */
+  var statNumbers = document.querySelectorAll('.stat-number[data-count-to]');
+
+  if (statNumbers.length) {
+    var animateCount = function (el) {
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      var suffix = el.getAttribute('data-suffix') || '';
+
+      if (prefersReducedMotion || !window.gsap) {
+        el.textContent = target + suffix;
+        return;
+      }
+
+      var counter = { val: 0 };
+      gsap.to(counter, {
+        val: target,
+        duration: 1.4,
+        ease: 'power2.out',
+        onUpdate: function () {
+          el.textContent = Math.round(counter.val) + suffix;
+        }
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      var statObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            statObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      statNumbers.forEach(function (el) {
+        statObserver.observe(el);
+      });
+    } else {
+      statNumbers.forEach(function (el) {
+        el.textContent = el.getAttribute('data-count-to') + (el.getAttribute('data-suffix') || '');
       });
     }
   }
