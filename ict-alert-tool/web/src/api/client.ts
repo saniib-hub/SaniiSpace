@@ -76,4 +76,38 @@ export const api = {
       body: JSON.stringify(body),
     }).then((r) => r.json()),
   liveCheck: () => fetch(`${BASE}/live/check`, { method: 'POST' }).then((r) => r.json()),
+  replayStart: (instrument: string, speedMs: number) =>
+    fetch(`${BASE}/replay/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instrument, speed_ms: speedMs }),
+    }).then((r) => r.json()),
+  replayStop: (instrument: string) =>
+    fetch(`${BASE}/replay/stop`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instrument }),
+    }).then((r) => r.json()),
+}
+
+export interface AlertEvent {
+  type: string
+  instrument: string
+  direction: string
+  date: string
+  setup_id: string
+  message: string
+  data: Record<string, unknown>
+}
+
+export function subscribeAlerts(onEvent: (e: AlertEvent) => void): () => void {
+  const es = new EventSource(`${BASE}/alerts/stream`)
+  es.onmessage = (ev) => {
+    try {
+      onEvent(JSON.parse(ev.data))
+    } catch {
+      // ignore malformed/keepalive lines
+    }
+  }
+  return () => es.close()
 }

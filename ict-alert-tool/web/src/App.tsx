@@ -6,6 +6,7 @@ import { TradesTable } from '@/components/TradesTable'
 import { TradeChart } from '@/components/TradeChart'
 import { VerificationPanel } from '@/components/VerificationPanel'
 import { LiveMonitorPanel } from '@/components/LiveMonitorPanel'
+import { AlertsPanel } from '@/components/AlertsPanel'
 import { api, type Candle, type Summary, type Trade } from '@/api/client'
 
 type InstrumentFilter = 'ALL' | 'EURUSD' | 'GBPUSD'
@@ -67,6 +68,7 @@ function App() {
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="trades">Trades &amp; Charts</TabsTrigger>
           <TabsTrigger value="verification">Verification</TabsTrigger>
+          <TabsTrigger value="alerts">Alerts</TabsTrigger>
           <TabsTrigger value="live">Live Monitor</TabsTrigger>
         </TabsList>
 
@@ -157,6 +159,10 @@ function App() {
 
         <TabsContent value="verification" className="pt-4">
           <VerificationPanel />
+        </TabsContent>
+
+        <TabsContent value="alerts" className="pt-4">
+          <AlertsPanel />
         </TabsContent>
 
         <TabsContent value="live" className="pt-4">

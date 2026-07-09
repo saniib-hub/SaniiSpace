@@ -1,35 +1,41 @@
 """
-Live-monitor skeleton.
+Live monitor: polls OANDA for fresh daily candles and feeds them through the
+same AlertEngine used by the demo replay (verified in test_alert_engine.py),
+publishing every ARMED/ENTRY/STOP/TARGET event to alert_bus exactly like a
+replay does -- the Alerts tab doesn't need to know the difference.
 
-Honest scope note: this wires up real OANDA candle fetching and re-uses the
-*verified daily-bar* detection engine to check whether a fresh sweep+MSS
-setup has just armed on the latest daily close. It does NOT implement the
-full intraday (5m/15m execution + daily bias) port described in
-CLAUDE.md step 3 -- that is real, separate work (different bar granularity,
-kill-zone time filters, incremental state tracking) that hasn't been done
-yet. Until that port exists, this only tells you "a daily setup just armed
-on today's close," not "arm 30-60 minutes before an intraday entry."
+Honest scope note: this operates on daily candles only. It does NOT
+implement the full intraday (5m/15m execution + kill-zone-precise timing)
+port described in CLAUDE.md step 3 -- that is real, separate work (different
+bar granularity, session/kill-zone time filters at the bar level) that
+hasn't been done yet. Until that port exists, a background poller here can
+tell you "a daily setup just armed as of today's close," not "arm 30-60
+minutes before an intraday entry" the way the original spec asked for.
 
 Requires a real OANDA API key to do anything -- with no key configured,
-`check_now()` returns a NOT_CONFIGURED status.
+check_now() returns NOT_CONFIGURED and the background poller stays idle.
 """
 
 import os
 import sys
+import threading
+import time
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ict_ttrades_backtest import (  # noqa: E402
-    find_fractal_swings, trend_state_at, try_bullish_setup, try_bearish_setup,
-)
+from alert_bus import bus, alert_to_dict  # noqa: E402
+from alert_engine import AlertEngine  # noqa: E402
 from oanda_client import OandaClient, OandaError  # noqa: E402
 
 KILL_ZONES_NY = [
     {"name": "London", "start": "03:00", "end": "04:00"},
     {"name": "New York", "start": "08:00", "end": "09:00"},
 ]
+POLL_INTERVAL_SECONDS = 300
 
 
 @dataclass
@@ -41,12 +47,16 @@ class LiveConfig:
 
 
 _config = LiveConfig()
+_engines: dict[str, AlertEngine] = {}
+_seen_dates: dict[str, set] = {}
+_lock = threading.Lock()
 
 
 def set_config(api_key, account_id, practice, instruments):
     global _config
-    _config = LiveConfig(api_key=api_key or None, account_id=account_id or None,
-                          practice=practice, instruments=instruments or ["EURUSD", "GBPUSD"])
+    with _lock:
+        _config = LiveConfig(api_key=api_key or None, account_id=account_id or None,
+                              practice=practice, instruments=instruments or ["EURUSD", "GBPUSD"])
     return status()
 
 
@@ -56,38 +66,19 @@ def status():
         "practice": _config.practice,
         "instruments": _config.instruments,
         "kill_zones_ny": KILL_ZONES_NY,
+        "in_kill_zone_now": _in_kill_zone(),
         "scope_note": (
-            "Daily-bar setup detection only (reuses the verified backtest engine on the "
-            "latest OANDA daily candles). Intraday 5m/15m execution port is not implemented "
-            "yet -- see CLAUDE.md step 3."
+            "Daily-bar setup detection only (reuses the same verified AlertEngine the demo "
+            "replay uses, fed with fresh OANDA daily candles). Intraday 5m/15m execution port "
+            "is not implemented yet -- see CLAUDE.md step 3."
         ),
     }
 
 
-def check_now():
-    """Fetch latest daily candles per configured instrument and report any
-    setup armed within the last few bars. Returns NOT_CONFIGURED if no API
-    key has been set."""
-    if not _config.api_key:
-        return {"status": "NOT_CONFIGURED",
-                "message": "No OANDA API key configured. POST /api/live/config to set one."}
-
-    client = OandaClient(api_key=_config.api_key, account_id=_config.account_id or "",
-                          practice=_config.practice)
-    results = []
-    for instrument in _config.instruments:
-        try:
-            candles = client.get_candles(instrument, granularity="D", count=120)
-        except OandaError as e:
-            results.append({"instrument": instrument, "error": str(e)})
-            continue
-
-        complete = [c for c in candles if c["complete"]]
-        bars = [_CandleBar(c) for c in complete]
-        armed = _scan_for_fresh_setup(bars, instrument)
-        results.append({"instrument": instrument, "armed_setups": armed})
-
-    return {"status": "OK", "results": results}
+def _in_kill_zone(now_ny: Optional[datetime] = None) -> bool:
+    now_ny = now_ny or datetime.now(ZoneInfo("America/New_York"))
+    hm = now_ny.strftime("%H:%M")
+    return any(z["start"] <= hm <= z["end"] for z in KILL_ZONES_NY)
 
 
 class _CandleBar:
@@ -100,55 +91,63 @@ class _CandleBar:
         self.c = c["close"]
 
 
-def _scan_for_fresh_setup(bars, instrument, lookback_bars=3):
-    """Re-run the verified sweep detection on only the tail of the series,
-    to see if a setup armed within the last `lookback_bars` closes."""
-    n = len(bars)
-    if n < 10:
-        return []
-    swings = find_fractal_swings(bars)
-    highs_sorted = [s for s in swings if s.kind == "high"]
-    lows_sorted = [s for s in swings if s.kind == "low"]
-    armed = []
+def check_now():
+    """Fetch latest daily candles per configured instrument, feed any bars
+    not yet processed into that instrument's persistent AlertEngine, and
+    publish resulting alerts. Returns NOT_CONFIGURED if no API key is set."""
+    if not _config.api_key:
+        return {"status": "NOT_CONFIGURED",
+                "message": "No OANDA API key configured. POST /api/live/config to set one."}
 
-    for i in range(max(3, n - lookback_bars), n):
-        confirmed_lows = [s for s in lows_sorted if s.idx + 1 <= i and not s.swept]
-        confirmed_highs = [s for s in highs_sorted if s.idx + 1 <= i and not s.swept]
+    client = OandaClient(api_key=_config.api_key, account_id=_config.account_id or "",
+                          practice=_config.practice)
+    results = []
+    for instrument in _config.instruments:
+        try:
+            candles = client.get_candles(instrument, granularity="D", count=200)
+        except OandaError as e:
+            results.append({"instrument": instrument, "error": str(e)})
+            continue
 
-        if confirmed_lows:
-            ref_low = confirmed_lows[-1]
-            if bars[i].l < ref_low.price and bars[i].c > ref_low.price:
-                trend = trend_state_at(swings, i)
-                prior_highs = [s for s in highs_sorted if s.idx <= i]
-                if prior_highs:
-                    t = try_bullish_setup(bars, i, ref_low, prior_highs[-1], instrument, trend)
-                    if t:
-                        armed.append(_trade_to_alert(t))
+        with _lock:
+            engine = _engines.setdefault(instrument, AlertEngine(instrument))
+            seen = _seen_dates.setdefault(instrument, set())
 
-        if confirmed_highs:
-            ref_high = confirmed_highs[-1]
-            if bars[i].h > ref_high.price and bars[i].c < ref_high.price:
-                trend = trend_state_at(swings, i)
-                prior_lows = [s for s in lows_sorted if s.idx <= i]
-                if prior_lows:
-                    t = try_bearish_setup(bars, i, ref_high, prior_lows[-1], instrument, trend)
-                    if t:
-                        armed.append(_trade_to_alert(t))
+        new_alerts = []
+        for c in candles:
+            if not c["complete"] or c["date"] in seen:
+                continue
+            seen.add(c["date"])
+            for a in engine.push_bar(_CandleBar(c)):
+                bus.publish(alert_to_dict(a))
+                new_alerts.append(alert_to_dict(a))
 
-    return armed
+        results.append({"instrument": instrument, "new_alerts": new_alerts,
+                         "bars_seen": len(seen)})
+
+    return {"status": "OK", "results": results}
 
 
-def _trade_to_alert(t):
-    return {
-        "instrument": t.instrument,
-        "direction": t.direction,
-        "bias_aligned": t.bias_aligned,
-        "sweep_date": t.sweep_date,
-        "sweep_price": round(t.sweep_price, 5),
-        "mss_date": t.mss_date,
-        "mss_price": round(t.mss_price, 5),
-        "entry_zone_high": round(t.entry_price, 5),
-        "stop": round(t.stop, 5),
-        "target_2r": round(t.target_2r, 5),
-        "target_3r": round(t.target_3r, 5),
-    }
+_poller_started = False
+
+
+def start_background_poller():
+    """Idempotent: starts one daemon thread that wakes up periodically and
+    calls check_now() whenever both (a) live monitoring is configured and
+    (b) we're currently inside a kill-zone window. Safe to call at import
+    time -- it stays idle doing nothing until configured."""
+    global _poller_started
+    if _poller_started:
+        return
+    _poller_started = True
+
+    def _loop():
+        while True:
+            try:
+                if _config.api_key and _in_kill_zone():
+                    check_now()
+            except Exception:
+                pass  # never let a transient OANDA/network error kill the poller
+            time.sleep(POLL_INTERVAL_SECONDS)
+
+    threading.Thread(target=_loop, daemon=True).start()

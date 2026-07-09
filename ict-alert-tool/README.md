@@ -35,9 +35,36 @@ proxies `/api/*` to the backend on port 8123.
   candlestick chart with the sweep, MSS, OTE entry zone, stop, and target
   levels overlaid (same levels as the reference charts in this project).
 - **Verification** — the independent audit report (see below).
+- **Alerts** — live feed of every ARMED / ENTRY triggered / STOP hit / 2R
+  TARGET hit / 3R TARGET hit event, with matching browser notifications.
+  Includes a "demo replay" that runs the verified historical data through
+  the real alert engine at adjustable speed, so you can watch the whole
+  pipeline fire with no OANDA key needed. Once Live Monitor is configured,
+  the same feed carries real alerts.
 - **Live Monitor** — OANDA API key / account ID form. Held in server memory
-  only, never written to disk. See the scope note in that panel and in
+  only, never written to disk. Once configured, a background poller checks
+  for fresh candles during the London/New York kill zones automatically —
+  no need to click "check now." See the scope note in that panel and in
   `api/live_monitor.py` for exactly what it does and doesn't do yet.
+
+## The alert engine
+
+`api/alert_engine.py` is a from-scratch, bar-by-bar state machine (not the
+batch `ict_ttrades_backtest.py` re-run on a sliding window) that fires the
+moment each stage happens: sweep → **ARMED** (MSS + displacement confirmed,
+entry zone/stop/targets known) → **ENTRY triggered** (price taps the OTE
+zone) → **STOP hit** / **2R TARGET hit** / **3R TARGET hit**. It's built to
+never silently skip a real sweep: every confirmed, not-yet-swept swing is
+checked every bar, not just the most recent one (the batch engine's own
+simplification — see `verification_report.md`'s exhaustive re-scan).
+`api/test_alert_engine.py` replays the full historical CSVs through it and
+confirms it reproduces 7 of the 8 verified trades exactly, with the eighth
+explained and asserted, not silently dropped (two of the original 8
+"trades" turned out to reference a liquidity level that real price action
+had already reclaimed a day earlier — the batch engine split that into two
+sequential trades because it only checks one swing at a time; this engine
+correctly recognizes it as a single event). Run
+`python3 -m unittest api/test_alert_engine.py` to see it for yourself.
 
 ## Run just the backtest (no web UI)
 
@@ -70,8 +97,10 @@ trades.
 - `data/eurusd_daily.csv`, `data/gbpusd_daily.csv` — daily OHLC input
 - `backtest_summary.txt` — per-instrument and combined stats
 - `backtest_trades.csv` — one row per detected trade (sweep/MSS/entry/stop/targets/exit)
-- `api/` — FastAPI backend (serves backtest results as JSON; OANDA client +
-  live-monitor skeleton)
+- `api/` — FastAPI backend: serves backtest results as JSON; `alert_engine.py`
+  (the live/replay alert state machine) + `test_alert_engine.py`; `alert_bus.py`
+  + `replay.py` (SSE pub/sub + demo replay runner); `oanda_client.py` +
+  `live_monitor.py` (OANDA candle fetch + kill-zone background poller)
 - `web/` — React + TypeScript + Tailwind + shadcn/ui dashboard
 - `CLAUDE.md` — build plan / context for extending this to a full intraday
   live-alert tool

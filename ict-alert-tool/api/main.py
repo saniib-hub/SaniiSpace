@@ -1,16 +1,27 @@
+import asyncio
+import json
 import os
+import queue
 import sys
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import engine_adapter  # noqa: E402
 import live_monitor  # noqa: E402
+import replay  # noqa: E402
+from alert_bus import bus  # noqa: E402
 
 app = FastAPI(title="ICT Alert Tool API")
+
+@app.on_event("startup")
+def _start_poller():
+    live_monitor.start_background_poller()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -82,6 +93,44 @@ def live_config(req: LiveConfigRequest):
 @app.post("/api/live/check")
 def live_check():
     return live_monitor.check_now()
+
+
+class ReplayRequest(BaseModel):
+    instrument: str
+    speed_ms: int = 150
+
+
+@app.post("/api/replay/start")
+def replay_start(req: ReplayRequest):
+    instrument = req.instrument.upper()
+    if instrument not in engine_adapter.INSTRUMENT_FILES:
+        raise HTTPException(404, f"unknown instrument {instrument}")
+    return replay.start_replay(instrument, req.speed_ms)
+
+
+@app.post("/api/replay/stop")
+def replay_stop(req: ReplayRequest):
+    return replay.stop_replay(req.instrument.upper())
+
+
+@app.get("/api/alerts/stream")
+async def alerts_stream():
+    q = bus.subscribe()
+
+    async def gen():
+        try:
+            while True:
+                try:
+                    item = await asyncio.to_thread(q.get, True, 15.0)
+                    yield f"data: {json.dumps(item)}\n\n"
+                except queue.Empty:
+                    yield ": keepalive\n\n"
+        finally:
+            bus.unsubscribe(q)
+
+    return StreamingResponse(gen(), media_type="text/event-stream", headers={
+        "Cache-Control": "no-cache", "X-Accel-Buffering": "no",
+    })
 
 
 @app.get("/api/health")
