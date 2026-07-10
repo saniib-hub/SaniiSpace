@@ -12,6 +12,7 @@ from pydantic import BaseModel
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import engine_adapter  # noqa: E402
+import journal  # noqa: E402
 import live_monitor  # noqa: E402
 import replay  # noqa: E402
 from alert_bus import bus  # noqa: E402
@@ -110,6 +111,21 @@ def live_config(req: LiveConfigRequest):
 @app.post("/api/live/check")
 def live_check():
     return live_monitor.check_now()
+
+
+@app.get("/api/live/journal/candles/{instrument}")
+def journal_candles(instrument: str, limit: int = Query(500, le=5000)):
+    """Persisted record of every live daily candle the scan has fetched for
+    this instrument -- the market's actual movement over time, independent
+    of the in-memory SSE feed (which is lost on restart)."""
+    return journal.get_candle_history(instrument.upper(), limit=limit)
+
+
+@app.get("/api/live/journal/alerts")
+def journal_alerts(instrument: str = Query(None), limit: int = Query(200, le=2000)):
+    """Persisted record of every alert the live scan has produced (armed/
+    entry/stop/target/expired), across restarts."""
+    return journal.get_alert_history(instrument.upper() if instrument else None, limit=limit)
 
 
 class ReplayRequest(BaseModel):

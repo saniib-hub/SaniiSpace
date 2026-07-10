@@ -120,6 +120,24 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ instrument }),
     }).then((r) => r.json()),
+  journalCandles: (instrument: string, limit = 500) =>
+    getJSON<Candle[]>(`/live/journal/candles/${instrument}?limit=${limit}`),
+  journalAlerts: (instrument?: string, limit = 200) => {
+    const params = new URLSearchParams({ limit: String(limit) })
+    if (instrument) params.set('instrument', instrument)
+    return getJSON<JournalAlert[]>(`/live/journal/alerts?${params.toString()}`)
+  },
+}
+
+export interface JournalAlert {
+  type: string
+  instrument: string
+  direction: string
+  date: string
+  setup_id: string
+  message: string
+  data: Record<string, unknown>
+  recorded_at: string
 }
 
 export interface AlertEvent {

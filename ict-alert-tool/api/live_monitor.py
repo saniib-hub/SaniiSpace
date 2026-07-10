@@ -30,6 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from alert_bus import bus, alert_to_dict  # noqa: E402
 from alert_engine import AlertEngine  # noqa: E402
 from oanda_client import OandaClient, OandaError  # noqa: E402
+import journal  # noqa: E402
 
 KILL_ZONES_NY = [
     {"name": "London", "start": "03:00", "end": "04:00"},
@@ -127,8 +128,11 @@ def check_now():
             if not c["complete"] or c["date"] in seen:
                 continue
             seen.add(c["date"])
+            journal.record_candle(instrument, c)
             for a in engine.push_bar(_CandleBar(c)):
-                bus.publish(alert_to_dict(a))
+                a_dict = alert_to_dict(a)
+                bus.publish(a_dict)
+                journal.record_alert(a_dict)
 
         results.append({"instrument": instrument, "possible_entries": engine.get_possible_entries(),
                          "bars_seen": len(seen)})

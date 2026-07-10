@@ -5,13 +5,19 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
-import { api, type LiveCheckResult } from '@/api/client'
+import { api, type LiveCheckResult, type JournalAlert } from '@/api/client'
 import { cn } from '@/lib/utils'
 
 interface LiveInstrument {
   symbol: string
   label: string
   has_backtest: boolean
+}
+
+const JOURNAL_TAG_LABEL: Record<string, string> = {
+  armed: 'ARMED', entry_triggered: 'ENTRY', stop_hit: 'STOP',
+  target_2r_hit: '2R TARGET', target_3r_hit: '3R TARGET',
+  invalidated: 'INVALIDATED', expired: 'EXPIRED', closed_max_hold: 'MAX HOLD',
 }
 
 export function LiveMonitorPanel() {
@@ -24,6 +30,8 @@ export function LiveMonitorPanel() {
   const [error, setError] = useState<string | null>(null)
   const [available, setAvailable] = useState<LiveInstrument[]>([])
   const [selected, setSelected] = useState<Set<string>>(new Set(['EURUSD', 'GBPUSD']))
+  const [journalEntries, setJournalEntries] = useState<JournalAlert[] | null>(null)
+  const [journalError, setJournalError] = useState<string | null>(null)
 
   useEffect(() => {
     api.liveStatus().then(setStatus).catch((e) => setError(String(e)))
@@ -67,6 +75,15 @@ export function LiveMonitorPanel() {
       setError(String(e))
     } finally {
       setBusy(false)
+    }
+  }
+
+  async function loadJournal() {
+    setJournalError(null)
+    try {
+      setJournalEntries(await api.journalAlerts(undefined, 100))
+    } catch (e) {
+      setJournalError(String(e))
     }
   }
 
@@ -223,6 +240,59 @@ export function LiveMonitorPanel() {
       {checkResult && checkResult.status === 'NOT_CONFIGURED' && (
         <p className="text-sm text-destructive">{checkResult.message}</p>
       )}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Journal</CardTitle>
+          <CardDescription>
+            A persisted record of the market's movement and every scan result over time --
+            survives restarts, unlike the live feed. Not a trade or order log: nothing here is a
+            real broker order, since this tool doesn't place trades.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          <Button onClick={loadJournal} variant="outline" className="self-start">
+            Load journal
+          </Button>
+          {journalError && <p className="text-sm text-destructive">{journalError}</p>}
+          {journalEntries && journalEntries.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              No recorded scan history yet -- run "Check now" (or let the background poller run
+              during a kill zone) to start building one.
+            </p>
+          )}
+          {journalEntries && journalEntries.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs text-muted-foreground">
+                    <th className="pr-3 py-1">Recorded</th>
+                    <th className="pr-3 py-1">Type</th>
+                    <th className="pr-3 py-1">Instrument</th>
+                    <th className="pr-3 py-1">Dir</th>
+                    <th className="pr-3 py-1">Date</th>
+                    <th className="py-1">Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {journalEntries.map((e, i) => (
+                    <tr key={i} className="border-t">
+                      <td className="pr-3 py-1 whitespace-nowrap text-xs text-muted-foreground">{e.recorded_at}</td>
+                      <td className="pr-3 py-1 whitespace-nowrap">
+                        <Badge variant="secondary">{JOURNAL_TAG_LABEL[e.type] ?? e.type}</Badge>
+                      </td>
+                      <td className="pr-3 py-1 whitespace-nowrap font-medium">{e.instrument}</td>
+                      <td className="pr-3 py-1 whitespace-nowrap text-muted-foreground">{e.direction}</td>
+                      <td className="pr-3 py-1 whitespace-nowrap">{e.date}</td>
+                      <td className="py-1 text-muted-foreground">{e.message}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   )
 }
