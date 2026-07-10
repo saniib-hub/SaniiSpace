@@ -897,15 +897,11 @@ a.overview-card:hover {
   #services .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  #services .card-grid > article:last-child {
-    grid-column: 1 / -1;
-  }
 }
 
 @media (min-width: 980px) {
   #services .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
