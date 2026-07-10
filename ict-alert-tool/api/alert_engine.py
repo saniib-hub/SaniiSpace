@@ -158,6 +158,29 @@ class AlertEngine:
 
         return alerts
 
+    def get_possible_entries(self) -> list[dict]:
+        """Currently ARMED setups: sweep + MSS + displacement confirmed,
+        entry zone/stop/targets known, price hasn't tapped the zone yet.
+        These are the setups worth watching right now -- as opposed to
+        `armed`-type Alert objects, which only fire once at the moment a
+        setup arms and are gone from history after that tick, this reflects
+        live current state so a scan run anytime still shows what's still
+        pending."""
+        return [{
+            "instrument": self.instrument,
+            "direction": a.direction,
+            "sweep_date": a.sweep_date,
+            "sweep_price": round(a.sweep_price, 5),
+            "mss_date": a.mss_date,
+            "mss_price": round(a.mss_price, 5),
+            "entry_zone": [round(min(a.entry_low, a.entry_high), 5), round(max(a.entry_low, a.entry_high), 5)],
+            "entry_price": round(a.entry_price, 5),
+            "stop": round(a.stop, 5),
+            "target_2r": round(a.target_2r, 5),
+            "target_3r": round(a.target_3r, 5),
+            "bias_aligned": a.bias_aligned,
+        } for a in self.armed]
+
     def finalize(self) -> list[Alert]:
         """Force-close any still-open positions using the last bar's close.
 

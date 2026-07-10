@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
-import { api } from '@/api/client'
+import { api, type LiveCheckResult } from '@/api/client'
 import { cn } from '@/lib/utils'
 
 interface LiveInstrument {
@@ -19,7 +19,7 @@ export function LiveMonitorPanel() {
   const [accountId, setAccountId] = useState('')
   const [practice, setPractice] = useState(true)
   const [status, setStatus] = useState<Record<string, unknown> | null>(null)
-  const [checkResult, setCheckResult] = useState<Record<string, unknown> | null>(null)
+  const [checkResult, setCheckResult] = useState<LiveCheckResult | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [available, setAvailable] = useState<LiveInstrument[]>([])
@@ -167,17 +167,61 @@ export function LiveMonitorPanel() {
         </CardContent>
       </Card>
 
-      {checkResult && (
+      {checkResult && checkResult.status === 'OK' && (
         <Card>
           <CardHeader>
-            <CardTitle>Last check result</CardTitle>
+            <CardTitle>Possible entries</CardTitle>
+            <CardDescription>{checkResult.note}</CardDescription>
           </CardHeader>
-          <CardContent>
-            <pre className="text-xs overflow-x-auto bg-muted rounded-md p-3">
-              {JSON.stringify(checkResult, null, 2)}
-            </pre>
+          <CardContent className="flex flex-col gap-3">
+            {(checkResult.results ?? []).map((r) => (
+              <div key={r.instrument} className="flex flex-col gap-2">
+                {r.error && (
+                  <p className="text-sm text-destructive">{r.instrument}: {r.error}</p>
+                )}
+                {r.possible_entries && r.possible_entries.length === 0 && (
+                  <p className="text-sm text-muted-foreground">
+                    {r.instrument}: no confirmed pattern pending right now (checked {r.bars_seen} bars).
+                  </p>
+                )}
+                {r.possible_entries?.map((e, i) => (
+                  <div key={i} className="rounded-md border p-3 flex flex-col gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-medium">{e.instrument}</span>
+                      <Badge variant={e.direction === 'long' ? 'success' : 'destructive'}>{e.direction}</Badge>
+                      <Badge variant="default">high-probability entry</Badge>
+                      {e.bias_aligned && <Badge variant="secondary">bias-aligned</Badge>}
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+                      <div>
+                        <div className="text-xs text-muted-foreground">Entry zone</div>
+                        <div className="tabular-nums">{e.entry_zone[0].toFixed(5)} – {e.entry_zone[1].toFixed(5)}</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-muted-foreground">Stop loss</div>
+                        <div className="tabular-nums text-destructive font-medium">{e.stop.toFixed(5)}</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-muted-foreground">Take profit (2R)</div>
+                        <div className="tabular-nums text-success font-medium">{e.target_2r.toFixed(5)}</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-muted-foreground">Take profit (3R)</div>
+                        <div className="tabular-nums text-success font-medium">{e.target_3r.toFixed(5)}</div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      sweep {e.sweep_date} → MSS {e.mss_date}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
           </CardContent>
         </Card>
+      )}
+      {checkResult && checkResult.status === 'NOT_CONFIGURED' && (
+        <p className="text-sm text-destructive">{checkResult.message}</p>
       )}
     </div>
   )

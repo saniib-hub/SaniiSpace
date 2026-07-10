@@ -181,5 +181,50 @@ class TestAlertEngineNeverMissesVerifiedTrades(unittest.TestCase):
                 )
 
 
+class TestPossibleEntries(unittest.TestCase):
+    """get_possible_entries() backs the live-monitor scan's 'possible entries'
+    result -- it must report a setup exactly while it's ARMED (pattern
+    confirmed, entry zone known, not yet tapped) and never before or after."""
+
+    def test_empty_before_any_sweep(self):
+        bars = load_csv(INSTRUMENT_FILES["GBPUSD"])
+        engine = AlertEngine("GBPUSD")
+        for b in bars[:5]:
+            engine.push_bar(b)
+        self.assertEqual(engine.get_possible_entries(), [])
+
+    def test_reports_pending_armed_setup_with_correct_levels(self):
+        bars = load_csv(INSTRUMENT_FILES["GBPUSD"])
+        engine = AlertEngine("GBPUSD")
+        for b in bars[:85]:  # one bar after the 2026-06-17 MSS confirms, before the 2026-07-06 entry
+            engine.push_bar(b)
+        entries = engine.get_possible_entries()
+        self.assertEqual(len(entries), 1)
+        e = entries[0]
+        self.assertEqual(e["instrument"], "GBPUSD")
+        self.assertEqual(e["direction"], "short")
+        self.assertEqual(e["sweep_date"], "2026-06-15")
+        self.assertEqual(e["mss_date"], "2026-06-17")
+        self.assertAlmostEqual(e["stop"], 1.3478, places=4)
+        self.assertAlmostEqual(e["target_2r"], 1.32332, places=4)
+        self.assertAlmostEqual(e["target_3r"], 1.31516, places=4)
+        self.assertEqual(e["entry_zone"][0], min(e["entry_zone"]))
+        self.assertLess(e["entry_zone"][0], e["entry_zone"][1])
+
+    def test_disappears_once_entry_triggers(self):
+        bars = load_csv(INSTRUMENT_FILES["GBPUSD"])
+        engine = AlertEngine("GBPUSD")
+        pending_at_85 = False
+        for i, b in enumerate(bars):
+            engine.push_bar(b)
+            if i == 85:
+                pending_at_85 = any(e["sweep_date"] == "2026-06-15" for e in engine.get_possible_entries())
+            if b.date == "2026-07-06":  # the verified entry_date for this exact setup
+                break
+        self.assertTrue(pending_at_85, "expected the 2026-06-15 setup to still be pending at bar 85")
+        still_pending = any(e["sweep_date"] == "2026-06-15" for e in engine.get_possible_entries())
+        self.assertFalse(still_pending, "setup should have moved to 'open' once entry triggered, not still show as a possible entry")
+
+
 if __name__ == "__main__":
     unittest.main()

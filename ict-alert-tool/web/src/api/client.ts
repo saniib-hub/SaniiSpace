@@ -12,6 +12,33 @@ export interface Candle {
   close: number
 }
 
+export interface PossibleEntry {
+  instrument: string
+  direction: 'long' | 'short'
+  sweep_date: string
+  sweep_price: number
+  mss_date: string
+  mss_price: number
+  entry_zone: [number, number]
+  entry_price: number
+  stop: number
+  target_2r: number
+  target_3r: number
+  bias_aligned: boolean
+}
+
+export interface LiveCheckResult {
+  status: 'NOT_CONFIGURED' | 'OK'
+  message?: string
+  note?: string
+  results?: {
+    instrument: string
+    error?: string
+    possible_entries?: PossibleEntry[]
+    bars_seen?: number
+  }[]
+}
+
 export interface Trade {
   instrument: string
   direction: 'long' | 'short'
@@ -80,7 +107,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     }).then((r) => r.json()),
-  liveCheck: () => fetch(`${BASE}/live/check`, { method: 'POST' }).then((r) => r.json()),
+  liveCheck: () => fetch(`${BASE}/live/check`, { method: 'POST' }).then((r) => r.json() as Promise<LiveCheckResult>),
   replayStart: (instrument: string, speedMs: number) =>
     fetch(`${BASE}/replay/start`, {
       method: 'POST',

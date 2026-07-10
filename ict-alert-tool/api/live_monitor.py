@@ -91,10 +91,20 @@ class _CandleBar:
         self.c = c["close"]
 
 
+WIN_RATE_NOTE = (
+    "Entry/stop/target levels come from the same sweep-→MSS-→displacement-→OTE "
+    "pattern verified in the backtest: 75.0% win rate (6/8) at the 2R target across "
+    "EUR/USD + GBP/USD, ~100 days (see the Verification tab). That is a small historical "
+    "sample, not a guarantee -- always use the stop."
+)
+
+
 def check_now():
     """Fetch latest daily candles per configured instrument, feed any bars
-    not yet processed into that instrument's persistent AlertEngine, and
-    publish resulting alerts. Returns NOT_CONFIGURED if no API key is set."""
+    not yet processed into that instrument's persistent AlertEngine, publish
+    the resulting alerts (unfiltered -- full history for the Alerts tab), and
+    return only the currently-pending possible entries with their stop/target
+    levels for the scan result. Returns NOT_CONFIGURED if no API key is set."""
     if not _config.api_key:
         return {"status": "NOT_CONFIGURED",
                 "message": "No OANDA API key configured. POST /api/live/config to set one."}
@@ -113,19 +123,17 @@ def check_now():
             engine = _engines.setdefault(instrument, AlertEngine(instrument))
             seen = _seen_dates.setdefault(instrument, set())
 
-        new_alerts = []
         for c in candles:
             if not c["complete"] or c["date"] in seen:
                 continue
             seen.add(c["date"])
             for a in engine.push_bar(_CandleBar(c)):
                 bus.publish(alert_to_dict(a))
-                new_alerts.append(alert_to_dict(a))
 
-        results.append({"instrument": instrument, "new_alerts": new_alerts,
+        results.append({"instrument": instrument, "possible_entries": engine.get_possible_entries(),
                          "bars_seen": len(seen)})
 
-    return {"status": "OK", "results": results}
+    return {"status": "OK", "results": results, "note": WIN_RATE_NOTE}
 
 
 _poller_started = False
