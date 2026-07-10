@@ -715,6 +715,17 @@
           </label>
           <p class="quote-group-note">Android repairs are limited to select models — we'll confirm we can source parts for yours before booking you in.</p>
 
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" id="cellphoneSoftwareIssue" name="cellphonePart" value="Software Issue (Android / iOS)" data-price="0"><span class="quote-item-label">Software Issue (Android &amp; iOS)</span></span>
+            <span class="quote-item-price">Diagnosed in-store</span>
+          </label>
+
+          <div class="form-group" id="cellphoneSoftwareIssueGroup" hidden>
+            <label for="cellphoneSoftwareIssueDetails">Describe the software issue</label>
+            <textarea id="cellphoneSoftwareIssueDetails" name="softwareIssueDetails" rows="3" placeholder="e.g. Phone is frozen, apps keep crashing, forgotten password/lock screen, needs a factory reset, running slow, suspected virus, update won't install..."></textarea>
+            <span class="form-error" id="cellphoneSoftwareIssueError" role="alert"></span>
+          </div>
+
           <div class="form-group">
             <label for="cellphoneIssue">Describe the issue</label>
             <textarea id="cellphoneIssue" name="issue" rows="3" placeholder="e.g. Screen is cracked and touch doesn't respond in the top corner..."></textarea>

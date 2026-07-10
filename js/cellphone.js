@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var modelError = document.getElementById('cellphoneModelError');
   var issueInput = document.getElementById('cellphoneIssue');
   var issueError = document.getElementById('cellphoneIssueError');
+  var softwareIssueCheckbox = document.getElementById('cellphoneSoftwareIssue');
+  var softwareIssueGroup = document.getElementById('cellphoneSoftwareIssueGroup');
+  var softwareIssueDetailsInput = document.getElementById('cellphoneSoftwareIssueDetails');
+  var softwareIssueError = document.getElementById('cellphoneSoftwareIssueError');
 
   function selectedParts() {
     return Array.prototype.filter.call(partSelects, function (select) {
@@ -62,12 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
     brandNameError.textContent = '';
     modelError.textContent = '';
     issueError.textContent = '';
+    softwareIssueError.textContent = '';
     firstNameInput.removeAttribute('aria-invalid');
     lastNameInput.removeAttribute('aria-invalid');
     contactNumberInput.removeAttribute('aria-invalid');
     brandNameInput.removeAttribute('aria-invalid');
     modelInput.removeAttribute('aria-invalid');
     issueInput.removeAttribute('aria-invalid');
+    softwareIssueDetailsInput.removeAttribute('aria-invalid');
+    softwareIssueGroup.hidden = true;
     formView.hidden = false;
     resultView.hidden = true;
   }
@@ -121,6 +128,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   partCheckboxes.forEach(function (checkbox) {
     checkbox.addEventListener('change', updateTotal);
+  });
+
+  softwareIssueCheckbox.addEventListener('change', function () {
+    softwareIssueGroup.hidden = !softwareIssueCheckbox.checked;
+    if (!softwareIssueCheckbox.checked) {
+      softwareIssueError.textContent = '';
+      softwareIssueDetailsInput.removeAttribute('aria-invalid');
+    }
   });
 
   function addDetailRow(container, label, value) {
@@ -224,6 +239,18 @@ document.addEventListener('DOMContentLoaded', function () {
       issueInput.removeAttribute('aria-invalid');
     }
 
+    var softwareIssueDetails = softwareIssueDetailsInput.value.trim();
+    if (softwareIssueCheckbox.checked) {
+      if (!softwareIssueDetails) {
+        softwareIssueError.textContent = 'Please describe the software issue.';
+        softwareIssueDetailsInput.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else {
+        softwareIssueError.textContent = '';
+        softwareIssueDetailsInput.removeAttribute('aria-invalid');
+      }
+    }
+
     if (!isValid) {
       return;
     }
@@ -234,7 +261,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectItems = selectedParts().map(function (select) {
       return { name: select.getAttribute('data-category') + ': ' + select.options[select.selectedIndex].text.split(' — R')[0], price: Number(select.value) };
     });
-    var checkboxItems = checkedParts().map(function (checkbox) {
+    var checkboxItems = checkedParts().filter(function (checkbox) {
+      return checkbox !== softwareIssueCheckbox;
+    }).map(function (checkbox) {
       return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
     });
     var allItems = selectItems.concat(checkboxItems);
@@ -247,6 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addDetailRow(detailsEl, 'Brand', brandName);
     addDetailRow(detailsEl, 'Model', model);
     if (allItems.length) addListRow(detailsEl, 'Requested Repairs', allItems);
+    if (softwareIssueCheckbox.checked) addDetailRow(detailsEl, 'Software Issue (Android / iOS)', softwareIssueDetails);
     addDetailRow(detailsEl, 'Issue Description', issue);
     addDetailRow(detailsEl, 'Estimated Total', total > 0 ? 'R' + total : 'To be confirmed');
 
@@ -258,6 +288,9 @@ document.addEventListener('DOMContentLoaded', function () {
     allItems.forEach(function (item) {
       messageLines.push('- ' + item.name + ': R' + item.price);
     });
+    if (softwareIssueCheckbox.checked) {
+      messageLines.push('Software Issue (Android / iOS): ' + softwareIssueDetails);
+    }
     messageLines.push('Issue: ' + issue);
     messageLines.push('Estimated Total: ' + (total > 0 ? 'R' + total : 'To be confirmed'));
     var message = messageLines.join('\n');
