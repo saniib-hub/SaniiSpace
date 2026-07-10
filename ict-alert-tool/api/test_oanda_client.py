@@ -67,6 +67,35 @@ class TestOandaClient(unittest.TestCase):
         with self.assertRaises(OandaError):
             client.get_candles("EURUSD")
 
+    @patch("oanda_client.requests.get")
+    def test_get_candles_wraps_network_failures_as_oanda_error(self, mock_get):
+        """A blocked proxy / DNS failure / timeout raises requests' own
+        exception types (ProxyError, ConnectionError, Timeout, ...), not
+        OandaError -- callers (live_monitor.check_now) only catch OandaError,
+        so an unwrapped network failure here becomes an unhandled 500
+        instead of a graceful per-instrument error. Found via end-to-end UI
+        testing against this session's network-restricted sandbox."""
+        import requests as requests_module
+
+        for exc in (
+            requests_module.exceptions.ProxyError("Tunnel connection failed: 403 Forbidden"),
+            requests_module.exceptions.ConnectionError("Name or service not known"),
+            requests_module.exceptions.Timeout("Read timed out"),
+        ):
+            mock_get.side_effect = exc
+            client = OandaClient(api_key="fake-key")
+            with self.assertRaises(OandaError):
+                client.get_candles("EURUSD")
+
+    @patch("oanda_client.requests.get")
+    def test_ping_wraps_network_failures_as_oanda_error(self, mock_get):
+        import requests as requests_module
+
+        mock_get.side_effect = requests_module.exceptions.ProxyError("blocked")
+        client = OandaClient(api_key="fake-key")
+        with self.assertRaises(OandaError):
+            client.ping()
+
 
 if __name__ == "__main__":
     unittest.main()

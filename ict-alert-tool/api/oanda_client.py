@@ -69,7 +69,10 @@ class OandaClient:
         oanda_instrument = INSTRUMENT_MAP.get(instrument, instrument)
         url = f"{self.base_url}/v3/instruments/{oanda_instrument}/candles"
         params = {"granularity": granularity, "count": count, "price": "M"}
-        resp = requests.get(url, headers=self._headers(), params=params, timeout=self.timeout)
+        try:
+            resp = requests.get(url, headers=self._headers(), params=params, timeout=self.timeout)
+        except requests.exceptions.RequestException as e:
+            raise OandaError(f"could not reach OANDA ({type(e).__name__}): {e}") from e
         if resp.status_code != 200:
             raise OandaError(f"OANDA request failed ({resp.status_code}): {resp.text[:500]}")
         payload = resp.json()
@@ -91,7 +94,10 @@ class OandaClient:
     def ping(self):
         """Lightweight auth/connectivity check against the accounts endpoint."""
         url = f"{self.base_url}/v3/accounts"
-        resp = requests.get(url, headers=self._headers(), timeout=self.timeout)
+        try:
+            resp = requests.get(url, headers=self._headers(), timeout=self.timeout)
+        except requests.exceptions.RequestException as e:
+            raise OandaError(f"could not reach OANDA ({type(e).__name__}): {e}") from e
         if resp.status_code != 200:
             raise OandaError(f"OANDA auth check failed ({resp.status_code}): {resp.text[:500]}")
         return resp.json()
