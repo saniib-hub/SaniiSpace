@@ -1000,6 +1000,79 @@ a.overview-card:hover {
   color: var(--muted);
 }
 
+/* ---------- Decorative component marquees (Gaming PC / Cell Phone / CCTVs & Networks cards) ----------
+   Purely decorative (aria-hidden) icon strips that drift behind the card's
+   real content. Each track is the icon list duplicated back-to-back, then
+   animated exactly -50% so the loop is seamless. Edges fade via a mask
+   gradient instead of a hard clip. */
+.card--marquee {
+  overflow: hidden;
+}
+
+.tech-marquee {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.tech-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 1.8rem;
+  opacity: 0.16;
+  filter: grayscale(0.3);
+}
+
+.tech-marquee--vertical {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
+}
+
+.tech-marquee--vertical .tech-marquee-track {
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  animation: tech-marquee-vertical 16s linear infinite;
+}
+
+.tech-marquee--horizontal {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.tech-marquee--horizontal .tech-marquee-track {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  white-space: nowrap;
+  animation: tech-marquee-horizontal 15s linear infinite;
+}
+
+.tech-marquee--reverse .tech-marquee-track {
+  animation-direction: reverse;
+  animation-duration: 19s;
+}
+
+@keyframes tech-marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes tech-marquee-horizontal {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* ---------- Walk-in badge (Online Applications / SARS-Labour-UIF-PSIRA) ---------- */
 .walk-in-card {
   cursor: pointer;
