@@ -23,9 +23,12 @@ def _start_poller():
     live_monitor.start_background_poller()
 
 
+_default_origins = "http://localhost:5173,http://127.0.0.1:5173"
+_allowed_origins = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", _default_origins).split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=_allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -78,6 +81,20 @@ class LiveConfigRequest(BaseModel):
     account_id: str = ""
     practice: bool = True
     instruments: list[str] = ["EURUSD", "GBPUSD"]
+
+
+@app.get("/api/live/instruments")
+def live_instruments():
+    """Full set of instruments the Live Monitor can watch via OANDA. Only
+    EURUSD/GBPUSD (in engine_adapter.INSTRUMENT_FILES) have verified
+    backtest history -- everything else here is live-only until real
+    historical data is available."""
+    from oanda_client import INSTRUMENT_MAP, INSTRUMENT_LABELS
+    return [
+        {"symbol": s, "label": INSTRUMENT_LABELS.get(s, s),
+         "has_backtest": s in engine_adapter.INSTRUMENT_FILES}
+        for s in INSTRUMENT_MAP
+    ]
 
 
 @app.get("/api/live/status")

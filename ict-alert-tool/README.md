@@ -27,6 +27,9 @@ npm run dev
 Open the URL Vite prints (default `http://localhost:5173`). The dev server
 proxies `/api/*` to the backend on port 8123.
 
+Want an always-on URL instead of running this locally? See `DEPLOY.md` for
+a Render Blueprint (`render.yaml` at the repo root) and full walkthrough.
+
 ### Tabs
 
 - **Dashboard** — win rate / avg R / total R / profit factor / max

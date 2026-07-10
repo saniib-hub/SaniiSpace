@@ -1,4 +1,8 @@
-const BASE = '/api'
+// In local dev the Vite proxy forwards relative '/api' calls to the backend
+// (see vite.config.ts). In production the frontend and API are deployed as
+// separate services on different origins, so a build-time env var supplies
+// the API's absolute URL instead.
+const BASE = `${import.meta.env.VITE_API_BASE ?? ''}/api`
 
 export interface Candle {
   date: string
@@ -68,6 +72,7 @@ export const api = {
   },
   candles: (instrument: string) => getJSON<Candle[]>(`/candles/${instrument}`),
   verification: () => getJSON<{ report_markdown: string }>('/verification'),
+  liveInstruments: () => getJSON<{ symbol: string; label: string; has_backtest: boolean }[]>('/live/instruments'),
   liveStatus: () => getJSON<Record<string, unknown>>('/live/status'),
   liveConfig: (body: { api_key: string; account_id: string; practice: boolean; instruments: string[] }) =>
     fetch(`${BASE}/live/config`, {

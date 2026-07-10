@@ -16,11 +16,32 @@ PRACTICE_BASE_URL = "https://api-fxpractice.oanda.com"
 LIVE_BASE_URL = "https://api-fxtrade.oanda.com"
 
 # OANDA's instrument naming differs from the plain "EURUSD" used elsewhere
-# in this project.
+# in this project. Only EURUSD/GBPUSD have verified backtest history (see
+# engine_adapter.INSTRUMENT_FILES) -- everything else here is live-monitor-only
+# until real historical data is available (see CLAUDE.md).
 INSTRUMENT_MAP = {
+    # FX majors
     "EURUSD": "EUR_USD",
     "GBPUSD": "GBP_USD",
+    "USDJPY": "USD_JPY",
+    "AUDUSD": "AUD_USD",
+    "USDCAD": "USD_CAD",
+    "USDCHF": "USD_CHF",
+    "NZDUSD": "NZD_USD",
+    # Metals
     "XAUUSD": "XAU_USD",
+    "XAGUSD": "XAG_USD",
+    # Indices (OANDA CFD tickers)
+    "US500": "SPX500_USD",
+    "NAS100": "NAS100_USD",
+    "US30": "US30_USD",
+}
+
+INSTRUMENT_LABELS = {
+    "EURUSD": "EUR/USD", "GBPUSD": "GBP/USD", "USDJPY": "USD/JPY",
+    "AUDUSD": "AUD/USD", "USDCAD": "USD/CAD", "USDCHF": "USD/CHF",
+    "NZDUSD": "NZD/USD", "XAUUSD": "Gold (XAU/USD)", "XAGUSD": "Silver (XAG/USD)",
+    "US500": "S&P 500", "NAS100": "Nasdaq 100", "US30": "Dow 30",
 }
 
 
