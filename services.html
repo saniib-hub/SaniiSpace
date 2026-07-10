@@ -109,12 +109,12 @@
         </article>
         <article class="card reveal" style="--d:5" id="networksCard" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-icon-row">
-            <div class="card-icon" aria-hidden="true">📶</div>
+            <div class="card-icon" aria-hidden="true">📹</div>
             <span class="card-check" aria-hidden="true">✓</span>
           </div>
-          <h3>Networks</h3>
-          <p>Wi-Fi and network troubleshooting, plus new home, office and CCTV network setups.</p>
-          <span class="card-cta">Get a network quote →</span>
+          <h3>CCTVs and Networks</h3>
+          <p>Wi-Fi and network troubleshooting, new network setups, and CCTV packages from regular to smart and solar.</p>
+          <span class="card-cta">Get a quote →</span>
         </article>
       </div>
     </div>
@@ -756,11 +756,11 @@
 
 <dialog id="networksDialog" class="quote-dialog" aria-labelledby="networksDialogTitle">
   <div class="quote-dialog-inner">
-    <button type="button" class="quote-close" id="networksClose" aria-label="Close Networks quote form">&times;</button>
+    <button type="button" class="quote-close" id="networksClose" aria-label="Close CCTVs and Networks quote form">&times;</button>
 
     <div id="networksFormView">
-      <h2 id="networksDialogTitle">Networks</h2>
-      <p class="quote-intro">Having Wi-Fi problems, or need a new network set up? Tell us what's going on and we'll get back to you to confirm the job and price.</p>
+      <h2 id="networksDialogTitle">CCTVs and Networks</h2>
+      <p class="quote-intro">Having Wi-Fi problems, need a new network set up, or want CCTV cover for your home or business? Tell us what's going on and we'll get back to you to confirm the job and price.</p>
 
       <form id="networksForm" novalidate>
         <fieldset class="quote-group">
@@ -867,6 +867,33 @@
           <div class="form-group">
             <label for="networksSetupDetails">Describe the network you need</label>
             <textarea id="networksSetupDetails" name="setupDetails" rows="3" placeholder="e.g. New office, 8 desks, need Wi-Fi and 4 wired points, plus 2 CCTV cameras..."></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>CCTV Coverage Packages</legend>
+          <p class="quote-group-note">From regular wired cameras to smart CCTV you monitor from your phone, to solar cameras with their own back-up power — market value pricing, includes cameras, recorder and installation.</p>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksCctv" value="Regular CCTV Package (4 Cameras, Wired, DVR)" data-price="6500"><span class="quote-item-label">Regular CCTV Package (4 Cameras, Wired, DVR)</span></span>
+            <span class="quote-item-price">R6500</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksCctv" value="Smart CCTV Package (4 Cameras, Wi-Fi, Mobile App Monitoring)" data-price="11500"><span class="quote-item-label">Smart CCTV Package (4 Cameras, Wi-Fi, Mobile App Monitoring)</span></span>
+            <span class="quote-item-price">R11500</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksCctv" value="Solar CCTV Package (4 Cameras, Battery Back-Up, Off-Grid)" data-price="16500"><span class="quote-item-label">Solar CCTV Package (4 Cameras, Battery Back-Up, Off-Grid)</span></span>
+            <span class="quote-item-price">R16500</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksCctv" value="Additional Camera (per unit, added to any package)" data-price="950"><span class="quote-item-label">Additional Camera (per unit, added to any package)</span></span>
+            <span class="quote-item-price">R950</span>
+          </label>
+
+          <div class="form-group">
+            <label for="networksCctvDetails">Tell us about the property (optional)</label>
+            <textarea id="networksCctvDetails" name="cctvDetails" rows="3" placeholder="e.g. 3-bedroom house, want coverage on the driveway, front door and back yard..."></textarea>
           </div>
         </fieldset>
 

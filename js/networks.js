@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var troubleshootCheckboxes = form.querySelectorAll('input[name="networksTroubleshoot"]');
   var setupCheckboxes = form.querySelectorAll('input[name="networksSetup"]');
+  var cctvCheckboxes = form.querySelectorAll('input[name="networksCctv"]');
   var issueSelect = document.getElementById('networksIssue');
   var typeInput = document.getElementById('networksType');
   var routerModelInput = document.getElementById('networksRouterModel');
   var issueDetailsInput = document.getElementById('networksIssueDetails');
   var setupDetailsInput = document.getElementById('networksSetupDetails');
+  var cctvDetailsInput = document.getElementById('networksCctvDetails');
   var firstNameInput = document.getElementById('networksFirstName');
   var lastNameInput = document.getElementById('networksLastName');
   var contactNumberInput = document.getElementById('networksContactNumber');
@@ -41,12 +43,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function checkedCctv() {
+    return Array.prototype.filter.call(cctvCheckboxes, function (checkbox) {
+      return checkbox.checked;
+    });
+  }
+
   function updateTotal() {
     var total = 0;
     checkedTroubleshoot().forEach(function (checkbox) {
       total += Number(checkbox.getAttribute('data-price'));
     });
     checkedSetup().forEach(function (checkbox) {
+      total += Number(checkbox.getAttribute('data-price'));
+    });
+    checkedCctv().forEach(function (checkbox) {
       total += Number(checkbox.getAttribute('data-price'));
     });
     totalEl.textContent = 'R' + total;
@@ -128,6 +139,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  cctvCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+      updateTotal();
+      if (selectionErrorEl.textContent) {
+        selectionErrorEl.textContent = '';
+      }
+    });
+  });
+
   function addDetailRow(container, label, value) {
     var row = document.createElement('div');
     var dt = document.createElement('dt');
@@ -173,14 +193,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var routerModel = routerModelInput.value.trim();
     var issueDetails = issueDetailsInput.value.trim();
     var setupDetails = setupDetailsInput.value.trim();
+    var cctvDetails = cctvDetailsInput.value.trim();
     var troubleshootItems = checkedTroubleshoot();
     var setupItems = checkedSetup();
+    var cctvItems = checkedCctv();
 
     var hasAnySelection = issue || networkType || routerModel || issueDetails ||
-      troubleshootItems.length > 0 || setupItems.length > 0 || setupDetails;
+      troubleshootItems.length > 0 || setupItems.length > 0 || setupDetails ||
+      cctvItems.length > 0 || cctvDetails;
 
     if (!hasAnySelection) {
-      selectionErrorEl.textContent = 'Please tell us about your network issue, or select a setup service.';
+      selectionErrorEl.textContent = 'Please tell us about your network issue, or select a setup or CCTV package.';
       isValid = false;
     } else {
       selectionErrorEl.textContent = '';
@@ -230,6 +253,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var setupLineItems = setupItems.map(function (checkbox) {
       return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
     });
+    var cctvLineItems = cctvItems.map(function (checkbox) {
+      return { name: checkbox.value, price: Number(checkbox.getAttribute('data-price')) };
+    });
 
     var detailsEl = document.getElementById('networksResultDetails');
     detailsEl.innerHTML = '';
@@ -243,9 +269,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (issueDetails) addDetailRow(detailsEl, 'Problem Description', issueDetails);
     if (setupLineItems.length) addListRow(detailsEl, 'Network Setup', setupLineItems);
     if (setupDetails) addDetailRow(detailsEl, 'Setup Requirements', setupDetails);
+    if (cctvLineItems.length) addListRow(detailsEl, 'CCTV Coverage Packages', cctvLineItems);
+    if (cctvDetails) addDetailRow(detailsEl, 'CCTV Property Notes', cctvDetails);
     addDetailRow(detailsEl, 'Estimated Total', total > 0 ? 'R' + total : 'To be confirmed');
 
-    var messageLines = ['Internet Smart Hub — Networks Ticket ' + ticketId];
+    var messageLines = ['Internet Smart Hub — CCTVs and Networks Ticket ' + ticketId];
     messageLines.push('Name: ' + firstName + ' ' + lastName);
     messageLines.push('Contact Number: ' + contactNumber);
     if (issue) messageLines.push('Network Issue: ' + issue);
@@ -259,6 +287,10 @@ document.addEventListener('DOMContentLoaded', function () {
       messageLines.push('- ' + item.name + ': R' + item.price);
     });
     if (setupDetails) messageLines.push('Setup Requirements: ' + setupDetails);
+    cctvLineItems.forEach(function (item) {
+      messageLines.push('- ' + item.name + ': R' + item.price);
+    });
+    if (cctvDetails) messageLines.push('CCTV Property Notes: ' + cctvDetails);
     messageLines.push('Estimated Total: ' + (total > 0 ? 'R' + total : 'To be confirmed'));
     var message = messageLines.join('\n');
 
@@ -274,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.ISHRecords) {
       window.ISHRecords.save({
         id: ticketId,
-        type: 'Networks Ticket',
+        type: 'CCTVs and Networks Ticket',
         summary: message,
         total: total > 0 ? total : null,
         details: message
@@ -283,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (window.ISHBackend) {
       window.ISHBackend.submit({
-        type: 'Networks Ticket',
+        type: 'CCTVs and Networks Ticket',
         id: ticketId,
         name: firstName + ' ' + lastName,
         contact: contactNumber,
