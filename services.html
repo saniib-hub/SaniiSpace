@@ -107,6 +107,15 @@
           <p>iPhone screen, battery and charging port repairs, plus limited Android repairs.</p>
           <span class="card-cta">Get a repair quote →</span>
         </article>
+        <article class="card reveal" style="--d:5" id="networksCard" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-icon-row">
+            <div class="card-icon" aria-hidden="true">📶</div>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </div>
+          <h3>Networks</h3>
+          <p>Wi-Fi and network troubleshooting, plus new home, office and CCTV network setups.</p>
+          <span class="card-cta">Get a network quote →</span>
+        </article>
       </div>
     </div>
   </section>
@@ -734,6 +743,145 @@
   </div>
 </dialog>
 
+<dialog id="networksDialog" class="quote-dialog" aria-labelledby="networksDialogTitle">
+  <div class="quote-dialog-inner">
+    <button type="button" class="quote-close" id="networksClose" aria-label="Close Networks quote form">&times;</button>
+
+    <div id="networksFormView">
+      <h2 id="networksDialogTitle">Networks</h2>
+      <p class="quote-intro">Having Wi-Fi problems, or need a new network set up? Tell us what's going on and we'll get back to you to confirm the job and price.</p>
+
+      <form id="networksForm" novalidate>
+        <fieldset class="quote-group">
+          <legend>Your Details</legend>
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="networksFirstName">Name</label>
+              <input type="text" id="networksFirstName" name="firstName" placeholder="e.g. Thabo" autocomplete="given-name">
+              <span class="form-error" id="networksFirstNameError" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="networksLastName">Surname</label>
+              <input type="text" id="networksLastName" name="lastName" placeholder="e.g. Nkosi" autocomplete="family-name">
+              <span class="form-error" id="networksLastNameError" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="networksContactNumber">Contact Number</label>
+            <input type="text" id="networksContactNumber" name="contactNumber" placeholder="e.g. 082 123 4567" autocomplete="tel">
+            <span class="form-error" id="networksContactNumberError" role="alert"></span>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Network Troubleshooting &amp; Repair</legend>
+          <p class="quote-group-note">Select the closest match to your problem — final repair cost is confirmed once we've diagnosed it, callout fee below is an estimate.</p>
+
+          <div class="quote-select-row">
+            <label for="networksIssue">Network Issue</label>
+            <select id="networksIssue" name="networkIssue">
+              <option value="">Select an issue</option>
+              <option value="No Internet / Connection Down">No Internet / Connection Down</option>
+              <option value="Slow or Intermittent Wi-Fi">Slow or Intermittent Wi-Fi</option>
+              <option value="Wi-Fi Dead Zones / Poor Coverage">Wi-Fi Dead Zones / Poor Coverage</option>
+              <option value="Frequent Disconnections / Dropouts">Frequent Disconnections / Dropouts</option>
+              <option value="Router Won't Power On / Faulty Hardware">Router Won't Power On / Faulty Hardware</option>
+              <option value="Cannot Connect New Devices">Cannot Connect New Devices</option>
+              <option value="Forgotten Router Password / Admin Access">Forgotten Router Password / Admin Access</option>
+              <option value="Wired (LAN) Connection Issues">Wired (LAN) Connection Issues</option>
+              <option value="Suspected Unauthorised Access / Security Concern">Suspected Unauthorised Access / Security Concern</option>
+              <option value="Other (describe below)">Other (describe below)</option>
+            </select>
+          </div>
+
+          <div class="quote-device-fields">
+            <div class="form-group">
+              <label for="networksType">Type of Network</label>
+              <input type="text" id="networksType" name="networkType" placeholder="e.g. Home Wi-Fi, Office LAN, Fibre">
+            </div>
+            <div class="form-group">
+              <label for="networksRouterModel">Router Model</label>
+              <input type="text" id="networksRouterModel" name="routerModel" placeholder="e.g. Huawei B315, TP-Link Archer C6">
+            </div>
+          </div>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" id="networksCalloutFee" name="networksTroubleshoot" value="Network Callout &amp; Diagnostic Fee" data-price="220"><span class="quote-item-label">Callout &amp; Diagnostic Fee</span></span>
+            <span class="quote-item-price">R220</span>
+          </label>
+
+          <div class="form-group">
+            <label for="networksIssueDetails">Describe the problem</label>
+            <textarea id="networksIssueDetails" name="issueDetails" rows="3" placeholder="e.g. Wi-Fi drops every few minutes since yesterday, only on the upstairs devices..."></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-group">
+          <legend>Network Setup</legend>
+          <p class="quote-group-note">Setting up something new? Pick what applies — market-related pricing, final quote confirmed on-site.</p>
+
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="Home Wi-Fi Setup (Single Router)" data-price="750"><span class="quote-item-label">Home Wi-Fi Setup (Single Router)</span></span>
+            <span class="quote-item-price">R750</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="Router Configuration Only (Existing Router)" data-price="350"><span class="quote-item-label">Router Configuration Only (Existing Router)</span></span>
+            <span class="quote-item-price">R350</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="Wi-Fi Extender / Booster Installation" data-price="450"><span class="quote-item-label">Wi-Fi Extender / Booster Installation</span></span>
+            <span class="quote-item-price">R450</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="Mesh Wi-Fi System Setup (2-3 Units)" data-price="1650"><span class="quote-item-label">Mesh Wi-Fi System Setup (2-3 Units)</span></span>
+            <span class="quote-item-price">R1650</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="Office / Business Network Setup" data-price="2200"><span class="quote-item-label">Office / Business Network Setup</span></span>
+            <span class="quote-item-price">R2200</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="Structured Cabling (per LAN Point)" data-price="280"><span class="quote-item-label">Structured Cabling (per LAN Point)</span></span>
+            <span class="quote-item-price">R280</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="CCTV Network Integration (Existing Cameras)" data-price="950"><span class="quote-item-label">CCTV Network Integration (Existing Cameras)</span></span>
+            <span class="quote-item-price">R950</span>
+          </label>
+          <label class="quote-item">
+            <span class="quote-item-main"><input type="checkbox" name="networksSetup" value="VoIP / Office Phone Network Setup" data-price="1350"><span class="quote-item-label">VoIP / Office Phone Network Setup</span></span>
+            <span class="quote-item-price">R1350</span>
+          </label>
+
+          <div class="form-group">
+            <label for="networksSetupDetails">Describe the network you need</label>
+            <textarea id="networksSetupDetails" name="setupDetails" rows="3" placeholder="e.g. New office, 8 desks, need Wi-Fi and 4 wired points, plus 2 CCTV cameras..."></textarea>
+          </div>
+        </fieldset>
+
+        <span class="form-error" id="networksSelectionError" role="alert"></span>
+
+        <div class="quote-total-row">
+          <span>Estimated Total</span>
+          <span class="quote-total" id="networksTotal">R0</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span>Get My Quote / Ticket</span></button>
+      </form>
+    </div>
+
+    <div class="quote-result" id="networksResult" hidden>
+      <div class="success-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle class="success-check-circle" cx="26" cy="26" r="24" fill="none"/><path class="success-check-mark" fill="none" d="M14 27l7 7 16-16"/></svg></div>
+      <h2>Your Ticket is Ready</h2>
+      <div class="quote-result-details" id="networksResultDetails"></div>
+      <div class="ticket-qr" id="networksResultQR"></div>
+      <p class="ticket-qr-caption">Show this QR code at the shop — we'll scan it to see exactly what you were quoted.</p>
+      <p class="quote-disclaimer">This ticket has been sent to us automatically. Prices are indicative market-related estimates — we'll review your ticket and get back to you to confirm the job and final price.</p>
+      <button type="button" class="quote-restart" id="networksRestart">Start a new quote</button>
+    </div>
+  </div>
+</dialog>
+
 <dialog id="workstationDialog" class="quote-dialog" aria-labelledby="workstationDialogTitle">
   <div class="quote-dialog-inner">
     <button type="button" class="quote-close" id="workstationClose" aria-label="Close workstation setup form">&times;</button>
@@ -1055,6 +1203,7 @@
 <script src="js/gaming.js" defer></script>
 <script src="js/software.js" defer></script>
 <script src="js/cellphone.js" defer></script>
+<script src="js/networks.js" defer></script>
 <script src="js/web-design.js" defer></script>
 <script src="js/printing.js" defer></script>
 <script src="js/stock-inquiry.js" defer></script>
