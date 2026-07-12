@@ -43,4 +43,4 @@
 window.ISH_SUPABASE_URL = 'https://ifohpehukfwefulbcqtw.supabase.co';
 window.ISH_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlmb2hwZWh1a2Z3ZWZ1bGJjcXR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1NDg2ODcsImV4cCI6MjA5OTEyNDY4N30.arhShJyHF6nULGWxgDNlL7FniZRDoITFFqiYw6o2LEU';
 
-window.ISH_BACKEND_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbyQGnLbudf0PvNDiEcDM64Zz0RC14TIXXtu0kkDBy1IFibN6PJb2QZroNHU-5Rrcog9NQ/exec';
+window.ISH_BACKEND_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbxBPYvngY5i-hTZ2-IKlzk0EmPO277aY8K3wuWdG_0ACqz-1VAo1nCNvVAHaOt0kwQ_/exec';
