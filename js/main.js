@@ -302,12 +302,45 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
+      var name = nameInput.value.trim();
+      var contactMethod = contactInput.value.trim();
+      var message = messageInput.value.trim();
+
+      var year = new Date().getFullYear();
+      var random = Math.floor(1000 + Math.random() * 9000);
+      var ticketId = 'ISH-CONTACT-' + year + '-' + random;
+
+      var summary = 'Internet Smart Hub — Contact Form ' + ticketId + '\n' +
+        'Name: ' + name + '\n' +
+        'Phone/Email: ' + contactMethod + '\n' +
+        'Message: ' + message;
+
       /*
-       * Backend integration point: this form does not send data anywhere yet.
-       * Wire it up to a backend endpoint or a service like Formspree by
-       * changing the <form> tag's action/method and removing this
-       * preventDefault-based handling, or by adding a fetch() call here.
+       * Saved to this browser's local ticket log (js/records.js), and sent
+       * to whichever backend(s) are configured in js/backend-config.js
+       * (Supabase and/or Google Sheets via Apps Script) — same as every
+       * other quote/order form on the site.
        */
+      if (window.ISHRecords) {
+        window.ISHRecords.save({
+          id: ticketId,
+          type: 'Contact Form',
+          summary: summary,
+          total: null,
+          details: summary
+        });
+      }
+
+      if (window.ISHBackend) {
+        window.ISHBackend.submit({
+          type: 'Contact Form',
+          id: ticketId,
+          name: name,
+          contact: contactMethod,
+          total: null,
+          summary: summary
+        });
+      }
 
       successMessage.hidden = false;
       form.reset();
