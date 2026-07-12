@@ -275,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var fields = [
       { input: nameInput, error: document.getElementById('nameError'), message: 'Please enter your name.' },
-      { input: contactInput, error: document.getElementById('contactMethodError'), message: 'Please enter a phone number or email address.' },
       { input: messageInput, error: document.getElementById('messageError'), message: 'Please tell us what you need help with.' }
     ];
 
@@ -297,13 +296,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
 
+      var contactMethod = contactInput.value.trim();
+      var contactMethodError = document.getElementById('contactMethodError');
+      var digitCount = contactMethod.replace(/\D/g, '').length;
+
+      if (!contactMethod) {
+        contactMethodError.textContent = 'Please enter a phone number.';
+        contactInput.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else if (digitCount < 9) {
+        contactMethodError.textContent = 'Please enter a valid phone number (at least 9 digits).';
+        contactInput.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else {
+        contactMethodError.textContent = '';
+        contactInput.removeAttribute('aria-invalid');
+      }
+
       if (!isValid) {
         successMessage.hidden = true;
         return;
       }
 
       var name = nameInput.value.trim();
-      var contactMethod = contactInput.value.trim();
       var message = messageInput.value.trim();
 
       var year = new Date().getFullYear();
@@ -312,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var summary = 'Internet Smart Hub — Contact Form ' + ticketId + '\n' +
         'Name: ' + name + '\n' +
-        'Phone/Email: ' + contactMethod + '\n' +
+        'Phone Number: ' + contactMethod + '\n' +
         'Message: ' + message;
 
       /*
