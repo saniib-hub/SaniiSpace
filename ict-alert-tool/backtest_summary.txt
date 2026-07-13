@@ -1,0 +1,29 @@
+EURUSD - all setups
+  trades=4  wins=2  losses=2  win_rate=50.0%
+  [2R target] avg_R=0.50  total_R=2.00  profit_factor=2.00  max_drawdown_R=-2.00
+  [3R target] avg_R=1.00  total_R=4.00
+
+EURUSD - bias-aligned only
+  trades=4  wins=2  losses=2  win_rate=50.0%
+  [2R target] avg_R=0.50  total_R=2.00  profit_factor=2.00  max_drawdown_R=-2.00
+  [3R target] avg_R=1.00  total_R=4.00
+
+GBPUSD - all setups
+  trades=4  wins=4  losses=0  win_rate=100.0%
+  [2R target] avg_R=1.53  total_R=6.13  profit_factor=61300.00  max_drawdown_R=0.00
+  [3R target] avg_R=2.28  total_R=9.13
+
+GBPUSD - bias-aligned only
+  trades=3  wins=3  losses=0  win_rate=100.0%
+  [2R target] avg_R=1.38  total_R=4.13  profit_factor=41300.00  max_drawdown_R=0.00
+  [3R target] avg_R=2.04  total_R=6.13
+
+COMBINED - all setups
+  trades=8  wins=6  losses=2  win_rate=75.0%
+  [2R target] avg_R=1.02  total_R=8.13  profit_factor=5.07  max_drawdown_R=-2.00
+  [3R target] avg_R=1.64  total_R=13.13
+
+COMBINED - bias-aligned only
+  trades=7  wins=5  losses=2  win_rate=71.4%
+  [2R target] avg_R=0.88  total_R=6.13  profit_factor=4.07  max_drawdown_R=-2.00
+  [3R target] avg_R=1.45  total_R=10.13

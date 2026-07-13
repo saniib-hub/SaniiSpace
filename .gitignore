@@ -2,3 +2,7 @@
 preview.html
 preview-*.html
 build-preview.js
+
+__pycache__/
+*.pyc
+ict-alert-tool/journal.db

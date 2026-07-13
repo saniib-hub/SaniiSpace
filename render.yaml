@@ -1,0 +1,32 @@
+# Render Blueprint for the ICT Alert Tool (ict-alert-tool/).
+# Deploy: Render dashboard -> New + -> Blueprint -> connect this repo -> Apply.
+# This file has not been applied against a real Render account from this
+# session (outbound access to Render's API is blocked by this session's
+# network policy) -- review the two services Render shows you before
+# clicking Apply, and see ict-alert-tool/DEPLOY.md for the full walkthrough
+# and what to fix if the assigned URLs differ from the placeholders below.
+
+services:
+  - type: web
+    name: ict-alert-api
+    runtime: python
+    plan: free
+    rootDir: ict-alert-tool/api
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://ict-alert-web.onrender.com
+
+  - type: static
+    name: ict-alert-web
+    rootDir: ict-alert-tool/web
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://ict-alert-api.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
